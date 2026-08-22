@@ -26,6 +26,10 @@ const DEMO_USERS: Record<string, { password: string[]; user: User }> = {
     password: ['Admin@123', 'Test@123456', 'admin'],
     user: { id: 'demo-admin-id', full_name: 'Test Admin', email: 'admin@test.com', role: 'ADMIN' },
   },
+  'balaji_admin@gmail.com': {
+    password: ['Admin@123', 'admin@123', 'Admin123'],
+    user: { id: 'demo-superadmin-id', full_name: 'Balaji Admin', email: 'balaji_admin@gmail.com', role: 'ADMIN' },
+  },
 };
 
 export const authApi = {
