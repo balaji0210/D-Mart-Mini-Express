@@ -68,7 +68,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database configuration
+# Database configuration (Defaults to SQLite; overridden by DATABASE_URL for Supabase/PostgreSQL)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -76,11 +76,20 @@ DATABASES = {
     }
 }
 
-# Override with DATABASE_URL if present
+# Override with DATABASE_URL if present (e.g. Supabase, Render, AWS RDS)
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
     import dj_database_url
-    DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+    # Support Supabase pooler connection strings (postgres:// or postgresql://)
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+    DATABASES['default'] = dj_database_url.parse(
+        DATABASE_URL,
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=True if 'supabase' in DATABASE_URL or 'sslmode=require' in DATABASE_URL else False
+    )
 
 AUTH_USER_MODEL = 'accounts.User'
 
