@@ -11,6 +11,11 @@ if BACKEND_DIR not in sys.path:
 if APPS_DIR not in sys.path:
     sys.path.insert(0, APPS_DIR)
 
+# Default Supabase Database URL fallback for Vercel serverless functions
+DEFAULT_SUPABASE_URL = "postgresql://postgres.ihlfpapcvfhvvafvioce:22112004Balaji%40@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"
+if not os.environ.get('DATABASE_URL'):
+    os.environ['DATABASE_URL'] = DEFAULT_SUPABASE_URL
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.development')
 
 from django.core.wsgi import get_wsgi_application

@@ -80,7 +80,8 @@ DATABASES = {
 }
 
 # Override with DATABASE_URL if present (e.g. Supabase, Render, AWS RDS)
-DATABASE_URL = os.environ.get('DATABASE_URL')
+DEFAULT_SUPABASE_URL = "postgresql://postgres.ihlfpapcvfhvvafvioce:22112004Balaji%40@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"
+DATABASE_URL = os.environ.get('DATABASE_URL') or DEFAULT_SUPABASE_URL
 if DATABASE_URL:
     import dj_database_url
     # Support Supabase pooler connection strings (postgres:// or postgresql://)
