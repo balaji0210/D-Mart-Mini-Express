@@ -10,38 +10,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.stdout.write(self.style.NOTICE("Seeding initial data..."))
 
-        # 1. Users
-        password = "Test@123456"
-
-        customer, _ = User.objects.get_or_create(
-            email="customer@test.com",
-            defaults={"full_name": "Test Customer", "role": RoleChoices.CUSTOMER}
-        )
-        customer.role = RoleChoices.CUSTOMER
-        customer.set_password(password)
-        customer.save()
-        self.stdout.write(self.style.SUCCESS("Seeded customer@test.com"))
-
-        staff, _ = User.objects.get_or_create(
-            email="staff@test.com",
-            defaults={"full_name": "Test Staff", "role": RoleChoices.STAFF, "is_staff": True}
-        )
-        staff.role = RoleChoices.STAFF
-        staff.is_staff = True
-        staff.set_password(password)
-        staff.save()
-        self.stdout.write(self.style.SUCCESS("Seeded staff@test.com"))
-
-        admin, _ = User.objects.get_or_create(
-            email="admin@test.com",
-            defaults={"full_name": "Test Admin", "role": RoleChoices.ADMIN, "is_staff": True, "is_superuser": True}
-        )
-        admin.role = RoleChoices.ADMIN
-        admin.is_staff = True
-        admin.is_superuser = True
-        admin.set_password(password)
-        admin.save()
-        self.stdout.write(self.style.SUCCESS("Seeded admin@test.com"))
+        # 1. Users seeding skipped (Users created dynamically via registration or admin command)
 
         # 2. Categories
         categories_data = [

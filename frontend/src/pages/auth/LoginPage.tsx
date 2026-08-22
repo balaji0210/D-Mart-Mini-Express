@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ShoppingBag, Lock, Mail, AlertCircle, ArrowRight, ShieldCheck } from 'lucide-react';
+import { ShoppingBag, Lock, Mail, AlertCircle, ArrowRight } from 'lucide-react';
 import { authApi } from '../../api/auth';
 import { useAuth } from '../../context/AuthContext';
 
@@ -30,25 +30,12 @@ export const LoginPage: React.FC = () => {
       if (err.response?.status === 429) {
         setError("Too many failed login attempts. Account temporarily throttled. Please wait 15 minutes.");
       } else if (!err.response) {
-        setError("Unable to connect to backend server. If deployed on Vercel, configure VITE_API_URL in Vercel Environment Variables to your live backend endpoint.");
+        setError("Unable to connect to backend server. Please verify your VITE_API_URL and ensure the backend is running.");
       } else {
         setError(err.response?.data?.message || 'Invalid email or password credentials.');
       }
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const handleQuickLogin = (role: 'CUSTOMER' | 'STAFF' | 'ADMIN') => {
-    if (role === 'CUSTOMER') {
-      setEmail('customer@dmart.com');
-      setPassword('Customer@123');
-    } else if (role === 'STAFF') {
-      setEmail('staff@dmart.com');
-      setPassword('Staff@123');
-    } else if (role === 'ADMIN') {
-      setEmail('admin@dmart.com');
-      setPassword('Admin@123');
     }
   };
 
@@ -82,7 +69,7 @@ export const LoginPage: React.FC = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="customer@test.com"
+                placeholder="you@example.com"
                 className="dmart-input pl-10"
               />
               <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -121,37 +108,7 @@ export const LoginPage: React.FC = () => {
           </button>
         </form>
 
-        {/* Demo Roles Quick Login */}
-        <div className="mt-8 pt-6 border-t border-slate-100 text-center">
-          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3 flex items-center justify-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-teal-600" /> QUICK DEMO ACCOUNTS
-          </p>
-          <div className="flex justify-center gap-2">
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('CUSTOMER')}
-              className="px-4 py-1.5 text-xs rounded-full bg-slate-100 hover:bg-teal-50 hover:text-teal-700 hover:border-teal-300 text-slate-800 font-semibold border border-slate-200 transition-colors shadow-2xs"
-            >
-              Customer
-            </button>
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('STAFF')}
-              className="px-4 py-1.5 text-xs rounded-full bg-slate-100 hover:bg-teal-50 hover:text-teal-700 hover:border-teal-300 text-slate-800 font-semibold border border-slate-200 transition-colors shadow-2xs"
-            >
-              Staff
-            </button>
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('ADMIN')}
-              className="px-4 py-1.5 text-xs rounded-full bg-slate-100 hover:bg-teal-50 hover:text-teal-700 hover:border-teal-300 text-slate-800 font-semibold border border-slate-200 transition-colors shadow-2xs"
-            >
-              Admin
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-6 text-center text-xs text-slate-500">
+        <div className="mt-8 pt-6 border-t border-slate-100 text-center text-xs text-slate-500">
           Don't have an account?{' '}
           <Link to="/register" className="text-teal-600 font-semibold hover:underline">
             Register here
