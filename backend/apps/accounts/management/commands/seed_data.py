@@ -29,10 +29,82 @@ class Command(BaseCommand):
         # 3. Products
         products_data = [
             {
+                "name": "Pepsi Soft Drink Bottle (750 ml)",
+                "category": cat_objs["beverages"],
+                "description": "Refreshing carbonated cola soft drink in a 750 ml bottle.",
+                "price": 35.00,
+                "stock_quantity": 60,
+                "low_stock_threshold": 10,
+                "image_url": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97"
+            },
+            {
+                "name": "Pepsi Soft Drink Bottle (2250 ml)",
+                "category": cat_objs["beverages"],
+                "description": "Large family pack carbonated cola soft drink 2.25L.",
+                "price": 83.00,
+                "stock_quantity": 45,
+                "low_stock_threshold": 10,
+                "image_url": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97"
+            },
+            {
+                "name": "Aquafina Mineral Water Bottle (1 ltr)",
+                "category": cat_objs["beverages"],
+                "description": "Purified drinking water bottled under strict quality processes.",
+                "price": 20.00,
+                "stock_quantity": 150,
+                "low_stock_threshold": 20,
+                "image_url": "https://images.unsplash.com/photo-1548839140-29a749e1bc4e"
+            },
+            {
+                "name": "Pepsi Zero Sugar Soft Drink (400 ml)",
+                "category": cat_objs["beverages"],
+                "description": "Maximum taste with zero sugar carbonated cola beverage.",
+                "price": 20.00,
+                "stock_quantity": 50,
+                "low_stock_threshold": 10,
+                "image_url": "https://images.unsplash.com/photo-1554866585-cd94860890b7"
+            },
+            {
+                "name": "Pepsi Zero Sugar Soft Drink (300 ml - Pack of 6)",
+                "category": cat_objs["beverages"],
+                "description": "Pack of 6 canned Pepsi Zero Sugar soft drinks (1.8L total).",
+                "price": 212.00,
+                "stock_quantity": 30,
+                "low_stock_threshold": 5,
+                "image_url": "https://images.unsplash.com/photo-1554866585-cd94860890b7"
+            },
+            {
+                "name": "7UP Nimbooz with Lemon Juice (350 ml)",
+                "category": cat_objs["beverages"],
+                "description": "Tangy and refreshing lemon juice drink with real lemon goodness.",
+                "price": 25.00,
+                "stock_quantity": 70,
+                "low_stock_threshold": 15,
+                "image_url": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd"
+            },
+            {
+                "name": "Mountain Dew Soft Drink Bottle (750 ml)",
+                "category": cat_objs["beverages"],
+                "description": "High energy citrus flavored carbonated soft drink.",
+                "price": 40.00,
+                "stock_quantity": 80,
+                "low_stock_threshold": 15,
+                "image_url": "https://images.unsplash.com/photo-1622543925917-763c34d1a86e"
+            },
+            {
+                "name": "7 Up Zero Soft Drink (400 ml)",
+                "category": cat_objs["beverages"],
+                "description": "Crisp lemon-lime zero sugar carbonated soft drink.",
+                "price": 20.00,
+                "stock_quantity": 50,
+                "low_stock_threshold": 10,
+                "image_url": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd"
+            },
+            {
                 "name": "Fresh Organic Apples (1kg)",
                 "category": cat_objs["fruits-vegetables"],
                 "description": "Crisp and juicy sweet red apples straight from orchards.",
-                "price": 3.99,
+                "price": 149.00,
                 "stock_quantity": 50,
                 "low_stock_threshold": 10,
                 "image_url": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6"
@@ -41,7 +113,7 @@ class Command(BaseCommand):
                 "name": "Fresh Organic Bananas (1 Dozen)",
                 "category": cat_objs["fruits-vegetables"],
                 "description": "Naturally ripened sweet bananas rich in potassium.",
-                "price": 1.99,
+                "price": 60.00,
                 "stock_quantity": 80,
                 "low_stock_threshold": 15,
                 "image_url": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e"
@@ -50,7 +122,7 @@ class Command(BaseCommand):
                 "name": "Whole Farm Fresh Milk (1 Gallon)",
                 "category": cat_objs["dairy-bakery"],
                 "description": "Pasteurized whole milk rich in calcium and vitamin D.",
-                "price": 4.49,
+                "price": 75.00,
                 "stock_quantity": 30,
                 "low_stock_threshold": 5,
                 "image_url": "https://images.unsplash.com/photo-1550583724-b2692b85b150"
@@ -59,37 +131,10 @@ class Command(BaseCommand):
                 "name": "Artisanal Whole Wheat Bread",
                 "category": cat_objs["dairy-bakery"],
                 "description": "Freshly baked whole grain bread loaf with seeds.",
-                "price": 2.99,
-                "stock_quantity": 4,  # Low stock test
+                "price": 45.00,
+                "stock_quantity": 25,
                 "low_stock_threshold": 10,
                 "image_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff"
-            },
-            {
-                "name": "Fresh Orange Juice (1L)",
-                "category": cat_objs["beverages"],
-                "description": "100% pure squeezed orange juice with pulp.",
-                "price": 3.49,
-                "stock_quantity": 40,
-                "low_stock_threshold": 8,
-                "image_url": "https://images.unsplash.com/photo-1600271886742-f049cd451bba"
-            },
-            {
-                "name": "Crispy Potato Chips (Family Pack)",
-                "category": cat_objs["snacks-munchies"],
-                "description": "Classic salted potato chips for quick snacking.",
-                "price": 2.49,
-                "stock_quantity": 100,
-                "low_stock_threshold": 20,
-                "image_url": "https://images.unsplash.com/photo-1566478989037-eec170784d0b"
-            },
-            {
-                "name": "Eco-Friendly Dishwashing Liquid (500ml)",
-                "category": cat_objs["household-essentials"],
-                "description": "Tough on grease, soft on hands eco-friendly dish cleaner.",
-                "price": 3.99,
-                "stock_quantity": 25,
-                "low_stock_threshold": 5,
-                "image_url": "https://images.unsplash.com/photo-1585421514738-01798e348b17"
             }
         ]
 
