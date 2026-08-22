@@ -60,10 +60,6 @@ export const ProductsPage: React.FC = () => {
       toast.error('Please log in to add items to your cart.');
       return;
     }
-    if (user?.role !== 'CUSTOMER') {
-      toast.error('Only customers can add items to cart.');
-      return;
-    }
 
     setAddingId(product.id);
     try {
