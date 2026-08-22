@@ -1,8 +1,11 @@
 import os
 import sys
 from datetime import timedelta
+from dotenv import load_dotenv
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+load_dotenv(os.path.join(BASE_DIR, '..', '.env'))
 
 # Add apps folder to sys.path
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
