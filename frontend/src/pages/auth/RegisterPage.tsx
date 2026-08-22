@@ -22,7 +22,17 @@ export const RegisterPage: React.FC = () => {
     setGeneralError(null);
 
     if (password.length < 8) {
-      setGeneralError('Password must be at least 8 characters long with uppercase, lowercase, and numbers.');
+      setGeneralError('Password must be at least 8 characters long.');
+      return;
+    }
+
+    const hasUpper = /[A-Z]/.test(password);
+    const hasLower = /[a-z]/.test(password);
+    const hasDigit = /[0-9]/.test(password);
+    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password);
+
+    if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) {
+      setGeneralError('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character (e.g. User@123456).');
       return;
     }
 
@@ -48,10 +58,8 @@ export const RegisterPage: React.FC = () => {
     } catch (err: any) {
       if (err.response?.data?.errors) {
         setErrors(err.response.data.errors);
-      } else if (!err.response) {
-        setGeneralError("Unable to connect to backend server. If deployed on Vercel, configure VITE_API_URL in Vercel Environment Variables to your live backend endpoint.");
       } else {
-        setGeneralError(err.response?.data?.message || 'Registration failed. Please check your inputs.');
+        setGeneralError(err.response?.data?.message || 'Registration failed. Please verify your details.');
       }
     } finally {
       setIsLoading(false);
@@ -131,11 +139,12 @@ export const RegisterPage: React.FC = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="At least 8 characters"
+                placeholder="e.g. Customer@123"
                 className="dmart-input pl-10"
               />
               <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
             </div>
+            <p className="text-[11px] text-slate-500 mt-1">Must include uppercase, lowercase, digit, and special char (e.g. <code>User@123456</code>)</p>
             {errors.password && <p className="text-xs text-red-600 mt-1">{errors.password[0]}</p>}
           </div>
 
