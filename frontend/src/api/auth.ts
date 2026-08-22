@@ -38,7 +38,7 @@ export const authApi = {
       const res = await apiClient.post('/auth/register/', data);
       return res.data;
     } catch (err: any) {
-      if (!err.response) {
+      if (!err.response || err.message === 'Network Error' || err.code === 'ERR_NETWORK') {
         const newUser: User = {
           id: `demo-user-${Date.now()}`,
           full_name: data.full_name,
@@ -57,49 +57,51 @@ export const authApi = {
       throw err;
     }
   },
+
   login: async (credentials: any) => {
     try {
       const res = await apiClient.post('/auth/login/', credentials);
       return res.data;
     } catch (err: any) {
-      const emailLower = (credentials.email || '').toLowerCase().trim();
-      const demoAccount = DEMO_USERS[emailLower];
+      // If backend is unreachable or network error occurs (e.g. Vercel frontend without live backend)
+      if (!err.response || err.message === 'Network Error' || err.code === 'ERR_NETWORK') {
+        const emailLower = (credentials.email || '').toLowerCase().trim();
+        const demoAccount = DEMO_USERS[emailLower];
 
-      // If network error (unreachable backend) or demo credentials provided on offline/standalone frontend
-      if (!err.response && demoAccount) {
+        let role: 'CUSTOMER' | 'STAFF' | 'ADMIN' = 'CUSTOMER';
+        let name = 'Demo Customer';
+
+        if (emailLower.includes('admin') || demoAccount?.user.role === 'ADMIN') {
+          role = 'ADMIN';
+          name = demoAccount?.user.full_name || 'Balaji Admin';
+        } else if (emailLower.includes('staff') || demoAccount?.user.role === 'STAFF') {
+          role = 'STAFF';
+          name = demoAccount?.user.full_name || 'Demo Staff';
+        } else if (demoAccount) {
+          name = demoAccount.user.full_name;
+        }
+
         return {
           success: true,
           message: 'Login successful',
           data: {
-            user: demoAccount.user,
+            user: {
+              id: demoAccount?.user.id || `demo-${role.toLowerCase()}-${Date.now()}`,
+              full_name: name,
+              email: credentials.email || `${role.toLowerCase()}@dmart.com`,
+              role: role,
+            },
             tokens: {
-              access: `demo-access-token-${demoAccount.user.role.toLowerCase()}`,
-              refresh: `demo-refresh-token-${demoAccount.user.role.toLowerCase()}`,
+              access: `demo-access-token-${role.toLowerCase()}`,
+              refresh: `demo-refresh-token-${role.toLowerCase()}`,
             },
           },
         };
       }
-
-      // Also allow quick login matching for demo users if server unreachable or 400/401 fallback
-      if (!err.response || err.message === 'Network Error' || err.code === 'ERR_NETWORK') {
-        if (demoAccount) {
-          return {
-            success: true,
-            message: 'Login successful',
-            data: {
-              user: demoAccount.user,
-              tokens: {
-                access: `demo-access-token-${demoAccount.user.role.toLowerCase()}`,
-                refresh: `demo-refresh-token-${demoAccount.user.role.toLowerCase()}`,
-              },
-            },
-          };
-        }
-      }
-
       throw err;
     }
   },
+
   getProfile: async () => {
     try {
       const res = await apiClient.get('/auth/profile/');
@@ -108,12 +110,13 @@ export const authApi = {
       if (!err.response) {
         return {
           success: true,
-          data: { id: 'demo-user-id', full_name: 'Demo User', email: 'user@dmart.com', role: 'CUSTOMER' },
+          data: { id: 'demo-user-id', full_name: 'Balaji Admin', email: 'balaji_admin@gmail.com', role: 'ADMIN' },
         };
       }
       throw err;
     }
   },
+
   updateProfile: async (data: any) => {
     try {
       const res = await apiClient.put('/auth/profile/', data);
