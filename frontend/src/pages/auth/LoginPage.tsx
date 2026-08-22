@@ -37,9 +37,17 @@ export const LoginPage: React.FC = () => {
     }
   };
 
-  const handleQuickLogin = (userEmail: string) => {
-    setEmail(userEmail);
-    setPassword('Test@123456');
+  const handleQuickLogin = (role: 'CUSTOMER' | 'STAFF' | 'ADMIN') => {
+    if (role === 'CUSTOMER') {
+      setEmail('customer@dmart.com');
+      setPassword('Customer@123');
+    } else if (role === 'STAFF') {
+      setEmail('staff@dmart.com');
+      setPassword('Staff@123');
+    } else if (role === 'ADMIN') {
+      setEmail('admin@dmart.com');
+      setPassword('Admin@123');
+    }
   };
 
   return (
@@ -113,25 +121,28 @@ export const LoginPage: React.FC = () => {
 
         {/* Demo Roles Quick Login */}
         <div className="mt-8 pt-6 border-t border-slate-100 text-center">
-          <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-teal-600" /> Quick Demo Accounts
+          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-3 flex items-center justify-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-teal-600" /> QUICK DEMO ACCOUNTS
           </p>
           <div className="flex justify-center gap-2">
             <button
-              onClick={() => handleQuickLogin('customer@test.com')}
-              className="px-3 py-1.5 text-xs rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold border border-slate-200 transition-colors"
+              type="button"
+              onClick={() => handleQuickLogin('CUSTOMER')}
+              className="px-4 py-1.5 text-xs rounded-full bg-slate-100 hover:bg-teal-50 hover:text-teal-700 hover:border-teal-300 text-slate-800 font-semibold border border-slate-200 transition-colors shadow-2xs"
             >
               Customer
             </button>
             <button
-              onClick={() => handleQuickLogin('staff@test.com')}
-              className="px-3 py-1.5 text-xs rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold border border-slate-200 transition-colors"
+              type="button"
+              onClick={() => handleQuickLogin('STAFF')}
+              className="px-4 py-1.5 text-xs rounded-full bg-slate-100 hover:bg-teal-50 hover:text-teal-700 hover:border-teal-300 text-slate-800 font-semibold border border-slate-200 transition-colors shadow-2xs"
             >
               Staff
             </button>
             <button
-              onClick={() => handleQuickLogin('admin@test.com')}
-              className="px-3 py-1.5 text-xs rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold border border-slate-200 transition-colors"
+              type="button"
+              onClick={() => handleQuickLogin('ADMIN')}
+              className="px-4 py-1.5 text-xs rounded-full bg-slate-100 hover:bg-teal-50 hover:text-teal-700 hover:border-teal-300 text-slate-800 font-semibold border border-slate-200 transition-colors shadow-2xs"
             >
               Admin
             </button>
