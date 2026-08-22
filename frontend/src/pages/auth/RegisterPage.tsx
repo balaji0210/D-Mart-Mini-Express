@@ -21,18 +21,8 @@ export const RegisterPage: React.FC = () => {
     setErrors({});
     setGeneralError(null);
 
-    if (password.length < 8) {
-      setGeneralError('Password must be at least 8 characters long.');
-      return;
-    }
-
-    const hasUpper = /[A-Z]/.test(password);
-    const hasLower = /[a-z]/.test(password);
-    const hasDigit = /[0-9]/.test(password);
-    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password);
-
-    if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) {
-      setGeneralError('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character (e.g. Sanku@1234).');
+    if (password.length < 6) {
+      setGeneralError('Password must be at least 6 characters long.');
       return;
     }
 
