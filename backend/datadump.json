@@ -1,0 +1,4227 @@
+[
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$720000$rozjnxATYZ4dgZqA4QDxE7$/AkK3sbTUw1KajMjV2BQLuECdhESuX8NghsO8cgbu0c=",
+    "last_login": null,
+    "is_superuser": true,
+    "full_name": "Test Admin",
+    "email": "admin@test.com",
+    "role": "ADMIN",
+    "is_active": true,
+    "is_staff": true,
+    "created_at": "2026-08-21T18:33:32.462Z",
+    "updated_at": "2026-08-22T03:23:14.704Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$720000$QBhVfEiYxwqujSIGbJgal4$kETD/kgw4sj6HOSk0X0+Vhe/UO+Fo62XSt8284MCLHQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "full_name": "balaji",
+    "email": "hello@gmail.com",
+    "role": "CUSTOMER",
+    "is_active": true,
+    "is_staff": false,
+    "created_at": "2026-08-22T02:59:11.091Z",
+    "updated_at": "2026-08-22T02:59:11.091Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$720000$ADy79rJAZ4e35XgzRerY4s$/5Vd+caV5Vmo0s4ynWiI1f5d7pFxP9cGG6GL2jlcgdw=",
+    "last_login": null,
+    "is_superuser": false,
+    "full_name": "Test Staff",
+    "email": "staff@test.com",
+    "role": "STAFF",
+    "is_active": true,
+    "is_staff": true,
+    "created_at": "2026-08-21T18:33:31.717Z",
+    "updated_at": "2026-08-22T03:23:14.284Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$720000$pu4bOlMliU35BWyXLyGHqP$Jg5ThoLglL1CS7qroi9jkq+gYG+3HSyZps9SycIDGak=",
+    "last_login": null,
+    "is_superuser": false,
+    "full_name": "balaji",
+    "email": "balaji@gmail.com",
+    "role": "CUSTOMER",
+    "is_active": true,
+    "is_staff": false,
+    "created_at": "2026-08-22T03:02:51.314Z",
+    "updated_at": "2026-08-22T04:43:35.399Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$720000$VFGi84kocV6iUviANICVCb$fhv44dIzmpRzyDWloef5YPpKEQMLU/xAJwDbFsvOhAA=",
+    "last_login": null,
+    "is_superuser": false,
+    "full_name": "balaji Uplanchwar",
+    "email": "balaji02104@gmail.com",
+    "role": "CUSTOMER",
+    "is_active": true,
+    "is_staff": false,
+    "created_at": "2026-08-22T10:04:16.618Z",
+    "updated_at": "2026-08-22T10:04:16.618Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$720000$Jq1C0tGpY1cEFzhL4qswJz$mT2sd6oZHxwz5Yp92IyEecsYmm28azc3xPxQqsSuVBw=",
+    "last_login": null,
+    "is_superuser": false,
+    "full_name": "Test Customer",
+    "email": "customer@test.com",
+    "role": "CUSTOMER",
+    "is_active": true,
+    "is_staff": false,
+    "created_at": "2026-08-21T18:33:31.210Z",
+    "updated_at": "2026-08-22T03:23:13.816Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "products.category",
+  "pk": "1a7cc014-abc2-404a-af40-7a42e79a3649",
+  "fields": {
+    "name": "Snacks & Munchies",
+    "description": "Chips, biscuits, nuts, and chocolates",
+    "slug": "snacks-munchies",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.065Z",
+    "updated_at": "2026-08-21T18:33:33.065Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": "48793293-2e33-4e58-9e32-7e68318fee68",
+  "fields": {
+    "name": "Mealets",
+    "description": "Fresh Meal",
+    "slug": "meat",
+    "is_active": true,
+    "created_at": "2026-08-22T10:20:01.346Z",
+    "updated_at": "2026-08-22T10:22:18.321Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": "71f6e2f1-badf-4ba7-8df0-d78e651d56b0",
+  "fields": {
+    "name": "Fruits & Vegetables",
+    "description": "Fresh farm produce",
+    "slug": "fruits-vegetables",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.047Z",
+    "updated_at": "2026-08-21T18:33:33.047Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": "a1b85787-b4ce-4e4f-8007-e0d6f1aa6c10",
+  "fields": {
+    "name": "Dairy & Bakery",
+    "description": "Milk, butter, bread, and bakery items",
+    "slug": "dairy-bakery",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.053Z",
+    "updated_at": "2026-08-21T18:33:33.053Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": "caf0af52-6ddb-41ea-b2bc-2eef9219265e",
+  "fields": {
+    "name": "Household Essentials",
+    "description": "Detergents, cleaners, and hygiene products",
+    "slug": "household-essentials",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.071Z",
+    "updated_at": "2026-08-21T18:33:33.071Z"
+  }
+},
+{
+  "model": "products.category",
+  "pk": "f4435062-adf6-462c-b42c-06a30891fb9b",
+  "fields": {
+    "name": "Beverages",
+    "description": "Juices, soft drinks, tea, coffee",
+    "slug": "beverages",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.059Z",
+    "updated_at": "2026-08-21T18:33:33.059Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+  "fields": {
+    "category": "caf0af52-6ddb-41ea-b2bc-2eef9219265e",
+    "name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "description": "Tough on grease, soft on hands eco-friendly dish cleaner.",
+    "price": "100.00",
+    "stock_quantity": 27,
+    "low_stock_threshold": 5,
+    "image_url": "https://images.unsplash.com/photo-1585421514738-01798e348b17",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.118Z",
+    "updated_at": "2026-08-22T12:16:26.515Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "4778ae60-1bd9-47ee-8818-bdc1b1377e0c",
+  "fields": {
+    "category": "71f6e2f1-badf-4ba7-8df0-d78e651d56b0",
+    "name": "Fresh Organic Bananas (1 Dozen)",
+    "description": "Naturally ripened sweet bananas rich in potassium.",
+    "price": "1.99",
+    "stock_quantity": 78,
+    "low_stock_threshold": 15,
+    "image_url": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.085Z",
+    "updated_at": "2026-08-22T04:46:06.572Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "7b80cd6b-8208-4ed7-b58e-8f7063947162",
+  "fields": {
+    "category": "71f6e2f1-badf-4ba7-8df0-d78e651d56b0",
+    "name": "Fresh Organic Apples (1kg)",
+    "description": "Crisp and juicy sweet red apples straight from orchards.",
+    "price": "3.99",
+    "stock_quantity": 50,
+    "low_stock_threshold": 10,
+    "image_url": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.078Z",
+    "updated_at": "2026-08-22T09:00:09.296Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "a87a7185-60a1-4bd0-878b-43d97658bab8",
+  "fields": {
+    "category": "a1b85787-b4ce-4e4f-8007-e0d6f1aa6c10",
+    "name": "Artisanal Whole Wheat Bread",
+    "description": "Freshly baked whole grain bread loaf with seeds.",
+    "price": "2.99",
+    "stock_quantity": 40,
+    "low_stock_threshold": 10,
+    "image_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.098Z",
+    "updated_at": "2026-08-22T09:01:33.490Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "c5fddcc8-307a-4eaf-ab1f-bb76f3afabf1",
+  "fields": {
+    "category": "a1b85787-b4ce-4e4f-8007-e0d6f1aa6c10",
+    "name": "Whole Farm Fresh Milk (1 Gallon)",
+    "description": "Pasteurized whole milk rich in calcium and vitamin D.",
+    "price": "4.49",
+    "stock_quantity": 30,
+    "low_stock_threshold": 5,
+    "image_url": "https://images.unsplash.com/photo-1550583724-b2692b85b150",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.092Z",
+    "updated_at": "2026-08-22T06:17:19.026Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "db1c9e52-f81d-4b64-a646-64cb00099865",
+  "fields": {
+    "category": "1a7cc014-abc2-404a-af40-7a42e79a3649",
+    "name": "Crispy Potato Chips (Family Pack)",
+    "description": "Classic salted potato chips for quick snacking.",
+    "price": "50.00",
+    "stock_quantity": 92,
+    "low_stock_threshold": 20,
+    "image_url": "https://images.unsplash.com/photo-1566478989037-eec170784d0b",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.111Z",
+    "updated_at": "2026-08-22T10:53:21.063Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "ed53146e-e574-4919-a913-e2ea80687fad",
+  "fields": {
+    "category": "f4435062-adf6-462c-b42c-06a30891fb9b",
+    "name": "Fresh Orange Juice (1L)",
+    "description": "100% pure squeezed orange juice with pulp.",
+    "price": "130.00",
+    "stock_quantity": 39,
+    "low_stock_threshold": 8,
+    "image_url": "https://images.unsplash.com/photo-1600271886742-f049cd451bba",
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.105Z",
+    "updated_at": "2026-08-22T10:16:16.900Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": "14e0cba8-4dc5-40a6-96e2-e61e6accec22",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "created_at": "2026-08-22T02:41:27.278Z",
+    "updated_at": "2026-08-22T02:41:27.278Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": "5c9a6a69-fb6e-4d6f-8200-c6633c392352",
+  "fields": {
+    "user": [
+      "hello@gmail.com"
+    ],
+    "created_at": "2026-08-22T02:59:11.205Z",
+    "updated_at": "2026-08-22T02:59:11.205Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": "79232e36-5b62-4b0c-8b57-662746520905",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "created_at": "2026-08-22T03:02:51.409Z",
+    "updated_at": "2026-08-22T03:02:51.409Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": "86f5da51-ffc5-47a4-a24f-4d147dece341",
+  "fields": {
+    "user": [
+      "balaji02104@gmail.com"
+    ],
+    "created_at": "2026-08-22T10:04:16.752Z",
+    "updated_at": "2026-08-22T10:04:16.752Z"
+  }
+},
+{
+  "model": "cart.cartitem",
+  "pk": "0f5e11fa-1c0b-4388-8e5e-ce1990f3ec5c",
+  "fields": {
+    "cart": "14e0cba8-4dc5-40a6-96e2-e61e6accec22",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "quantity": 1,
+    "created_at": "2026-08-22T10:32:58.222Z",
+    "updated_at": "2026-08-22T10:32:58.223Z"
+  }
+},
+{
+  "model": "cart.cartitem",
+  "pk": "8d2902a3-cdf9-4bdd-a9db-b98a5f35ce21",
+  "fields": {
+    "cart": "86f5da51-ffc5-47a4-a24f-4d147dece341",
+    "product": "ed53146e-e574-4919-a913-e2ea80687fad",
+    "quantity": 1,
+    "created_at": "2026-08-22T10:09:55.297Z",
+    "updated_at": "2026-08-22T10:09:55.298Z"
+  }
+},
+{
+  "model": "operations.pickupslot",
+  "pk": "24cc10e5-10c3-405f-9e70-560957b7c1b6",
+  "fields": {
+    "date": "2026-08-24",
+    "start_time": "09:00:00",
+    "end_time": "11:00:00",
+    "capacity": 20,
+    "is_active": true,
+    "created_at": "2026-08-22T08:44:31.422Z"
+  }
+},
+{
+  "model": "operations.pickupslot",
+  "pk": "4e959f76-60fa-4b03-9074-97eb5590cbf9",
+  "fields": {
+    "date": "2026-08-23",
+    "start_time": "14:00:00",
+    "end_time": "16:00:00",
+    "capacity": 10,
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.140Z"
+  }
+},
+{
+  "model": "operations.pickupslot",
+  "pk": "af1a9b63-2d40-4b8a-b372-36658af70148",
+  "fields": {
+    "date": "2026-08-24",
+    "start_time": "14:00:00",
+    "end_time": "16:00:00",
+    "capacity": 10,
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.155Z"
+  }
+},
+{
+  "model": "operations.pickupslot",
+  "pk": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+  "fields": {
+    "date": "2026-08-23",
+    "start_time": "09:00:00",
+    "end_time": "11:00:00",
+    "capacity": 10,
+    "is_active": false,
+    "created_at": "2026-08-21T18:33:33.125Z"
+  }
+},
+{
+  "model": "operations.pickupslot",
+  "pk": "f0302b17-a617-48a1-88b9-104cf54f457a",
+  "fields": {
+    "date": "2026-08-23",
+    "start_time": "11:00:00",
+    "end_time": "13:00:00",
+    "capacity": 10,
+    "is_active": false,
+    "created_at": "2026-08-21T18:33:33.133Z"
+  }
+},
+{
+  "model": "operations.pickupslot",
+  "pk": "f2bd0b20-006d-490b-bf7b-e2760a53886e",
+  "fields": {
+    "date": "2026-08-24",
+    "start_time": "09:00:00",
+    "end_time": "11:00:00",
+    "capacity": 10,
+    "is_active": true,
+    "created_at": "2026-08-21T18:33:33.149Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "1d666d3b-5064-45d5-94cf-2cdd57d52b0c",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "order_number": "ORD-2026-000001",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "7.98",
+    "total_amount": "7.98",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T02:41:27.346Z",
+    "updated_at": "2026-08-22T02:41:27.894Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "3303a72f-b11a-4bef-83af-cef7fd2f46d6",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000019",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PAID",
+    "payment_method": "CASH",
+    "subtotal": "3.99",
+    "total_amount": "3.99",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T06:27:58.532Z",
+    "updated_at": "2026-08-22T10:52:14.530Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "3c136db6-8dec-4b95-9c80-d64735ef27f2",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "order_number": "ORD-2026-000002",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "7.98",
+    "total_amount": "7.98",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T02:41:48.453Z",
+    "updated_at": "2026-08-22T02:41:48.999Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "43161377-06db-40ce-b959-587612b90756",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000018",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "13.95",
+    "total_amount": "13.95",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T04:46:06.560Z",
+    "updated_at": "2026-08-22T09:00:25.803Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "45ffe8ca-61ab-4399-a608-8e7b2fc9dd36",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000005",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "5.48",
+    "total_amount": "5.48",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T03:03:11.303Z",
+    "updated_at": "2026-08-22T03:18:38.333Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "4e1b1af7-0eaf-42da-a1d3-1b653c9f0d9c",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000024",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PAID",
+    "payment_method": "CASH",
+    "subtotal": "50.00",
+    "total_amount": "50.00",
+    "delivery_address": null,
+    "pickup_slot": "4e959f76-60fa-4b03-9074-97eb5590cbf9",
+    "created_at": "2026-08-22T10:53:21.058Z",
+    "updated_at": "2026-08-22T12:08:11.191Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "5789a939-8ba9-4ee0-911a-27e7e3872552",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000016",
+    "fulfillment_type": "PICKUP",
+    "status": "CANCELLED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "4.49",
+    "total_amount": "4.49",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T04:13:02.756Z",
+    "updated_at": "2026-08-22T04:31:21.607Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "5f2b120c-09f5-4567-ab1c-1644827bd73f",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000014",
+    "fulfillment_type": "PICKUP",
+    "status": "CANCELLED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "3.99",
+    "total_amount": "3.99",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T04:05:41.531Z",
+    "updated_at": "2026-08-22T04:08:11.544Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "62105995-57df-451b-a466-9b53aad0c1da",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "order_number": "ORD-2026-000010",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "7.98",
+    "total_amount": "7.98",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T03:30:22.293Z",
+    "updated_at": "2026-08-22T03:30:22.788Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "675c0603-bda6-4e9a-b087-ebd9c297b079",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000017",
+    "fulfillment_type": "DELIVERY",
+    "status": "OUT_FOR_DELIVERY",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "3.99",
+    "total_amount": "3.99",
+    "delivery_address": {
+      "street": "123",
+      "city": "pune",
+      "state": "MH",
+      "postal_code": "410401",
+      "contact_number": "4561237895"
+    },
+    "pickup_slot": null,
+    "created_at": "2026-08-22T04:34:05.414Z",
+    "updated_at": "2026-08-22T04:34:49.007Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "7167cb95-3a6b-40b6-ac1c-de937c5b7e95",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000009",
+    "fulfillment_type": "PICKUP",
+    "status": "CANCELLED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "2.49",
+    "total_amount": "2.49",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T03:27:18.237Z",
+    "updated_at": "2026-08-22T03:28:09.351Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "7a33d6cb-d0ae-461f-8bde-2333a49fdc8c",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000008",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "13.47",
+    "total_amount": "13.47",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T03:20:30.401Z",
+    "updated_at": "2026-08-22T03:25:09.944Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "7d1285d3-763f-484e-b6e5-4cadc096d5c3",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000023",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PAID",
+    "payment_method": "CASH",
+    "subtotal": "100.00",
+    "total_amount": "100.00",
+    "delivery_address": null,
+    "pickup_slot": "4e959f76-60fa-4b03-9074-97eb5590cbf9",
+    "created_at": "2026-08-22T10:40:58.618Z",
+    "updated_at": "2026-08-22T10:44:10.954Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "9d4f5ab1-1c73-4ec0-af5e-c5aa6fb7b20e",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "order_number": "ORD-2026-000003",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "7.98",
+    "total_amount": "7.98",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T02:55:30.059Z",
+    "updated_at": "2026-08-22T02:55:31.121Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "9dece471-2d45-4e11-90ce-8fd7d4f7d072",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000022",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PAID",
+    "payment_method": "CASH",
+    "subtotal": "6.48",
+    "total_amount": "6.48",
+    "delivery_address": null,
+    "pickup_slot": "4e959f76-60fa-4b03-9074-97eb5590cbf9",
+    "created_at": "2026-08-22T10:11:11.541Z",
+    "updated_at": "2026-08-22T10:44:30.298Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "a0216823-20b2-4ffe-99ad-5026b2d06848",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000020",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PAID",
+    "payment_method": "CASH",
+    "subtotal": "3.99",
+    "total_amount": "3.99",
+    "delivery_address": null,
+    "pickup_slot": "4e959f76-60fa-4b03-9074-97eb5590cbf9",
+    "created_at": "2026-08-22T09:00:09.288Z",
+    "updated_at": "2026-08-22T10:44:56.621Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "a12001c4-7d63-4f44-94c4-a1c839d265dd",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "order_number": "ORD-2026-000015",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "7.98",
+    "total_amount": "7.98",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T04:11:42.631Z",
+    "updated_at": "2026-08-22T04:11:43.566Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "a7f818c4-4180-4193-abd6-08f4a38cd5ad",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "order_number": "ORD-2026-000007",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "7.98",
+    "total_amount": "7.98",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T03:15:46.038Z",
+    "updated_at": "2026-08-22T03:15:46.546Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "adce1928-2cc1-4ac1-b7d2-8a46486048e6",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "order_number": "ORD-2026-000006",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "7.98",
+    "total_amount": "7.98",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T03:10:46.831Z",
+    "updated_at": "2026-08-22T03:10:47.350Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "c5bee275-4246-4287-85b6-3f9ab143dd48",
+  "fields": {
+    "user": [
+      "hello@gmail.com"
+    ],
+    "order_number": "ORD-2026-000004",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "16.96",
+    "total_amount": "16.96",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T03:00:33.567Z",
+    "updated_at": "2026-08-22T03:18:44.110Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "de39721c-5d89-48dc-9e3f-19c93f6462ca",
+  "fields": {
+    "user": [
+      "balaji02104@gmail.com"
+    ],
+    "order_number": "ORD-2026-000021",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PAID",
+    "payment_method": "CASH",
+    "subtotal": "2.49",
+    "total_amount": "2.49",
+    "delivery_address": null,
+    "pickup_slot": "4e959f76-60fa-4b03-9074-97eb5590cbf9",
+    "created_at": "2026-08-22T10:05:31.210Z",
+    "updated_at": "2026-08-22T10:44:47.202Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "e7148dc8-3f4b-464b-a07b-b5be27422146",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "order_number": "ORD-2026-000013",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "7.98",
+    "total_amount": "7.98",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T04:03:48.423Z",
+    "updated_at": "2026-08-22T04:03:48.955Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "fdee26dc-8786-4731-ac8d-7673faee9259",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "order_number": "ORD-2026-000012",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "subtotal": "7.98",
+    "total_amount": "7.98",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T03:33:48.243Z",
+    "updated_at": "2026-08-22T03:33:48.829Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "ff6de726-05ef-479a-8dd3-533719fbfc1c",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "order_number": "ORD-2026-000011",
+    "fulfillment_type": "PICKUP",
+    "status": "COMPLETED",
+    "payment_status": "PAID",
+    "payment_method": "CASH",
+    "subtotal": "2.49",
+    "total_amount": "2.49",
+    "delivery_address": null,
+    "pickup_slot": "d2e3e967-154d-44c7-bb65-07e6be56775a",
+    "created_at": "2026-08-22T03:31:48.525Z",
+    "updated_at": "2026-08-22T10:52:22.354Z"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "07a8c43c-72fb-49fb-bf99-8e75566bea41",
+  "fields": {
+    "order": "fdee26dc-8786-4731-ac8d-7673faee9259",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 2,
+    "subtotal": "7.98"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "1368be97-1dc5-4cf1-97a8-cc96e795f0fe",
+  "fields": {
+    "order": "5f2b120c-09f5-4567-ab1c-1644827bd73f",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 1,
+    "subtotal": "3.99"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "22d155ff-8782-47c4-a68d-c9a3b544f846",
+  "fields": {
+    "order": "e7148dc8-3f4b-464b-a07b-b5be27422146",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 2,
+    "subtotal": "7.98"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "2d29b891-bd96-43ea-ab7e-2c57c8869509",
+  "fields": {
+    "order": "4e1b1af7-0eaf-42da-a1d3-1b653c9f0d9c",
+    "product": "db1c9e52-f81d-4b64-a646-64cb00099865",
+    "product_name": "Crispy Potato Chips (Family Pack)",
+    "unit_price": "50.00",
+    "quantity": 1,
+    "subtotal": "50.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "391a3880-b3a5-4c62-8a0b-e482e1577495",
+  "fields": {
+    "order": "a7f818c4-4180-4193-abd6-08f4a38cd5ad",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 2,
+    "subtotal": "7.98"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "40089279-dd1b-4385-88b2-ee2baaadb3ef",
+  "fields": {
+    "order": "43161377-06db-40ce-b959-587612b90756",
+    "product": "4778ae60-1bd9-47ee-8818-bdc1b1377e0c",
+    "product_name": "Fresh Organic Bananas (1 Dozen)",
+    "unit_price": "1.99",
+    "quantity": 1,
+    "subtotal": "1.99"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "428541a5-0143-404e-9f47-041683a4f730",
+  "fields": {
+    "order": "ff6de726-05ef-479a-8dd3-533719fbfc1c",
+    "product": "db1c9e52-f81d-4b64-a646-64cb00099865",
+    "product_name": "Crispy Potato Chips (Family Pack)",
+    "unit_price": "2.49",
+    "quantity": 1,
+    "subtotal": "2.49"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "43939b65-8763-43ef-9624-aa2b63b81ead",
+  "fields": {
+    "order": "de39721c-5d89-48dc-9e3f-19c93f6462ca",
+    "product": "db1c9e52-f81d-4b64-a646-64cb00099865",
+    "product_name": "Crispy Potato Chips (Family Pack)",
+    "unit_price": "2.49",
+    "quantity": 1,
+    "subtotal": "2.49"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "44cc69dd-c38b-4974-89a5-96e14c20797c",
+  "fields": {
+    "order": "5789a939-8ba9-4ee0-911a-27e7e3872552",
+    "product": "c5fddcc8-307a-4eaf-ab1f-bb76f3afabf1",
+    "product_name": "Whole Farm Fresh Milk (1 Gallon)",
+    "unit_price": "4.49",
+    "quantity": 1,
+    "subtotal": "4.49"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "4add10fd-0154-4523-8da9-8fa78e940212",
+  "fields": {
+    "order": "1d666d3b-5064-45d5-94cf-2cdd57d52b0c",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 2,
+    "subtotal": "7.98"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "4f8fd28a-8fe1-4b18-895a-b8d678889daa",
+  "fields": {
+    "order": "7a33d6cb-d0ae-461f-8bde-2333a49fdc8c",
+    "product": "c5fddcc8-307a-4eaf-ab1f-bb76f3afabf1",
+    "product_name": "Whole Farm Fresh Milk (1 Gallon)",
+    "unit_price": "4.49",
+    "quantity": 3,
+    "subtotal": "13.47"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "6bcec148-0d10-4ed4-b490-de7c20dbffce",
+  "fields": {
+    "order": "c5bee275-4246-4287-85b6-3f9ab143dd48",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 2,
+    "subtotal": "7.98"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "75af4813-d65a-4d0e-8277-2201a86de152",
+  "fields": {
+    "order": "9d4f5ab1-1c73-4ec0-af5e-c5aa6fb7b20e",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 2,
+    "subtotal": "7.98"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "86955f04-67c3-45ce-850e-5c8fcf0b64b2",
+  "fields": {
+    "order": "43161377-06db-40ce-b959-587612b90756",
+    "product": "c5fddcc8-307a-4eaf-ab1f-bb76f3afabf1",
+    "product_name": "Whole Farm Fresh Milk (1 Gallon)",
+    "unit_price": "4.49",
+    "quantity": 1,
+    "subtotal": "4.49"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "8c43db43-b747-461b-840e-cf257a51e3d9",
+  "fields": {
+    "order": "43161377-06db-40ce-b959-587612b90756",
+    "product": "db1c9e52-f81d-4b64-a646-64cb00099865",
+    "product_name": "Crispy Potato Chips (Family Pack)",
+    "unit_price": "2.49",
+    "quantity": 3,
+    "subtotal": "7.47"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "8cf7cadc-07ee-432f-8a23-84ed95922b55",
+  "fields": {
+    "order": "3c136db6-8dec-4b95-9c80-d64735ef27f2",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 2,
+    "subtotal": "7.98"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "93f3b631-39f1-4a2a-a18e-b820e5af8816",
+  "fields": {
+    "order": "9dece471-2d45-4e11-90ce-8fd7d4f7d072",
+    "product": "db1c9e52-f81d-4b64-a646-64cb00099865",
+    "product_name": "Crispy Potato Chips (Family Pack)",
+    "unit_price": "2.49",
+    "quantity": 1,
+    "subtotal": "2.49"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "9697ea01-a1e1-466c-8e76-f49d67787581",
+  "fields": {
+    "order": "7d1285d3-763f-484e-b6e5-4cadc096d5c3",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "100.00",
+    "quantity": 1,
+    "subtotal": "100.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "98b9f98f-1b2b-42f5-906f-8dc1418902f1",
+  "fields": {
+    "order": "a0216823-20b2-4ffe-99ad-5026b2d06848",
+    "product": "7b80cd6b-8208-4ed7-b58e-8f7063947162",
+    "product_name": "Fresh Organic Apples (1kg)",
+    "unit_price": "3.99",
+    "quantity": 1,
+    "subtotal": "3.99"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "a0305d06-07b4-402c-b692-ac9bba8b2d04",
+  "fields": {
+    "order": "7167cb95-3a6b-40b6-ac1c-de937c5b7e95",
+    "product": "db1c9e52-f81d-4b64-a646-64cb00099865",
+    "product_name": "Crispy Potato Chips (Family Pack)",
+    "unit_price": "2.49",
+    "quantity": 1,
+    "subtotal": "2.49"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "a8b31d03-721e-43ad-a53e-689a04233466",
+  "fields": {
+    "order": "45ffe8ca-61ab-4399-a608-8e7b2fc9dd36",
+    "product": "ed53146e-e574-4919-a913-e2ea80687fad",
+    "product_name": "Fresh Orange Juice (1L)",
+    "unit_price": "3.49",
+    "quantity": 1,
+    "subtotal": "3.49"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "c8177694-ae9f-4105-a760-1283898219e9",
+  "fields": {
+    "order": "675c0603-bda6-4e9a-b087-ebd9c297b079",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 1,
+    "subtotal": "3.99"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "c949b8a5-0e12-4d08-a798-23512cd1d85b",
+  "fields": {
+    "order": "c5bee275-4246-4287-85b6-3f9ab143dd48",
+    "product": "c5fddcc8-307a-4eaf-ab1f-bb76f3afabf1",
+    "product_name": "Whole Farm Fresh Milk (1 Gallon)",
+    "unit_price": "4.49",
+    "quantity": 2,
+    "subtotal": "8.98"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "d6d58f73-3717-4a42-9e00-fff82589a5cc",
+  "fields": {
+    "order": "a12001c4-7d63-4f44-94c4-a1c839d265dd",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 2,
+    "subtotal": "7.98"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "d6f9c5bd-e003-4915-aeee-adec9e5c8298",
+  "fields": {
+    "order": "45ffe8ca-61ab-4399-a608-8e7b2fc9dd36",
+    "product": "4778ae60-1bd9-47ee-8818-bdc1b1377e0c",
+    "product_name": "Fresh Organic Bananas (1 Dozen)",
+    "unit_price": "1.99",
+    "quantity": 1,
+    "subtotal": "1.99"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "dee3e07a-20f9-4f3d-88e3-b3a6d5a92c38",
+  "fields": {
+    "order": "3303a72f-b11a-4bef-83af-cef7fd2f46d6",
+    "product": "7b80cd6b-8208-4ed7-b58e-8f7063947162",
+    "product_name": "Fresh Organic Apples (1kg)",
+    "unit_price": "3.99",
+    "quantity": 1,
+    "subtotal": "3.99"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "e98a5686-bdda-4bb6-828c-1e6e36a989a3",
+  "fields": {
+    "order": "9dece471-2d45-4e11-90ce-8fd7d4f7d072",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 1,
+    "subtotal": "3.99"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "f7f5c873-38dd-4db3-b783-e2dbdf5f3865",
+  "fields": {
+    "order": "adce1928-2cc1-4ac1-b7d2-8a46486048e6",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 2,
+    "subtotal": "7.98"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "f916be2b-8efd-492a-87a1-206c19d2d10d",
+  "fields": {
+    "order": "62105995-57df-451b-a466-9b53aad0c1da",
+    "product": "1cf0125a-0abc-4d46-a420-ac82aa78e84a",
+    "product_name": "Eco-Friendly Dishwashing Liquid (500ml)",
+    "unit_price": "3.99",
+    "quantity": 2,
+    "subtotal": "7.98"
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "162f3d07-7db9-4a19-8f59-e113abcb16a3",
+  "fields": {
+    "order_item": "07a8c43c-72fb-49fb-bf99-8e75566bea41",
+    "request_type": "RETURN",
+    "reason": "Slight defect in packaging",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "APPROVED",
+    "requested_at": "2026-08-22T03:33:48.882Z",
+    "processed_at": "2026-08-22T03:33:48.912Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "51031837-e505-4ba1-ac21-a3335d0be936",
+  "fields": {
+    "order_item": "22d155ff-8782-47c4-a68d-c9a3b544f846",
+    "request_type": "RETURN",
+    "reason": "Slight defect in packaging",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "APPROVED",
+    "requested_at": "2026-08-22T04:03:48.996Z",
+    "processed_at": "2026-08-22T04:03:49.023Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "588d6c40-c818-40c5-9c08-6738ab25d378",
+  "fields": {
+    "order_item": "75af4813-d65a-4d0e-8277-2201a86de152",
+    "request_type": "RETURN",
+    "reason": "Slight defect in packaging",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "COMPLETED",
+    "requested_at": "2026-08-22T02:55:31.189Z",
+    "processed_at": "2026-08-22T02:58:11.998Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "6f1140ac-b195-47d4-aca9-67e31e0d178e",
+  "fields": {
+    "order_item": "8cf7cadc-07ee-432f-8a23-84ed95922b55",
+    "request_type": "RETURN",
+    "reason": "Slight defect in packaging",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "COMPLETED",
+    "requested_at": "2026-08-22T02:41:49.048Z",
+    "processed_at": "2026-08-22T02:58:04.977Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "7a74ed13-098a-4929-b55d-203be0f47440",
+  "fields": {
+    "order_item": "98b9f98f-1b2b-42f5-906f-8dc1418902f1",
+    "request_type": "RETURN",
+    "reason": "Received wrong item",
+    "replacement_product": null,
+    "rejection_reason": "no",
+    "status": "REJECTED",
+    "requested_at": "2026-08-22T12:03:26.271Z",
+    "processed_at": "2026-08-22T12:17:37.331Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "7a78ee08-cd42-4988-847a-b28f0f1d39b8",
+  "fields": {
+    "order_item": "a8b31d03-721e-43ad-a53e-689a04233466",
+    "request_type": "RETURN",
+    "reason": "re",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "REJECTED",
+    "requested_at": "2026-08-22T06:18:41.139Z",
+    "processed_at": "2026-08-22T06:18:59.563Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "82d5247c-7feb-4bad-bfec-ee43f3d43222",
+  "fields": {
+    "order_item": "f916be2b-8efd-492a-87a1-206c19d2d10d",
+    "request_type": "RETURN",
+    "reason": "Slight defect in packaging",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "APPROVED",
+    "requested_at": "2026-08-22T03:30:22.834Z",
+    "processed_at": "2026-08-22T03:30:22.865Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "a57e4fe4-11dc-4712-a07a-c3dfa5a129a3",
+  "fields": {
+    "order_item": "4add10fd-0154-4523-8da9-8fa78e940212",
+    "request_type": "RETURN",
+    "reason": "Slight defect in packaging",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "COMPLETED",
+    "requested_at": "2026-08-22T02:41:27.933Z",
+    "processed_at": "2026-08-22T02:58:10.257Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "a63d47fb-7a61-4478-b4e1-2e377f02e37a",
+  "fields": {
+    "order_item": "dee3e07a-20f9-4f3d-88e3-b3a6d5a92c38",
+    "request_type": "RETURN",
+    "reason": "re",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "COMPLETED",
+    "requested_at": "2026-08-22T06:29:03.641Z",
+    "processed_at": "2026-08-22T06:29:38.775Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "af0ee22b-9f02-42ad-ae23-c67e585cb936",
+  "fields": {
+    "order_item": "391a3880-b3a5-4c62-8a0b-e482e1577495",
+    "request_type": "RETURN",
+    "reason": "Slight defect in packaging",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "APPROVED",
+    "requested_at": "2026-08-22T03:15:46.587Z",
+    "processed_at": "2026-08-22T03:15:46.613Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "bd8a5523-ce46-4240-805e-09447544afab",
+  "fields": {
+    "order_item": "9697ea01-a1e1-466c-8e76-f49d67787581",
+    "request_type": "RETURN",
+    "reason": "Expired product delivered",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "APPROVED",
+    "requested_at": "2026-08-22T12:03:13.565Z",
+    "processed_at": "2026-08-22T12:16:26.521Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "c3d7958b-243d-4dcf-bb1b-c8d893ee5efb",
+  "fields": {
+    "order_item": "4f8fd28a-8fe1-4b18-895a-b8d678889daa",
+    "request_type": "RETURN",
+    "reason": "please return items",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "COMPLETED",
+    "requested_at": "2026-08-22T06:17:00.183Z",
+    "processed_at": "2026-08-22T06:17:19.032Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "dc94f7cc-1fca-440d-b704-30087c12db52",
+  "fields": {
+    "order_item": "d6d58f73-3717-4a42-9e00-fff82589a5cc",
+    "request_type": "RETURN",
+    "reason": "Slight defect in packaging",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "APPROVED",
+    "requested_at": "2026-08-22T04:11:43.656Z",
+    "processed_at": "2026-08-22T04:11:43.705Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "returns_exchange.returnexchangerequest",
+  "pk": "e177f622-8871-4ecf-8486-237a35b8865d",
+  "fields": {
+    "order_item": "f7f5c873-38dd-4db3-b783-e2dbdf5f3865",
+    "request_type": "RETURN",
+    "reason": "Slight defect in packaging",
+    "replacement_product": null,
+    "rejection_reason": null,
+    "status": "APPROVED",
+    "requested_at": "2026-08-22T03:10:47.392Z",
+    "processed_at": "2026-08-22T03:10:47.416Z",
+    "processed_by": [
+      "staff@test.com"
+    ]
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "00997a5f-bd23-44db-bf5a-a91fbf15ee6a",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_COMPLETED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "c3d7958b-243d-4dcf-bb1b-c8d893ee5efb",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "APPROVED",
+      "new_status": "COMPLETED",
+      "order_number": "ORD-2026-000008"
+    },
+    "created_at": "2026-08-22T06:17:19.041Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "009aec4d-074c-4b48-8598-55917378fd24",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "9dece471-2d45-4e11-90ce-8fd7d4f7d072",
+    "metadata": {
+      "order_number": "ORD-2026-000022",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T10:11:35.402Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "01bfbd12-5a66-4abe-8e29-58b0a4d84129",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "af0ee22b-9f02-42ad-ae23-c67e585cb936",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000007"
+    },
+    "created_at": "2026-08-22T03:15:46.620Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "064bb718-fd00-43cd-bc9d-cd8802705ddd",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "5789a939-8ba9-4ee0-911a-27e7e3872552",
+    "metadata": {
+      "order_number": "ORD-2026-000016",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "4.49",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T04:13:02.770Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "06bd18cb-a3fb-44d4-ae0d-32d03a0ec135",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "7d1285d3-763f-484e-b6e5-4cadc096d5c3",
+    "metadata": {
+      "order_number": "ORD-2026-000023",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T10:44:05.505Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "0820a564-1b58-4184-9ee4-acdec1b6bbff",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "a0216823-20b2-4ffe-99ad-5026b2d06848",
+    "metadata": {
+      "order_number": "ORD-2026-000020",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "3.99",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T09:00:09.306Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "0b8628ef-acd8-42ad-9f75-17635f2ab71e",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "588d6c40-c818-40c5-9c08-6738ab25d378",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000003",
+      "product_name": "Eco-Friendly Dishwashing Liquid (500ml)"
+    },
+    "created_at": "2026-08-22T02:55:31.201Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "0d036c49-09f8-49ee-b7e9-9c46c9fb3941",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "43161377-06db-40ce-b959-587612b90756",
+    "metadata": {
+      "order_number": "ORD-2026-000018",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T09:00:25.810Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "0d7ceac3-c36a-4eb5-8ded-43ba269aa82f",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "162f3d07-7db9-4a19-8f59-e113abcb16a3",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000012",
+      "product_name": "Eco-Friendly Dishwashing Liquid (500ml)"
+    },
+    "created_at": "2026-08-22T03:33:48.889Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "0dd1b805-b25c-4b54-a96d-ac55bde2cf7b",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "588d6c40-c818-40c5-9c08-6738ab25d378",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000003"
+    },
+    "created_at": "2026-08-22T02:55:31.242Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "0e8c9879-2422-4b10-a5d8-9e37cbbcf5cb",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CANCELLED",
+    "entity_type": "Order",
+    "entity_id": "5789a939-8ba9-4ee0-911a-27e7e3872552",
+    "metadata": {
+      "order_number": "ORD-2026-000016",
+      "old_status": "PENDING",
+      "new_status": "CANCELLED"
+    },
+    "created_at": "2026-08-22T04:31:21.619Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "0f25e710-2c63-4851-8e95-9eeedbf8672d",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "9dece471-2d45-4e11-90ce-8fd7d4f7d072",
+    "metadata": {
+      "order_number": "ORD-2026-000022",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T10:13:34.472Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "0f4a8b3e-5e66-41e7-9d03-7efa3bb2f894",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "af0ee22b-9f02-42ad-ae23-c67e585cb936",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000007",
+      "product_name": "Eco-Friendly Dishwashing Liquid (500ml)"
+    },
+    "created_at": "2026-08-22T03:15:46.594Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "10d75839-4144-4989-b570-bf466c5e6b00",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "9d4f5ab1-1c73-4ec0-af5e-c5aa6fb7b20e",
+    "metadata": {
+      "order_number": "ORD-2026-000003",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T02:55:31.129Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "11f76c17-9cbf-4a0a-9db6-afebb45124c7",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "7d1285d3-763f-484e-b6e5-4cadc096d5c3",
+    "metadata": {
+      "order_number": "ORD-2026-000023",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "100.00",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T10:40:58.630Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "13b4d385-4edf-4b13-94ff-3d24797d1463",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "bd8a5523-ce46-4240-805e-09447544afab",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000023",
+      "rejection_reason": null
+    },
+    "created_at": "2026-08-22T12:16:26.532Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "1bc69c72-5dbd-45fc-b118-df3d44acd68a",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a12001c4-7d63-4f44-94c4-a1c839d265dd",
+    "metadata": {
+      "order_number": "ORD-2026-000015",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T04:11:43.444Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "1cf3ac04-ead2-4ea0-b91e-111d8b8661cd",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "e7148dc8-3f4b-464b-a07b-b5be27422146",
+    "metadata": {
+      "order_number": "ORD-2026-000013",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T04:03:48.896Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "1de88afb-9e15-4d80-8563-05c7ab013a24",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "675c0603-bda6-4e9a-b087-ebd9c297b079",
+    "metadata": {
+      "order_number": "ORD-2026-000017",
+      "old_status": "PREPARING",
+      "new_status": "OUT_FOR_DELIVERY"
+    },
+    "created_at": "2026-08-22T04:34:49.014Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "1e2e617f-9abd-479f-b6a3-085ee7ef9b1d",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a7f818c4-4180-4193-abd6-08f4a38cd5ad",
+    "metadata": {
+      "order_number": "ORD-2026-000007",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T03:15:46.527Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "20216653-bd22-481c-a5f9-bbdc1cd4c26a",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_CANCELLED",
+    "entity_type": "Order",
+    "entity_id": "5f2b120c-09f5-4567-ab1c-1644827bd73f",
+    "metadata": {
+      "order_number": "ORD-2026-000014",
+      "old_status": "CONFIRMED",
+      "new_status": "CANCELLED"
+    },
+    "created_at": "2026-08-22T04:08:11.546Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "22b762f2-8765-4861-ae03-2bac549fbd03",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a0216823-20b2-4ffe-99ad-5026b2d06848",
+    "metadata": {
+      "order_number": "ORD-2026-000020",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T09:00:29.591Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "2356f403-6882-42a0-81ea-c85da51b1b1d",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "1d666d3b-5064-45d5-94cf-2cdd57d52b0c",
+    "metadata": {
+      "order_number": "ORD-2026-000001",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "7.98",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T02:41:27.355Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "23661eaa-6493-4dc0-80bd-ca3b935c7e4b",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "45ffe8ca-61ab-4399-a608-8e7b2fc9dd36",
+    "metadata": {
+      "order_number": "ORD-2026-000005",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T03:18:38.340Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "23d13804-1f42-4004-ba7b-6718a78d4ecd",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_COMPLETED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "588d6c40-c818-40c5-9c08-6738ab25d378",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "APPROVED",
+      "new_status": "COMPLETED",
+      "order_number": "ORD-2026-000003"
+    },
+    "created_at": "2026-08-22T02:58:12.008Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "243893c0-121b-4ff0-835d-01f9087e18d1",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "adce1928-2cc1-4ac1-b7d2-8a46486048e6",
+    "metadata": {
+      "order_number": "ORD-2026-000006",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T03:10:47.285Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "24e127f8-e9f2-489a-b849-4cd03070924c",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "1d666d3b-5064-45d5-94cf-2cdd57d52b0c",
+    "metadata": {
+      "order_number": "ORD-2026-000001",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T02:41:27.876Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "25be0459-6245-45a1-9ae6-d54f63702a3f",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "162f3d07-7db9-4a19-8f59-e113abcb16a3",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000012"
+    },
+    "created_at": "2026-08-22T03:33:48.919Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "29ebbd2b-9d32-4bcb-b7a7-276ffb75ad36",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "43161377-06db-40ce-b959-587612b90756",
+    "metadata": {
+      "order_number": "ORD-2026-000018",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T04:48:02.639Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "2a7196ef-bca1-409f-9bc5-03a4216829a8",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "3c136db6-8dec-4b95-9c80-d64735ef27f2",
+    "metadata": {
+      "order_number": "ORD-2026-000002",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T02:41:49.010Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "2c436a8a-b600-47a9-90e6-62a4fc57e7d4",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "9d4f5ab1-1c73-4ec0-af5e-c5aa6fb7b20e",
+    "metadata": {
+      "order_number": "ORD-2026-000003",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T02:55:30.999Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "2d968195-40af-47d0-9b9f-1bb90e3c3326",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "de39721c-5d89-48dc-9e3f-19c93f6462ca",
+    "metadata": {
+      "order_number": "ORD-2026-000021",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T10:06:29.485Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "2f1f5db6-0420-42c4-b480-905e7f31fdd8",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "9dece471-2d45-4e11-90ce-8fd7d4f7d072",
+    "metadata": {
+      "order_number": "ORD-2026-000022",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "6.48",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T10:11:11.556Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "310de687-e6d8-4e98-ad58-c799f73dfcbf",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "7a33d6cb-d0ae-461f-8bde-2333a49fdc8c",
+    "metadata": {
+      "order_number": "ORD-2026-000008",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "13.47",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T03:20:30.416Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "317f62b9-cc66-44f8-aca6-a984881485ae",
+  "fields": {
+    "user": [
+      "admin@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "4e1b1af7-0eaf-42da-a1d3-1b653c9f0d9c",
+    "metadata": {
+      "order_number": "ORD-2026-000024",
+      "old_status": "PENDING",
+      "new_status": null
+    },
+    "created_at": "2026-08-22T11:03:09.326Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "34853ccf-91d5-4cf4-a3a4-5b6ea6dbdf30",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "ff6de726-05ef-479a-8dd3-533719fbfc1c",
+    "metadata": {
+      "order_number": "ORD-2026-000011",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "2.49",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T03:31:48.533Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "3568dbbd-0bc0-4bf2-abb4-ab1d3932ee1c",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "43161377-06db-40ce-b959-587612b90756",
+    "metadata": {
+      "order_number": "ORD-2026-000018",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T04:48:36.728Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "35ad5bf5-2bc2-404e-894a-11f985401870",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "ff6de726-05ef-479a-8dd3-533719fbfc1c",
+    "metadata": {
+      "order_number": "ORD-2026-000011",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T10:52:22.360Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "373a2bf8-f0ae-4694-9693-a1c341fb1c95",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "e7148dc8-3f4b-464b-a07b-b5be27422146",
+    "metadata": {
+      "order_number": "ORD-2026-000013",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "7.98",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T04:03:48.433Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "385e2973-a463-4812-a646-a339e298acc2",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a12001c4-7d63-4f44-94c4-a1c839d265dd",
+    "metadata": {
+      "order_number": "ORD-2026-000015",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T04:11:43.578Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "38e61612-829c-41d8-9214-4b7ea52895d7",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_COMPLETED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "6f1140ac-b195-47d4-aca9-67e31e0d178e",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "APPROVED",
+      "new_status": "COMPLETED",
+      "order_number": "ORD-2026-000002"
+    },
+    "created_at": "2026-08-22T02:58:04.990Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "393fd9d7-abe0-41ff-8b49-75eb824803b2",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "7167cb95-3a6b-40b6-ac1c-de937c5b7e95",
+    "metadata": {
+      "order_number": "ORD-2026-000009",
+      "old_status": "PENDING",
+      "new_status": "CANCELLED"
+    },
+    "created_at": "2026-08-22T03:28:09.356Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "3b350f53-30e1-463a-90df-4cab95810c9f",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "fdee26dc-8786-4731-ac8d-7673faee9259",
+    "metadata": {
+      "order_number": "ORD-2026-000012",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "7.98",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T03:33:48.251Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "3d44caee-7b17-4b88-98a6-bcb06faa7299",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "3303a72f-b11a-4bef-83af-cef7fd2f46d6",
+    "metadata": {
+      "order_number": "ORD-2026-000019",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T06:28:17.921Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "3fb322dd-328a-4d94-9cb1-0c215e1f20e9",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "fdee26dc-8786-4731-ac8d-7673faee9259",
+    "metadata": {
+      "order_number": "ORD-2026-000012",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T03:33:48.751Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "410acab1-6630-4ec7-be39-907140ef9cf2",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "bd8a5523-ce46-4240-805e-09447544afab",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000023",
+      "product_name": "Eco-Friendly Dishwashing Liquid (500ml)"
+    },
+    "created_at": "2026-08-22T12:03:13.573Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "43913f0b-5fa4-4f2b-ad4f-dea637e4d146",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "7167cb95-3a6b-40b6-ac1c-de937c5b7e95",
+    "metadata": {
+      "order_number": "ORD-2026-000009",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "2.49",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T03:27:18.250Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "44f2ac97-0468-4498-a774-eabcdfb07a6d",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "1d666d3b-5064-45d5-94cf-2cdd57d52b0c",
+    "metadata": {
+      "order_number": "ORD-2026-000001",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T02:41:27.825Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "477dc225-00c1-428c-b1ef-34c7c7ae3233",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "7d1285d3-763f-484e-b6e5-4cadc096d5c3",
+    "metadata": {
+      "order_number": "ORD-2026-000023",
+      "old_status": "COMPLETED",
+      "new_status": null
+    },
+    "created_at": "2026-08-22T10:44:10.962Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "47b681fd-b570-433d-8971-0db0e301d09f",
+  "fields": {
+    "user": [
+      "admin@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "4e1b1af7-0eaf-42da-a1d3-1b653c9f0d9c",
+    "metadata": {
+      "order_number": "ORD-2026-000024",
+      "old_status": "PENDING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T11:59:03.567Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "4bc91ff0-9413-4d9d-8afc-8bb0752cd98f",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "7a33d6cb-d0ae-461f-8bde-2333a49fdc8c",
+    "metadata": {
+      "order_number": "ORD-2026-000008",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T03:25:09.951Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "4c670a4e-880d-4f74-8af2-c84c39284f22",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "a7f818c4-4180-4193-abd6-08f4a38cd5ad",
+    "metadata": {
+      "order_number": "ORD-2026-000007",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "7.98",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T03:15:46.045Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "4e76ca67-d045-4e1f-80f2-9c49fa41b19f",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "a57e4fe4-11dc-4712-a07a-c3dfa5a129a3",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000001",
+      "product_name": "Eco-Friendly Dishwashing Liquid (500ml)"
+    },
+    "created_at": "2026-08-22T02:41:27.939Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "4f6311dc-ee5f-47e2-acc8-ef09f752fd2e",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "a63d47fb-7a61-4478-b4e1-2e377f02e37a",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000019",
+      "rejection_reason": null
+    },
+    "created_at": "2026-08-22T06:29:37.509Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "50830e32-83c2-4920-8f31-492b0900db8b",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "1d666d3b-5064-45d5-94cf-2cdd57d52b0c",
+    "metadata": {
+      "order_number": "ORD-2026-000001",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T02:41:27.899Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "509fae36-3222-40ea-acc1-bd666f6cec19",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_COMPLETED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "a57e4fe4-11dc-4712-a07a-c3dfa5a129a3",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "APPROVED",
+      "new_status": "COMPLETED",
+      "order_number": "ORD-2026-000001"
+    },
+    "created_at": "2026-08-22T02:58:10.268Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "53bae21c-db8c-4811-981c-93e9f02ff42b",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "675c0603-bda6-4e9a-b087-ebd9c297b079",
+    "metadata": {
+      "order_number": "ORD-2026-000017",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T04:34:39.139Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "53f72ea6-9996-4611-a874-b7df16d70f40",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a12001c4-7d63-4f44-94c4-a1c839d265dd",
+    "metadata": {
+      "order_number": "ORD-2026-000015",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T04:11:43.492Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "57693838-3836-4fa3-b382-51cd29de7d75",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "45ffe8ca-61ab-4399-a608-8e7b2fc9dd36",
+    "metadata": {
+      "order_number": "ORD-2026-000005",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "5.48",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T03:03:11.314Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "58c03d1b-3051-4a78-81c4-fc6fdb307653",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "ff6de726-05ef-479a-8dd3-533719fbfc1c",
+    "metadata": {
+      "order_number": "ORD-2026-000011",
+      "old_status": "PENDING",
+      "new_status": null
+    },
+    "created_at": "2026-08-22T10:52:18.596Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "5bce1c52-ce99-49dc-add4-7472c91f8072",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "7d1285d3-763f-484e-b6e5-4cadc096d5c3",
+    "metadata": {
+      "order_number": "ORD-2026-000023",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T10:44:06.808Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "5c0bde30-b74c-44bc-a8d7-9ffd0888eaa0",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "e7148dc8-3f4b-464b-a07b-b5be27422146",
+    "metadata": {
+      "order_number": "ORD-2026-000013",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T04:03:48.960Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "5e2cf50a-fd14-4184-b3dd-cb06e460bfa2",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "a63d47fb-7a61-4478-b4e1-2e377f02e37a",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000019",
+      "product_name": "Fresh Organic Apples (1kg)"
+    },
+    "created_at": "2026-08-22T06:29:03.649Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "60534651-b0b1-4919-93bc-e06527d08486",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "45ffe8ca-61ab-4399-a608-8e7b2fc9dd36",
+    "metadata": {
+      "order_number": "ORD-2026-000005",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T03:06:59.261Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "61fbba86-3827-4832-a6a0-76896898ba6e",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "ff6de726-05ef-479a-8dd3-533719fbfc1c",
+    "metadata": {
+      "order_number": "ORD-2026-000011",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T10:52:20.794Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "65efbfe7-c37c-455e-91ba-8d5ca1fe222e",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "82d5247c-7feb-4bad-bfec-ee43f3d43222",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000010"
+    },
+    "created_at": "2026-08-22T03:30:22.871Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "664759cf-dded-4ad0-85ba-79c4b2fa391b",
+  "fields": {
+    "user": [
+      "admin@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "de39721c-5d89-48dc-9e3f-19c93f6462ca",
+    "metadata": {
+      "order_number": "ORD-2026-000021",
+      "old_status": "COMPLETED",
+      "new_status": null
+    },
+    "created_at": "2026-08-22T10:44:47.208Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "668fc74d-6b60-45d7-93b0-04ad28ca43ea",
+  "fields": {
+    "user": [
+      "balaji02104@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "de39721c-5d89-48dc-9e3f-19c93f6462ca",
+    "metadata": {
+      "order_number": "ORD-2026-000021",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "2.49",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T10:05:31.237Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "66d02264-1a24-4093-aeaa-37edda1e34ce",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "7a33d6cb-d0ae-461f-8bde-2333a49fdc8c",
+    "metadata": {
+      "order_number": "ORD-2026-000008",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T03:25:07.432Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "68cf5a31-23ed-4ce5-acd9-ed42ed9720c8",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "51031837-e505-4ba1-ac21-a3335d0be936",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000013"
+    },
+    "created_at": "2026-08-22T04:03:49.029Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "6a247c8f-05c4-46b3-9581-68747575a792",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "adce1928-2cc1-4ac1-b7d2-8a46486048e6",
+    "metadata": {
+      "order_number": "ORD-2026-000006",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T03:10:47.308Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "6e48a0a4-bbfc-40d9-8ff8-073b3a2280a2",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "ff6de726-05ef-479a-8dd3-533719fbfc1c",
+    "metadata": {
+      "order_number": "ORD-2026-000011",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T10:52:19.755Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "6e630cf9-f618-41ff-8830-2df4983185a3",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "3c136db6-8dec-4b95-9c80-d64735ef27f2",
+    "metadata": {
+      "order_number": "ORD-2026-000002",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T02:41:48.932Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "71bdf77e-116d-4175-9a6c-ec2b807a86f0",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a7f818c4-4180-4193-abd6-08f4a38cd5ad",
+    "metadata": {
+      "order_number": "ORD-2026-000007",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T03:15:46.505Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "72601512-f364-4e93-bff8-def25cfd23a4",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "4e1b1af7-0eaf-42da-a1d3-1b653c9f0d9c",
+    "metadata": {
+      "order_number": "ORD-2026-000024",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "50.00",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T10:53:21.069Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "77e65432-2309-4103-88dd-532105d16dd0",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "fdee26dc-8786-4731-ac8d-7673faee9259",
+    "metadata": {
+      "order_number": "ORD-2026-000012",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T03:33:48.807Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "786cdaaf-2e3d-4b9f-ab6f-5915ff74b94b",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "4e1b1af7-0eaf-42da-a1d3-1b653c9f0d9c",
+    "metadata": {
+      "order_number": "ORD-2026-000024",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T12:08:11.209Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "7bd5503b-fccd-4f5b-9e6e-861f8dc939fb",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "e7148dc8-3f4b-464b-a07b-b5be27422146",
+    "metadata": {
+      "order_number": "ORD-2026-000013",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T04:03:48.916Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "8089ebb2-f468-462a-a6dd-3ee535a27a38",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "9dece471-2d45-4e11-90ce-8fd7d4f7d072",
+    "metadata": {
+      "order_number": "ORD-2026-000022",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T10:11:31.463Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "80ff7303-dc3a-4191-b1e5-a3bbaac0e5dc",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a0216823-20b2-4ffe-99ad-5026b2d06848",
+    "metadata": {
+      "order_number": "ORD-2026-000020",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T09:00:28.391Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "8174b360-b4f7-4b62-ad8a-5f75f962affb",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "adce1928-2cc1-4ac1-b7d2-8a46486048e6",
+    "metadata": {
+      "order_number": "ORD-2026-000006",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T03:10:47.333Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "837601db-16c8-445d-997b-546775d0c157",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "c5bee275-4246-4287-85b6-3f9ab143dd48",
+    "metadata": {
+      "order_number": "ORD-2026-000004",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T03:07:10.116Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "838571af-5b4f-4701-8957-62ab2bbdd880",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "45ffe8ca-61ab-4399-a608-8e7b2fc9dd36",
+    "metadata": {
+      "order_number": "ORD-2026-000005",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T03:07:04.518Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "88212752-cebc-4fa1-849a-e98c3a0fcad9",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_REJECTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "7a78ee08-cd42-4988-847a-b28f0f1d39b8",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "REJECTED",
+      "order_number": "ORD-2026-000005"
+    },
+    "created_at": "2026-08-22T06:18:59.573Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "88358157-b3fa-4d6b-a8d4-0a8eda949b29",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "7a33d6cb-d0ae-461f-8bde-2333a49fdc8c",
+    "metadata": {
+      "order_number": "ORD-2026-000008",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T03:25:05.141Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "89f0a9e1-24d9-4276-b3af-008ec61a5e0b",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "c5bee275-4246-4287-85b6-3f9ab143dd48",
+    "metadata": {
+      "order_number": "ORD-2026-000004",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T03:07:07.780Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "8a2fb5e2-b853-4117-a0e7-2d7370dc391f",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "fdee26dc-8786-4731-ac8d-7673faee9259",
+    "metadata": {
+      "order_number": "ORD-2026-000012",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T03:33:48.836Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "8a9a8219-8797-4445-8da9-89f996692ddc",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "3303a72f-b11a-4bef-83af-cef7fd2f46d6",
+    "metadata": {
+      "order_number": "ORD-2026-000019",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T06:28:16.593Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "8b3b8f59-1cc7-43f9-8e25-f3b439790261",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "c5bee275-4246-4287-85b6-3f9ab143dd48",
+    "metadata": {
+      "order_number": "ORD-2026-000004",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T03:18:44.115Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "8e669985-b846-4d76-b987-38dd9bf3ec55",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "3c136db6-8dec-4b95-9c80-d64735ef27f2",
+    "metadata": {
+      "order_number": "ORD-2026-000002",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T02:41:48.978Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "903a9428-9eab-4d3a-846f-f17c789aca8e",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "62105995-57df-451b-a466-9b53aad0c1da",
+    "metadata": {
+      "order_number": "ORD-2026-000010",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T03:30:22.749Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "9060a554-29d6-466d-9738-7514fb754671",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "dc94f7cc-1fca-440d-b704-30087c12db52",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000015"
+    },
+    "created_at": "2026-08-22T04:11:43.717Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "90ce67eb-d9d3-4157-89c5-f431cbf5d114",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "82d5247c-7feb-4bad-bfec-ee43f3d43222",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000010",
+      "product_name": "Eco-Friendly Dishwashing Liquid (500ml)"
+    },
+    "created_at": "2026-08-22T03:30:22.841Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "92151a6f-e5df-4297-b440-ac83014c4714",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "adce1928-2cc1-4ac1-b7d2-8a46486048e6",
+    "metadata": {
+      "order_number": "ORD-2026-000006",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "7.98",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T03:10:46.843Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "92445f83-39ff-4b43-b830-05234a0b1ab0",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "6f1140ac-b195-47d4-aca9-67e31e0d178e",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000002"
+    },
+    "created_at": "2026-08-22T02:41:49.078Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "930ac8bf-3140-4a8b-8a9d-8b681b14dcb2",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "1d666d3b-5064-45d5-94cf-2cdd57d52b0c",
+    "metadata": {
+      "order_number": "ORD-2026-000001",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T02:41:27.854Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "93b0ee5f-3f7d-4d94-bda4-a8a7d8881e5f",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "7a33d6cb-d0ae-461f-8bde-2333a49fdc8c",
+    "metadata": {
+      "order_number": "ORD-2026-000008",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T03:24:59.274Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "94441c82-0c24-46d9-a7cf-428e5a26f1ef",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_REJECTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "7a74ed13-098a-4929-b55d-203be0f47440",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "REJECTED",
+      "order_number": "ORD-2026-000020",
+      "rejection_reason": "no"
+    },
+    "created_at": "2026-08-22T12:17:37.342Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "96915a61-e7b2-4180-8379-fe378bffc1b7",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "3c136db6-8dec-4b95-9c80-d64735ef27f2",
+    "metadata": {
+      "order_number": "ORD-2026-000002",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "7.98",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T02:41:48.458Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "97eb358a-b05e-4025-8a68-32f7b74f4a9c",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "a12001c4-7d63-4f44-94c4-a1c839d265dd",
+    "metadata": {
+      "order_number": "ORD-2026-000015",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "7.98",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T04:11:42.646Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "99f4d574-d15c-4764-8389-e1a83c9476a5",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "c5bee275-4246-4287-85b6-3f9ab143dd48",
+    "metadata": {
+      "order_number": "ORD-2026-000004",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T03:07:13.807Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "9f75b536-9a01-49a3-8af7-dd80704c8128",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "62105995-57df-451b-a466-9b53aad0c1da",
+    "metadata": {
+      "order_number": "ORD-2026-000010",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T03:30:22.770Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "a0b40ca9-ad5f-4ad1-b732-a6459c532a8b",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "9d4f5ab1-1c73-4ec0-af5e-c5aa6fb7b20e",
+    "metadata": {
+      "order_number": "ORD-2026-000003",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T02:55:31.047Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "a1abe7d4-e247-4c7e-b717-9653c61b2599",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "62105995-57df-451b-a466-9b53aad0c1da",
+    "metadata": {
+      "order_number": "ORD-2026-000010",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "7.98",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T03:30:22.300Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "a2187368-d05f-4c2e-96d0-88ae05253a4b",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "6f1140ac-b195-47d4-aca9-67e31e0d178e",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000002",
+      "product_name": "Eco-Friendly Dishwashing Liquid (500ml)"
+    },
+    "created_at": "2026-08-22T02:41:49.052Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "a31e0ebb-1b13-4802-8b69-a68f05d063dc",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "51031837-e505-4ba1-ac21-a3335d0be936",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000013",
+      "product_name": "Eco-Friendly Dishwashing Liquid (500ml)"
+    },
+    "created_at": "2026-08-22T04:03:49.003Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "a4599c0c-6960-4e1f-9a7b-b625be3a675b",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "3c136db6-8dec-4b95-9c80-d64735ef27f2",
+    "metadata": {
+      "order_number": "ORD-2026-000002",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T02:41:48.955Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "aaa33d95-da73-46ad-800a-0602326cd411",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "dc94f7cc-1fca-440d-b704-30087c12db52",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000015",
+      "product_name": "Eco-Friendly Dishwashing Liquid (500ml)"
+    },
+    "created_at": "2026-08-22T04:11:43.665Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "ae616087-557a-4b82-9c98-538e58a10965",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a12001c4-7d63-4f44-94c4-a1c839d265dd",
+    "metadata": {
+      "order_number": "ORD-2026-000015",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T04:11:43.533Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "af3434c1-933d-407a-beaf-e7e6456cdf48",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "3303a72f-b11a-4bef-83af-cef7fd2f46d6",
+    "metadata": {
+      "order_number": "ORD-2026-000019",
+      "old_status": "COMPLETED",
+      "new_status": null
+    },
+    "created_at": "2026-08-22T10:52:14.540Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "b4de3447-a261-43bc-8048-6691265deed1",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "e177f622-8871-4ecf-8486-237a35b8865d",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000006",
+      "product_name": "Eco-Friendly Dishwashing Liquid (500ml)"
+    },
+    "created_at": "2026-08-22T03:10:47.398Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "b77f544a-f708-4eea-96a3-7d9b7944668e",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a0216823-20b2-4ffe-99ad-5026b2d06848",
+    "metadata": {
+      "order_number": "ORD-2026-000020",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T09:00:31.348Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "b7e67ee2-d798-4ed8-a4b1-7ff8e2d9761c",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "adce1928-2cc1-4ac1-b7d2-8a46486048e6",
+    "metadata": {
+      "order_number": "ORD-2026-000006",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T03:10:47.355Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "b8a75665-9651-4f8f-8460-5fbf9eb6cbc5",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a7f818c4-4180-4193-abd6-08f4a38cd5ad",
+    "metadata": {
+      "order_number": "ORD-2026-000007",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T03:15:46.484Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "bc25cc58-c07c-4c63-85d2-4b35271a256b",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "7d1285d3-763f-484e-b6e5-4cadc096d5c3",
+    "metadata": {
+      "order_number": "ORD-2026-000023",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T10:44:09.177Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "be1b99dc-4124-4e7f-9aa9-53fe27607b40",
+  "fields": {
+    "user": [
+      "admin@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "9dece471-2d45-4e11-90ce-8fd7d4f7d072",
+    "metadata": {
+      "order_number": "ORD-2026-000022",
+      "old_status": "COMPLETED",
+      "new_status": null
+    },
+    "created_at": "2026-08-22T10:44:30.303Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "be7c2b16-6765-4f3c-bf28-5d885a70a452",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "3303a72f-b11a-4bef-83af-cef7fd2f46d6",
+    "metadata": {
+      "order_number": "ORD-2026-000019",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T06:28:14.315Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "c085d405-7e41-4565-89ec-4a4c459dabd8",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "62105995-57df-451b-a466-9b53aad0c1da",
+    "metadata": {
+      "order_number": "ORD-2026-000010",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T03:30:22.794Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "c23933de-b551-4bc5-8cf8-8d59e35ba401",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a0216823-20b2-4ffe-99ad-5026b2d06848",
+    "metadata": {
+      "order_number": "ORD-2026-000020",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T09:00:33.077Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "c2d76019-7aec-4745-b55b-67ce96f34a06",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "de39721c-5d89-48dc-9e3f-19c93f6462ca",
+    "metadata": {
+      "order_number": "ORD-2026-000021",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T10:06:27.344Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "c57a9bb7-fbb1-4aa3-8929-e69682f3d796",
+  "fields": {
+    "user": [
+      "hello@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "c5bee275-4246-4287-85b6-3f9ab143dd48",
+    "metadata": {
+      "order_number": "ORD-2026-000004",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "16.96",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T03:00:33.585Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "cc92d823-bfe3-4e6f-891f-7030883890da",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "5f2b120c-09f5-4567-ab1c-1644827bd73f",
+    "metadata": {
+      "order_number": "ORD-2026-000014",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "3.99",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T04:05:41.547Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "cf8d4344-eb89-4a74-88f0-37b98fbb6c7c",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "45ffe8ca-61ab-4399-a608-8e7b2fc9dd36",
+    "metadata": {
+      "order_number": "ORD-2026-000005",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T03:07:01.870Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "d0316c00-0b87-482f-8c8b-af0b29148c30",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "ff6de726-05ef-479a-8dd3-533719fbfc1c",
+    "metadata": {
+      "order_number": "ORD-2026-000011",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T10:52:21.510Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "d0e54a3b-7f26-43b1-bad7-52e24fd12370",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "3303a72f-b11a-4bef-83af-cef7fd2f46d6",
+    "metadata": {
+      "order_number": "ORD-2026-000019",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T06:28:15.170Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "d0e6c3a4-7e62-4805-8d7a-8f4d2b02dd10",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_COMPLETED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "a63d47fb-7a61-4478-b4e1-2e377f02e37a",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "APPROVED",
+      "new_status": "COMPLETED",
+      "order_number": "ORD-2026-000019",
+      "rejection_reason": null
+    },
+    "created_at": "2026-08-22T06:29:38.783Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "d30ce2ad-f069-4b33-b902-42bbec690600",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "62105995-57df-451b-a466-9b53aad0c1da",
+    "metadata": {
+      "order_number": "ORD-2026-000010",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T03:30:22.727Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "d58780db-0dd0-428a-9f92-ab5e4bd82aeb",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "a57e4fe4-11dc-4712-a07a-c3dfa5a129a3",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000001"
+    },
+    "created_at": "2026-08-22T02:58:07.008Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "d706dd2b-38c4-4736-9b00-8fe8a34cb414",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "e7148dc8-3f4b-464b-a07b-b5be27422146",
+    "metadata": {
+      "order_number": "ORD-2026-000013",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T04:03:48.939Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "d73c03f4-200c-4c5d-bc0f-bf6753a146e9",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "fdee26dc-8786-4731-ac8d-7673faee9259",
+    "metadata": {
+      "order_number": "ORD-2026-000012",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T03:33:48.779Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "d8cb2704-9fcf-4a55-b2bc-39c5f8f90237",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "7a78ee08-cd42-4988-847a-b28f0f1d39b8",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000005",
+      "product_name": "Fresh Orange Juice (1L)"
+    },
+    "created_at": "2026-08-22T06:18:41.148Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "d9a4e8b2-c70a-43e9-b346-e85d5e2909dd",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "9dece471-2d45-4e11-90ce-8fd7d4f7d072",
+    "metadata": {
+      "order_number": "ORD-2026-000022",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T10:13:35.603Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "dcc0ffa1-a1b7-455d-aa41-ef811c7d47c1",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "675c0603-bda6-4e9a-b087-ebd9c297b079",
+    "metadata": {
+      "order_number": "ORD-2026-000017",
+      "fulfillment_type": "DELIVERY",
+      "total_amount": "3.99",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T04:34:05.429Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "dd3b21e6-db0c-4cff-9024-777d9981427f",
+  "fields": {
+    "user": [
+      "customer@test.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "9d4f5ab1-1c73-4ec0-af5e-c5aa6fb7b20e",
+    "metadata": {
+      "order_number": "ORD-2026-000003",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "7.98",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T02:55:30.075Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "e0c61976-a331-4ee3-8c9a-1e8408346921",
+  "fields": {
+    "user": [
+      "admin@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a0216823-20b2-4ffe-99ad-5026b2d06848",
+    "metadata": {
+      "order_number": "ORD-2026-000020",
+      "old_status": "COMPLETED",
+      "new_status": null
+    },
+    "created_at": "2026-08-22T10:44:56.627Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "e170cbf1-a8c8-40e5-a5bb-27214aa7fa0f",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "e177f622-8871-4ecf-8486-237a35b8865d",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000006"
+    },
+    "created_at": "2026-08-22T03:10:47.422Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "e257b706-5e91-4758-bf93-ba91d7863dca",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "3303a72f-b11a-4bef-83af-cef7fd2f46d6",
+    "metadata": {
+      "order_number": "ORD-2026-000019",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "3.99",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T06:27:58.550Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "e3c4aa69-3439-4164-83e5-c556c2869cb1",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "9d4f5ab1-1c73-4ec0-af5e-c5aa6fb7b20e",
+    "metadata": {
+      "order_number": "ORD-2026-000003",
+      "old_status": "PREPARING",
+      "new_status": "READY_FOR_PICKUP"
+    },
+    "created_at": "2026-08-22T02:55:31.089Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "ece613f0-8b25-4a15-a270-740ac5cd024e",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "ORDER_CREATED",
+    "entity_type": "Order",
+    "entity_id": "43161377-06db-40ce-b959-587612b90756",
+    "metadata": {
+      "order_number": "ORD-2026-000018",
+      "fulfillment_type": "PICKUP",
+      "total_amount": "13.95",
+      "items_count": 0
+    },
+    "created_at": "2026-08-22T04:46:06.579Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "ed4e804f-93b6-482a-89d3-f55f0f69adb3",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "675c0603-bda6-4e9a-b087-ebd9c297b079",
+    "metadata": {
+      "order_number": "ORD-2026-000017",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T04:34:45.360Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "f29512cc-a36c-4ddf-800a-118207afdd8a",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "RETURN_APPROVED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "c3d7958b-243d-4dcf-bb1b-c8d893ee5efb",
+    "metadata": {
+      "request_type": "RETURN",
+      "old_status": "REQUESTED",
+      "new_status": "APPROVED",
+      "order_number": "ORD-2026-000008"
+    },
+    "created_at": "2026-08-22T06:17:16.530Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "f37fbf47-ee45-4eb6-9e54-b2c55060a2a5",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "5f2b120c-09f5-4567-ab1c-1644827bd73f",
+    "metadata": {
+      "order_number": "ORD-2026-000014",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T04:06:19.385Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "f4af09c3-5211-435b-859c-ae825fb5f49f",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "de39721c-5d89-48dc-9e3f-19c93f6462ca",
+    "metadata": {
+      "order_number": "ORD-2026-000021",
+      "old_status": "PENDING",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T10:06:24.706Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "f56f67bc-43f9-49b7-8e21-f9240b4eaba0",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "43161377-06db-40ce-b959-587612b90756",
+    "metadata": {
+      "order_number": "ORD-2026-000018",
+      "old_status": "CONFIRMED",
+      "new_status": "PREPARING"
+    },
+    "created_at": "2026-08-22T04:48:22.731Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "fa3a1508-b0d5-434e-98b3-5a50bad057a6",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "7a74ed13-098a-4929-b55d-203be0f47440",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000020",
+      "product_name": "Fresh Organic Apples (1kg)"
+    },
+    "created_at": "2026-08-22T12:03:26.289Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "fc54b773-0d15-4931-b21c-cb576ea549bc",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "5f2b120c-09f5-4567-ab1c-1644827bd73f",
+    "metadata": {
+      "order_number": "ORD-2026-000014",
+      "old_status": "CONFIRMED",
+      "new_status": "CANCELLED"
+    },
+    "created_at": "2026-08-22T04:08:11.553Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "fccf59d0-11d0-4a24-b6c3-5c547bf3b743",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "a7f818c4-4180-4193-abd6-08f4a38cd5ad",
+    "metadata": {
+      "order_number": "ORD-2026-000007",
+      "old_status": "READY_FOR_PICKUP",
+      "new_status": "COMPLETED"
+    },
+    "created_at": "2026-08-22T03:15:46.551Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "fe10ed38-6f9e-48d1-becf-087c2dd8adf9",
+  "fields": {
+    "user": [
+      "balaji@gmail.com"
+    ],
+    "action": "RETURN_REQUESTED",
+    "entity_type": "ReturnExchangeRequest",
+    "entity_id": "c3d7958b-243d-4dcf-bb1b-c8d893ee5efb",
+    "metadata": {
+      "request_type": "RETURN",
+      "order_number": "ORD-2026-000008",
+      "product_name": "Whole Farm Fresh Milk (1 Gallon)"
+    },
+    "created_at": "2026-08-22T06:17:00.195Z"
+  }
+},
+{
+  "model": "audit.auditlog",
+  "pk": "ffaf9008-448a-42da-9538-b68d033a9ad8",
+  "fields": {
+    "user": [
+      "staff@test.com"
+    ],
+    "action": "ORDER_STATUS_CHANGED",
+    "entity_type": "Order",
+    "entity_id": "7d1285d3-763f-484e-b6e5-4cadc096d5c3",
+    "metadata": {
+      "order_number": "ORD-2026-000023",
+      "old_status": "PENDING",
+      "new_status": "CONFIRMED"
+    },
+    "created_at": "2026-08-22T10:44:03.408Z"
+  }
+}
+]

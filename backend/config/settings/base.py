@@ -87,12 +87,18 @@ if DATABASE_URL:
     if DATABASE_URL.startswith("postgres://"):
         DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
-    DATABASES['default'] = dj_database_url.parse(
+    db_config = dj_database_url.parse(
         DATABASE_URL,
         conn_max_age=600,
         conn_health_checks=True,
-        ssl_require=True if 'supabase' in DATABASE_URL or 'sslmode=require' in DATABASE_URL else False
+        ssl_require=True if ('supabase' in DATABASE_URL or 'sslmode=require' in DATABASE_URL or 'pooler.supabase.com' in DATABASE_URL) else False
     )
+
+    # Supabase PgBouncer / Transaction pooler compatibility
+    if 'pooler.supabase.com' in DATABASE_URL or ':6543' in DATABASE_URL:
+        db_config['DISABLE_SERVER_SIDE_CURSORS'] = True
+
+    DATABASES['default'] = db_config
 
 AUTH_USER_MODEL = 'accounts.User'
 

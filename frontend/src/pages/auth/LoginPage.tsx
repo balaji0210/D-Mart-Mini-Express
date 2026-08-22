@@ -29,6 +29,8 @@ export const LoginPage: React.FC = () => {
     } catch (err: any) {
       if (err.response?.status === 429) {
         setError("Too many failed login attempts. Account temporarily throttled. Please wait 15 minutes.");
+      } else if (!err.response) {
+        setError("Unable to connect to backend server. If deployed on Vercel, configure VITE_API_URL in Vercel Environment Variables to your live backend endpoint.");
       } else {
         setError(err.response?.data?.message || 'Invalid email or password credentials.');
       }

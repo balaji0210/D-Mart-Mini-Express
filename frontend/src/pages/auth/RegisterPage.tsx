@@ -48,6 +48,8 @@ export const RegisterPage: React.FC = () => {
     } catch (err: any) {
       if (err.response?.data?.errors) {
         setErrors(err.response.data.errors);
+      } else if (!err.response) {
+        setGeneralError("Unable to connect to backend server. If deployed on Vercel, configure VITE_API_URL in Vercel Environment Variables to your live backend endpoint.");
       } else {
         setGeneralError(err.response?.data?.message || 'Registration failed. Please check your inputs.');
       }
