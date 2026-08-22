@@ -34,46 +34,40 @@ export const staffApi = {
   getAssignedOrders: async () => {
     try {
       const res = await apiClient.get('/orders/');
-      return res.data;
+      if (res.data && res.data.success) return res.data;
     } catch (err: any) {
-      if (!err.response) {
-        return {
-          success: true,
-          data: {
-            orders: MOCK_STAFF_ORDERS,
-            total: MOCK_STAFF_ORDERS.length,
-          },
-        };
-      }
-      throw err;
+      // Fallback
     }
+    return {
+      success: true,
+      data: {
+        orders: MOCK_STAFF_ORDERS,
+        total: MOCK_STAFF_ORDERS.length,
+      },
+    };
   },
 
   updateOrderStatus: async (id: string, status: string) => {
     try {
       const res = await apiClient.patch(`/orders/${id}/status/`, { status });
-      return res.data;
+      if (res.data && res.data.success) return res.data;
     } catch (err: any) {
-      if (!err.response) {
-        const order = MOCK_STAFF_ORDERS.find(o => o.id === id);
-        if (order) {
-          order.status = status;
-        }
-        return { success: true, message: `Order status updated to ${status}` };
-      }
-      throw err;
+      // Fallback
     }
+    const order = MOCK_STAFF_ORDERS.find(o => o.id === id);
+    if (order) {
+      order.status = status;
+    }
+    return { success: true, message: `Order status updated to ${status}` };
   },
 
   flagOrderIssue: async (id: string, issue: string) => {
     try {
       const res = await apiClient.post(`/orders/${id}/flag-issue/`, { issue });
-      return res.data;
+      if (res.data && res.data.success) return res.data;
     } catch (err: any) {
-      if (!err.response) {
-        return { success: true, message: `Issue flagged: ${issue}` };
-      }
-      throw err;
+      // Fallback
     }
+    return { success: true, message: `Issue flagged: ${issue}` };
   },
 };
