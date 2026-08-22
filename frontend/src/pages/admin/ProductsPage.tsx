@@ -313,15 +313,86 @@ export const AdminProductsPage: React.FC = () => {
             </div>
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Product Image URL</label>
-            <input
-              type="url"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="https://images.unsplash.com/..."
-              className="dmart-input"
-            />
+          {/* Product Image URL & Live Preview */}
+          <div className="space-y-2">
+            <label className="block text-xs font-semibold text-slate-700">
+              Product Image URL / Image Link <span className="text-teal-600 font-normal">(Direct HTTP/HTTPS link)</span>
+            </label>
+            <div className="flex gap-3 items-center">
+              <input
+                type="url"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                placeholder="https://images.unsplash.com/photo-..."
+                className="dmart-input flex-1 text-xs"
+              />
+              {imageUrl && (
+                <img
+                  src={imageUrl}
+                  alt="Preview"
+                  className="w-10 h-10 object-cover rounded-xl border border-slate-200 shadow-2xs shrink-0"
+                  onError={(e: any) => {
+                    e.target.src = 'https://images.unsplash.com/photo-1542838132-92c53300491e';
+                  }}
+                />
+              )}
+            </div>
+
+            {/* Quick Image Presets */}
+            <div>
+              <p className="text-[11px] font-semibold text-slate-500 mb-1.5">Or pick a quick image preset:</p>
+              <div className="flex flex-wrap gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setImageUrl('https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600')}
+                  className="px-2.5 py-1 text-[11px] rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-700 font-medium border border-slate-200 transition-colors"
+                >
+                  🍚 Rice/Grains
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setImageUrl('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600')}
+                  className="px-2.5 py-1 text-[11px] rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-700 font-medium border border-slate-200 transition-colors"
+                >
+                  🌾 Wheat/Atta
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setImageUrl('https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600')}
+                  className="px-2.5 py-1 text-[11px] rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-700 font-medium border border-slate-200 transition-colors"
+                >
+                  🥛 Milk/Dairy
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setImageUrl('https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600')}
+                  className="px-2.5 py-1 text-[11px] rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-700 font-medium border border-slate-200 transition-colors"
+                >
+                  ☕ Tea/Coffee
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setImageUrl('https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=600')}
+                  className="px-2.5 py-1 text-[11px] rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-700 font-medium border border-slate-200 transition-colors"
+                >
+                  🍎 Fruits
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setImageUrl('https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600')}
+                  className="px-2.5 py-1 text-[11px] rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-700 font-medium border border-slate-200 transition-colors"
+                >
+                  🥬 Veggies
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setImageUrl('https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600')}
+                  className="px-2.5 py-1 text-[11px] rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-700 font-medium border border-slate-200 transition-colors"
+                >
+                  🌻 Cooking Oil
+                </button>
+              </div>
+            </div>
           </div>
 
           <div>
