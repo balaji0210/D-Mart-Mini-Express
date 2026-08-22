@@ -32,7 +32,7 @@ export const RegisterPage: React.FC = () => {
     const hasSpecial = /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password);
 
     if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) {
-      setGeneralError('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character (e.g. User@123456).');
+      setGeneralError('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character (e.g. Sanku@1234).');
       return;
     }
 
@@ -56,11 +56,16 @@ export const RegisterPage: React.FC = () => {
         navigate('/products');
       }
     } catch (err: any) {
-      if (err.response?.data?.errors) {
-        setErrors(err.response.data.errors);
-      } else {
-        setGeneralError(err.response?.data?.message || 'Registration failed. Please verify your details.');
+      const fieldErrors = err.response?.data?.errors;
+      let msg = err.response?.data?.message || 'Registration failed. Please verify your details.';
+      if (fieldErrors) {
+        const firstField = Object.keys(fieldErrors)[0];
+        if (firstField && fieldErrors[firstField]?.length) {
+          msg = `${firstField.toUpperCase()}: ${fieldErrors[firstField][0]}`;
+        }
+        setErrors(fieldErrors);
       }
+      setGeneralError(msg);
     } finally {
       setIsLoading(false);
     }
@@ -93,7 +98,7 @@ export const RegisterPage: React.FC = () => {
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                placeholder="Jane Doe"
+                placeholder="sanku"
                 className="dmart-input pl-10"
               />
               <UserIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -109,7 +114,7 @@ export const RegisterPage: React.FC = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="jane@example.com"
+                placeholder="sanku1@gmail.com"
                 className="dmart-input pl-10"
               />
               <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -124,7 +129,7 @@ export const RegisterPage: React.FC = () => {
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="+1 (555) 000-0000"
+                placeholder="7896541235"
                 className="dmart-input pl-10"
               />
               <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -139,12 +144,12 @@ export const RegisterPage: React.FC = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="e.g. Customer@123"
+                placeholder="e.g. Sanku@1234"
                 className="dmart-input pl-10"
               />
               <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
             </div>
-            <p className="text-[11px] text-slate-500 mt-1">Must include uppercase, lowercase, digit, and special char (e.g. <code>User@123456</code>)</p>
+            <p className="text-[11px] text-slate-500 mt-1">Must include uppercase, lowercase, digit, and special char (e.g. <code>Sanku@1234</code>)</p>
             {errors.password && <p className="text-xs text-red-600 mt-1">{errors.password[0]}</p>}
           </div>
 
