@@ -53,10 +53,16 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True, required=True)
 
     def validate(self, attrs):
-        email = attrs.get('email')
+        email = attrs.get('email', '').strip().lower()
         password = attrs.get('password')
 
-        user = authenticate(email=email, password=password)
+        user = authenticate(email=email, password=password) or authenticate(username=email, password=password)
+        if not user:
+            # Fallback for case-insensitive email match & check_password
+            user_obj = User.objects.filter(email__iexact=email).first()
+            if user_obj and user_obj.check_password(password):
+                user = user_obj
+
         if not user:
             raise serializers.ValidationError("Invalid email or password credentials.")
         if not user.is_active:
