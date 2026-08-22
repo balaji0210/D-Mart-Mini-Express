@@ -59,15 +59,18 @@ export const authApi = {
   },
 
   login: async (credentials: any) => {
+    const emailLower = (credentials.email || '').toLowerCase().trim();
+    const demoAccount = DEMO_USERS[emailLower];
+
     try {
       const res = await apiClient.post('/auth/login/', credentials);
-      return res.data;
+      if (res.data && res.data.success) {
+        return res.data;
+      }
+      throw new Error(res.data?.message || 'Login failed');
     } catch (err: any) {
-      // If backend is unreachable or network error occurs (e.g. Vercel frontend without live backend)
-      if (!err.response || err.message === 'Network Error' || err.code === 'ERR_NETWORK') {
-        const emailLower = (credentials.email || '').toLowerCase().trim();
-        const demoAccount = DEMO_USERS[emailLower];
-
+      // If public user is accessing on Vercel without live backend OR accessing demo account
+      if (demoAccount || !err.response || err.message === 'Network Error' || err.code === 'ERR_NETWORK') {
         let role: 'CUSTOMER' | 'STAFF' | 'ADMIN' = 'CUSTOMER';
         let name = 'Demo Customer';
 
