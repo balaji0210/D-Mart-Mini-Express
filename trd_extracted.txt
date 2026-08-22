@@ -1,0 +1,528 @@
+Technical Requirements Document (TRD)
+Mini D-Mart — Grocery Store Application
+Revision 2 — Updated to close gaps identified against the original assessment brief
+Revision Notes
+This revision incorporates items required by the assessment brief that were missing or under-specified in the original TRD. Each change is marked with an [ADDED] tag where it modifies or extends the original section. New standalone sections are appended at the end (Sections 27–28).
+Security Testing added as an explicit testing category (Section 22).
+Security Review / self-audit expectation clarified for SECURITY.md (Section 19, Section 28).
+"Known Limitations" and "Security Findings" added as required documentation sections (Section 27).
+/admin/audit-logs frontend route added (Section 16).
+Rate limiting on login added to Security Requirements (Section 19).
+Low stock threshold field added to the Product model (Section 5.3).
+Exchange → Order status interaction clarified (Section 15).
+Password reset flow explicitly called out as a decision point (Section 7, Section 28).
+
+1. Technical Overview
+Project Name
+Mini D-Mart — Grocery Store Application
+Architecture Type
+The application will follow a client-server architecture:
+┌─────────────────────────┐│      React Frontend      ││                           ││  Customer Dashboard      ││  Staff Dashboard         ││  Admin Dashboard         │└────────────┬──────────────┘             │ HTTPS / REST API             ▼┌─────────────────────────┐│   Django REST Backend    ││                           ││  Authentication          ││  RBAC                    ││  Business Logic          ││  Validation               ││  Order Processing        │└────────────┬──────────────┘             │ ORM             ▼┌─────────────────────────┐│    PostgreSQL Database   │└─────────────────────────┘
+NOTE: The assessment brief leaves architecture and tech stack fully open. The stack below is a locked-in team decision, not a brief requirement — documented here for clarity, not because it was mandated.
+2. Technology Stack
+Frontend
+React
+Vite
+React Router
+Axios
+Tailwind CSS or CSS framework
+Backend
+Python
+Django
+Django REST Framework
+Simple JWT
+Database
+PostgreSQL for production
+SQLite or PostgreSQL for local development
+Deployment
+Recommended:
+Frontend: Vercel
+Backend: Render or Railway
+Database: PostgreSQL service
+Development Tools
+Git
+GitHub
+Postman or Bruno
+VS Code
+3. Repository Structure
+mini-dmart/│├── frontend/│   ├── src/│   │   ├── api/│   │   ├── components/│   │   ├── context/│   │   ├── hooks/│   │   ├── layouts/│   │   ├── pages/│   │   │   ├── auth/│   │   │   ├── customer/│   │   │   ├── staff/│   │   │   └── admin/│   │   ├── routes/│   │   └── utils/│   └── package.json│├── backend/│   ├── config/│   ├── apps/│   │   ├── accounts/│   │   ├── products/│   │   ├── cart/│   │   ├── orders/│   │   ├── returns_exchange/│   │   ├── operations/│   │   └── audit/│   ││   ├── manage.py│   └── requirements.txt│├── README.md├── SECURITY.md├── .env.example└── .gitignore
+4. Backend Application Design
+accounts
+Responsible for:
+Custom user model.
+Registration.
+Authentication.
+Profile.
+Role management.
+products
+Responsible for:
+Categories.
+Products.
+Product search.
+Filtering.
+Inventory.
+cart
+Responsible for:
+Cart creation.
+Cart items.
+Quantity management.
+Cart calculations.
+orders
+Responsible for:
+Checkout.
+Order creation.
+Order items.
+Pickup scheduling.
+Delivery.
+Status transitions.
+Cancellation.
+returns_exchange
+Responsible for:
+Return requests.
+Exchange requests.
+Eligibility validation.
+Approval/rejection.
+operations
+Responsible for:
+Staff operations.
+Pickup slots.
+Order preparation.
+Operational dashboards.
+audit
+Responsible for:
+Audit logs.
+Administrative action tracking.
+5. Database Design
+5.1 User
+User----id                UUID / Integer PKfull_nameemail             Uniquepasswordroleis_activecreated_atupdated_at
+Role Enum
+CUSTOMER
+STAFF
+ADMIN
+5.2 Category
+Category--------idnamedescriptionis_activecreated_atupdated_at
+5.3 Product
+Product-------idcategory_id       FKnamedescriptionprice             Decimalstock_quantity    Integerlow_stock_threshold  Integer, default value TBD by team [ADDED]imageis_activecreated_atupdated_at
+low_stock_threshold added   [ADDED] — the admin dashboard's low-stock alert needs a concrete field to compare against. Modeled per-product (with a sensible default, e.g. 10) rather than as a single global constant, since different products realistically need different thresholds. Confirm and document whichever approach is chosen.
+Database Constraints
+price >= 0
+stock_quantity >= 0
+low_stock_threshold >= 0  [ADDED]
+5.4 Cart
+Cart----iduser_id     FKcreated_atupdated_at
+A user should have one active cart.
+5.5 CartItem
+CartItem--------idcart_id     FKproduct_id  FKquantitycreated_atupdated_at
+Constraint:
+quantity > 0
+Unique constraint:
+cart_id + product_id
+5.6 PickupSlot
+PickupSlot----------iddatestart_timeend_timecapacityis_activecreated_at
+5.7 Order
+Order-----iduser_id            FKorder_number       Uniquefulfillment_typestatussubtotaltotal_amountdelivery_addresspickup_slot_id     FK Nullablecreated_atupdated_at
+Fulfillment Types
+PICKUP
+DELIVERY
+5.8 OrderItem
+OrderItem---------idorder_id       FKproduct_id     FKproduct_nameunit_pricequantitysubtotal
+Product details should be stored as an order snapshot where appropriate so historical orders remain accurate even if a product price changes.
+5.9 ReturnExchangeRequest
+ReturnExchangeRequest---------------------idorder_item_id             FKrequest_typereasonreplacement_product_id    Nullablestatusrequested_atprocessed_atprocessed_by
+Request Types
+RETURN
+EXCHANGE
+Status
+REQUESTED
+APPROVED
+REJECTED
+COMPLETED
+NOTE: Exchange/order interaction decision needed — see Section 15 and Section 28. Whichever approach is chosen (order_item status update vs. new linked order) should be reflected in this model before implementation, e.g. an optional replacement_order_item_id field.
+5.10 AuditLog
+AuditLog--------iduser_idactionentity_typeentity_idmetadatacreated_at
+6. Entity Relationships
+User │ ├──── Cart │      │ │      └──── CartItem ──── Product ──── Category │ └──── Order         │         ├──── OrderItem ──── Product         │         └──── PickupSlot OrderItem │ └──── ReturnExchangeRequest User │ └──── AuditLog
+7. Authentication Design
+Authentication will use JWT.
+Flow
+User Login   ↓Validate Email + Password   ↓Generate Access Token   ↓Generate Refresh Token   ↓Return Tokens   ↓Frontend Stores Token Securely   ↓Protected API Request   ↓Authorization Header   ↓Backend Validates Token
+Protected Header
+Authorization: Bearer <access_token>
+Password reset / forgot password   [ADDED] — not present in the original PRD or TRD, and not explicitly required by the assessment brief. This is a decision point, not an omission: either implement a basic reset flow (e.g. email token + reset endpoint), or explicitly record its absence under "Known Limitations" (Section 28). Do not leave it undecided.
+8. RBAC Implementation
+Backend authorization must not depend only on frontend route protection.
+Every protected API must verify:
+Authentication.
+User role.
+Resource ownership where required.
+Example:
+Customer → GET own order
+Staff → GET operational orders
+Admin → GET all orders
+A customer must not be able to access another customer's order by changing the order ID.
+9. API Design
+Base URL:
+/api/v1/
+Authentication APIs
+POST /auth/register/
+POST /auth/login/
+POST /auth/token/refresh/
+GET /auth/profile/
+PUT /auth/profile/
+POST /auth/password-reset/ and POST /auth/password-reset/confirm/ — optional, pending the decision noted in Section 7   [ADDED]
+NOTE: Login rate limiting is a security control, not a new endpoint — see Section 19 (Rate Limiting) for the throttle applied to POST /auth/login/.
+Product APIs
+GET /categories/
+GET /products/
+POST /products/
+GET /products/{id}/
+PUT /products/{id}/
+DELETE /products/{id}/
+Query parameters:
+/products/?search=milk
+/products/?category=2
+/products/?min_price=10
+/products/?max_price=100
+Cart APIs
+GET /cart/
+POST /cart/items/
+PATCH /cart/items/{id}/
+DELETE /cart/items/{id}/
+DELETE /cart/clear/
+Pickup APIs
+GET /pickup-slots/
+POST /pickup-slots/
+PUT /pickup-slots/{id}/
+DELETE /pickup-slots/{id}/
+Order APIs
+POST /orders/checkout/
+GET /orders/
+GET /orders/{id}/
+POST /orders/{id}/cancel/
+PATCH /orders/{id}/status/
+Return and Exchange APIs
+POST /returns/
+GET /returns/
+GET /returns/{id}/
+PATCH /returns/{id}/process/
+Admin APIs
+GET /admin/dashboard/
+GET /admin/users/
+PATCH /admin/users/{id}/role/
+GET /admin/audit-logs/
+10. Checkout Processing
+Checkout must execute on the backend.
+Algorithm
+Authenticate user.
+Retrieve active cart.
+Verify cart is not empty.
+Begin database transaction.
+Validate every product.
+Validate stock.
+Validate pickup slot if pickup selected.
+Calculate final amount.
+Create order.
+Create order items.
+Update/reserve stock.
+Clear cart.
+Commit transaction.
+Return order confirmation.
+11. Stock Concurrency Strategy
+To prevent overselling:
+Recheck stock during checkout.
+Use database transactions.
+Lock product records during critical stock updates where supported.
+Reject checkout if available stock is insufficient.
+Conceptually:
+BEGIN TRANSACTIONLOCK PRODUCTIF stock >= requested_quantity    reduce stock    create orderELSE    reject checkoutCOMMIT
+12. Order Status Transition Rules
+The API must validate status changes.
+Example:
+PENDING → CONFIRMED
+CONFIRMED → PREPARING
+PREPARING → READY_FOR_PICKUP
+PREPARING → OUT_FOR_DELIVERY
+READY_FOR_PICKUP → COMPLETED
+OUT_FOR_DELIVERY → DELIVERED
+Invalid example:
+PENDING → DELIVERED
+This request must be rejected.
+13. Pickup Capacity Logic
+Available capacity:
+available_capacity = slot.capacity - number_of_active_orders
+Before order creation:
+if active_orders >= slot.capacity:    reject checkout
+This validation must occur inside the critical order-processing workflow to reduce overbooking.
+14. Return Eligibility Logic
+Pseudo-logic:
+IF order.status NOT IN [DELIVERED, COMPLETED]:    rejectIF current_date > completion_date + 7 days:    rejectIF order_item already has completed/active return:    rejectELSE:    create request
+15. Exchange Validation Logic
+Validate original item eligibility    ↓Validate replacement product    ↓Check replacement stock    ↓Create exchange request    ↓Staff/Admin reviews    ↓Approve or reject
+Exchange → Order Status Interaction  [ADDED]
+The original documents did not specify what happens to order state once an exchange is approved. This must be an explicit decision before implementation; two viable approaches:
+Option A — In place: the original OrderItem is updated with the new product and the ReturnExchangeRequest is marked COMPLETED. No new Order is created. Simpler, but the order's item history no longer reflects exactly what was originally delivered.
+Option B — Linked record: the original order/order item stays untouched (as a snapshot), and the ReturnExchangeRequest itself carries the replacement product and becomes the source of truth for what the customer ultimately received. No new Order object is created either, but the order history stays accurate.
+Recommendation: Option B keeps OrderItem as a true historical snapshot and avoids mutating financial/order records after the fact — but either is acceptable as long as the choice is documented (Section 28) and consistently implemented.
+16. Frontend Architecture
+Main Routes
+/  /login  /register  /products  /products/:id  /cart  /checkout  /orders  /orders/:id  /returns   /staff  /staff/orders  /staff/pickups  /staff/deliveries  /staff/returns   /admin  /admin/products  /admin/categories  /admin/inventory  /admin/users  /admin/audit-logs        [ADDED]
+/admin/audit-logs added   [ADDED] — the backend already exposes GET /admin/audit-logs/ (Section 9) and the admin dashboard requirements expect audit logs to be viewable, but the original route list had no page for it. Without this the API endpoint has no consumer.
+17. Route Protection
+Protected routes should use role-aware components.
+Example logic:
+if not authenticated:    redirect to loginif role not allowed:    show 403 / Unauthorized pageelse:    render page
+Frontend protection improves user experience, but backend permission checks remain mandatory.
+18. Error Handling Standard
+API responses should follow a consistent format.
+Success:
+{  "success": true,  "message": "Order created successfully",  "data": {}}
+Error:
+{  "success": false,  "message": "Insufficient stock",  "errors": {}}
+Appropriate HTTP status codes should be used:
+200 OK
+201 Created
+400 Bad Request
+401 Unauthorized
+403 Forbidden
+404 Not Found
+409 Conflict
+500 Internal Server Error
+19. Security Requirements
+Authentication
+Hash passwords using Django's secure password handling.
+Never return password hashes.
+Use JWT expiration.
+Validate authentication on protected APIs.
+Rate Limiting  [ADDED]
+Called out separately because it's a common security-testing target and was absent from the original requirements:
+Apply throttling to POST /auth/login/ (e.g. Django REST Framework's AnonRateThrottle, or a stricter custom scope) to slow down brute-force credential guessing.
+Return 429 Too Many Requests once the limit is hit, following the standard error format from Section 18.
+Log throttle hits (Section 21) without logging the attempted password.
+Authorization
+Apply RBAC.
+Check resource ownership.
+Prevent privilege escalation.
+Input Validation
+Validate serializer/API input.
+Validate quantities.
+Validate prices.
+Validate status transitions.
+Validate role changes.
+Secrets
+Use environment variables:
+SECRET_KEY
+DEBUG
+DATABASE_URL
+ALLOWED_HOSTS
+CORS_ALLOWED_ORIGINS
+Never commit .env.
+Security Review  [ADDED]
+Implementing these controls is necessary but not sufficient — the assessment brief expects a documented security review as a deliverable, not just working features. SECURITY.md must include a self-audit: what was checked, what was found, and what remains a known gap. See Section 27 for the required documentation structure and Section 22 for the corresponding test coverage.
+20. Environment Configuration
+Example .env.example:
+SECRET_KEY=your_secret_keyDEBUG=TrueDATABASE_NAME=mini_dmartDATABASE_USER=postgresDATABASE_PASSWORD=your_passwordDATABASE_HOST=localhostDATABASE_PORT=5432CORS_ALLOWED_ORIGINS=http://localhost:5173
+Production values must be configured through the deployment platform.
+21. Logging
+The backend should log:
+Authentication failures.
+Unexpected errors.
+Order failures.
+Stock conflicts.
+Administrative actions.
+Rate-limit / throttle hits on login  [ADDED]
+Sensitive data such as passwords and tokens must never be logged.
+22. Testing Strategy
+Unit Tests
+Test:
+Model logic.
+Permissions.
+Return eligibility.
+Order status transitions.
+Pickup capacity.
+API Tests
+Test:
+Authentication.
+Authorization.
+CRUD operations.
+Checkout.
+Stock validation.
+Invalid requests.
+Security Tests  [ADDED]
+The assessment brief lists security testing as its own category — the original TRD only covered this implicitly through auth/authorization tests above. Add explicit coverage for:
+SQL injection / input sanitization — confirm serializers and ORM usage reject or safely escape malicious input rather than relying on Django's defaults untested.
+Broken access control — attempt to access another user's cart, order, or return request by manipulating IDs directly (IDOR-style checks).
+Rate limiting / brute-force login — confirm repeated failed logins are throttled and return 429.
+JWT tampering and expiry — confirm a tampered, expired, or malformed token is rejected with 401, and that a used refresh token behaves as expected.
+Findings from this section feed directly into the SECURITY.md self-audit described in Section 27.
+Edge Cases
+Test:
+Empty cart.
+Product deleted after being added to cart.
+Product out of stock.
+Two checkout attempts for limited stock.
+Full pickup slot.
+Unauthorized order access.
+Invalid status transition.
+Duplicate return request.
+Exchange product out of stock.
+23. Development Phases
+Phase 1 — Foundation
+Initialize Git repository.
+Create React application.
+Create Django project.
+Configure database.
+Configure environment variables.
+Configure CORS.
+Phase 2 — Authentication
+Custom user model.
+Roles.
+Registration.
+Login.
+JWT.
+Protected APIs.
+Protected frontend routes.
+Decide on password reset scope (implement or document as a known limitation).  [ADDED]
+Phase 3 — Product and Inventory
+Category model.
+Product model (including low_stock_threshold).  [ADDED]
+Product APIs.
+Search/filter.
+Admin product management.
+Phase 4 — Cart
+Cart model.
+Cart items.
+Add/update/delete.
+Cart calculation.
+Phase 5 — Checkout
+Checkout API.
+Stock validation.
+Transactions.
+Pickup slots.
+Delivery addresses.
+Order creation.
+Phase 6 — Order Operations
+Order history.
+Order details.
+Staff processing.
+Status transitions.
+Cancellation.
+Phase 7 — Return and Exchange
+Return request.
+Exchange request.
+Eligibility.
+Approval/rejection.
+Inventory handling.
+Implement decided exchange → order interaction (Section 15).  [ADDED]
+Phase 8 — Dashboards
+Customer dashboard.
+Staff dashboard.
+Admin dashboard (including audit log view).  [ADDED]
+Inventory alerts.
+Phase 9 — Security and Testing
+Permission review.
+Input validation.
+Audit logs.
+Unit/API tests.
+Security tests: injection, IDOR, rate limiting, JWT tampering.  [ADDED]
+Manual testing.
+Write SECURITY.md self-audit / findings.  [ADDED]
+Phase 10 — Deployment
+Production database.
+Backend deployment.
+Frontend deployment.
+Environment configuration.
+CORS verification.
+Phase 11 — Documentation
+README.md
+SECURITY.md (including Security Findings section).  [ADDED]
+Known Limitations write-up.  [ADDED]
+.env.example
+API documentation
+Test credentials
+Architecture documentation
+24. Deployment Architecture
+User Browser      │      ▼   VercelReact Application      │      │ HTTPS      ▼Render / RailwayDjango REST API      │      ▼ PostgreSQL  Database
+25. Definition of Done
+The project is complete when:
+All core user flows work.
+Customer, Staff, and Admin roles work correctly.
+Unauthorized access is blocked.
+Product stock is validated during checkout.
+Pickup capacity is enforced.
+Orders follow valid status transitions.
+Returns and exchanges follow business rules.
+Error handling is implemented.
+Important functionality is tested.
+Security tests (injection, IDOR, rate limiting, JWT) have been run and findings documented.  [ADDED]
+The project is deployed.
+GitHub contains clean source code.
+README.md, SECURITY.md, and .env.example are complete.
+SECURITY.md includes a Security Findings / self-audit section, not just a feature list.  [ADDED]
+A Known Limitations section is documented.  [ADDED]
+Test credentials are available.
+A 5–10 minute explanation video is prepared.
+26. Recommended Final Implementation Priority
+Must Have
+Authentication
+RBAC
+Products
+Inventory
+Cart
+Checkout
+Pickup/Delivery
+Orders
+Staff/Admin operations
+Stock conflict validation
+Security (incl. rate limiting on login)  [ADDED]
+Deployment
+Should Have
+Pickup capacity.
+Cancellation.
+Return requests.
+Exchange requests.
+Audit logs.
+Automated tests (incl. security tests).  [ADDED]
+Nice to Have
+Analytics.
+Email notifications.
+Coupons.
+Wishlist.
+Product recommendations.
+Real-time updates.
+27. Documentation Requirements  [NEW SECTION]
+The assessment brief treats documentation as a graded deliverable, not an afterthought. The following files/sections are required, with the specific additions from this revision called out:
+README.md
+Project overview and setup instructions.
+How to run frontend and backend locally.
+Environment variable setup.
+Test credentials for each role (Customer/Staff/Admin).
+SECURITY.md
+Overview of implemented security controls (auth, RBAC, input validation, rate limiting).
+Security Findings / Self-Audit — what was tested (map to Section 22's Security Tests), what passed, and what issues were found and fixed during development.  [ADDED]
+Any residual/known security gaps, cross-referenced with Known Limitations below.  [ADDED]
+Known Limitations  [ADDED]
+A short, explicit section (in README.md or a separate LIMITATIONS.md) documenting deliberate scope decisions, for example:
+Whether password reset was implemented or deferred.
+How the low-stock threshold is configured.
+Which exchange → order interaction model was implemented (Section 15).
+Any assessment requirement that was consciously deprioritized due to time, with a one-line rationale.
+Other required documentation
+API documentation (endpoints, request/response shapes, auth requirements).
+Architecture documentation (matches Section 1 diagram, kept in sync with implementation).
+28. Known Limitations & Design Decisions Log  [NEW SECTION]
+Tracks the open decision points raised elsewhere in this document. Fill in the "Decision" column before or during implementation — do not leave these implicit.
+Open Item
+Where Raised
+Decision (fill in)
+Password reset flow
+Section 7, Section 9
+
+Low stock threshold — global vs per-product, default value
+Section 5.3
+Per-product field, default 10 (proposed)
+Exchange → Order interaction model
+Section 15
+Option B — linked record (proposed)
+Rate limit thresholds for login
+Section 19
+

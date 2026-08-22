@@ -1,0 +1,509 @@
+Product Requirements Document (PRD)
+Mini D-Mart — Grocery Store Application
+Revision 1.1 — Updated to close gaps identified against the assessment brief
+What changed in v1.1: This revision adds a dedicated Security Testing section, a Security Review/self-audit deliverable, a Known Limitations section, an audit-log frontend route, and explicit decisions on password reset, low-stock threshold, exchange↔order status interaction, and login rate limiting. New or changed content is marked with a shaded callout like this one throughout the document.
+
+1. Product Overview
+Product Name
+Mini D-Mart — Grocery Store Application
+Product Vision
+Mini D-Mart is a full-stack grocery shopping platform that enables customers to browse and purchase grocery products, manage their cart, place orders, choose between scheduled store pickup and home delivery, and request returns or exchanges.
+The system also provides dedicated dashboards for staff and administrators to manage orders, inventory, pickup schedules, delivery operations, products, users, and return/exchange requests.
+The application will be designed as a real-world product rather than a basic CRUD application.
+2. Problem Statement
+Traditional grocery applications require coordination between customers, inventory, order preparation, pickup scheduling, delivery, and post-purchase support.
+The system must solve the following problems:
+Customers need an easy way to browse and purchase products.
+Product stock must remain accurate during checkout.
+Store pickup must support scheduling and capacity limits.
+Staff must efficiently manage incoming orders.
+Administrators need control over products, inventory, users, and operations.
+Returns and exchanges require eligibility checks and approval workflows.
+Unauthorized users must not access restricted functionality.
+3. Product Goals
+Primary Goals
+Build a complete grocery shopping workflow.
+Implement secure authentication and authorization.
+Support multiple user roles using RBAC.
+Provide product, inventory, cart, and order management.
+Support home delivery and scheduled store pickup.
+Implement return and exchange workflows.
+Handle important business edge cases.
+Provide responsive customer and staff/admin dashboards.
+Deploy the application publicly.
+Success Criteria
+The project will be considered successful if a user can:
+Register and log in.
+Browse and search products.
+Add products to a cart.
+Update quantities.
+Complete checkout.
+Select home delivery or store pickup.
+Select an available pickup slot.
+View order history and order details.
+Request eligible returns or exchanges.
+Additionally:
+Staff can process operational orders.
+Admins can manage products and inventory.
+RBAC prevents unauthorized actions.
+Stock conflicts are handled during checkout.
+The application is deployed and publicly accessible.
+4. User Roles
+4.1 Customer
+Customers can:
+Register an account.
+Log in and log out.
+Manage their profile.
+Browse products.
+Search and filter products.
+View product details.
+Add products to the cart.
+Update cart quantities.
+Remove products from the cart.
+Place orders.
+Choose store pickup or home delivery.
+Select an available pickup slot.
+View order history.
+View order details.
+Cancel eligible orders.
+Request returns.
+Request exchanges.
+4.2 Staff
+Staff can:
+Log in to the staff dashboard.
+View operational orders.
+View orders that need preparation.
+Update order status according to allowed transitions.
+View upcoming pickup orders.
+View delivery orders.
+Process return and exchange requests.
+View inventory information.
+Staff cannot:
+Manage administrator accounts.
+Change system roles.
+Perform restricted administrative operations.
+4.3 Administrator
+Administrators have complete management access.
+Admins can:
+Manage users.
+Assign roles.
+Create categories.
+Create products.
+Update products.
+Manage inventory.
+View all orders.
+Manage order operations.
+Manage pickup slots.
+Approve or reject return/exchange requests.
+View audit logs.
+Access administrative dashboards.
+5. Core Features
+5.1 Authentication and User Management
+Functional Requirements
+The system shall provide:
+User registration.
+User login.
+Secure password storage.
+JWT-based authentication.
+Logout functionality.
+Protected routes.
+Protected APIs.
+User profile management.
+Role-based authorization.
+Registration Fields
+Full name
+Email
+Password
+Confirm password
+Validation
+Email must be unique.
+Password must meet minimum security requirements.
+Required fields cannot be empty.
+Invalid input must return meaningful errors.
+Decision — Password reset: The original PRD/TRD did not mention a forgot-password flow, and the assessment brief does not explicitly require one. Decision: a basic "forgot password" flow (email a time-limited reset token, verify token, set new password) is treated as Should-Have. If time-boxed out of MVP, it must be listed under Section 26, "Known Limitations," rather than silently omitted.
+6. Product Management
+Functional Requirements
+The application shall allow authorized users to manage:
+Categories
+Examples:
+Fruits
+Vegetables
+Dairy
+Beverages
+Snacks
+Household
+Products
+Each product should contain:
+Product ID
+Product name
+Category
+Description
+Price
+Available stock
+Product image
+Status
+Created date
+Updated date
+Customer Features
+Customers can:
+View all active products.
+Search by product name.
+Filter by category.
+Filter by price.
+View product details.
+View stock availability.
+7. Shopping Cart
+Functional Requirements
+A customer shall be able to:
+Add a product to the cart.
+Increase quantity.
+Decrease quantity.
+Remove a product.
+View the cart.
+View subtotal.
+View final order amount.
+Business Rules
+Quantity must be greater than zero.
+Requested quantity should not exceed available stock.
+Stock must be validated again during checkout.
+A customer cannot check out with an empty cart.
+8. Checkout
+The checkout process shall support two fulfillment methods:
+Store Pickup
+Home Delivery
+8.1 Store Pickup
+The customer selects:
+Pickup date.
+Pickup time slot.
+Pickup Capacity Rule
+Each pickup slot will have a maximum capacity.
+Example:
+10:00 AM–11:00 AM
+Maximum capacity: 10 orders
+When capacity is reached:
+"This pickup slot is currently full. Please select another available slot."
+The system must prevent overbooking.
+8.2 Home Delivery
+The customer provides:
+Delivery address.
+City.
+State.
+Postal code.
+Contact number.
+The system creates the order and sends it to the operational workflow.
+9. Order Management
+Order Statuses
+The following statuses will be implemented:
+PENDING
+CONFIRMED
+PREPARING
+READY_FOR_PICKUP
+OUT_FOR_DELIVERY
+COMPLETED
+DELIVERED
+CANCELLED
+Pickup Workflow
+PENDING → CONFIRMED → PREPARING → READY_FOR_PICKUP → COMPLETED
+Delivery Workflow
+PENDING → CONFIRMED → PREPARING → OUT_FOR_DELIVERY → DELIVERED
+Cancellation Rules
+A customer may cancel an order only when the order has not reached a restricted fulfillment stage.
+Allowed cancellation states:
+PENDING
+CONFIRMED
+Cancellation should restore reserved or deducted inventory according to the selected inventory implementation.
+10. Inventory Management
+The system shall track available stock for each product.
+Rules
+Stock cannot become negative.
+Checkout must validate stock.
+Successful order processing updates inventory.
+Cancelled orders may restore stock.
+Approved returns may increase inventory depending on return condition.
+Exchanges must validate replacement product availability.
+Low Stock
+The admin dashboard should highlight products where:
+Stock <= Low Stock Threshold
+Decision — Low stock threshold: The threshold was previously undefined. Decision: implement it as a global, admin-configurable setting (e.g. a single "low_stock_threshold" value, default 5) rather than a per-product field, to keep MVP scope small. A per-product override field may be added later (see Future Enhancements) if time allows; note this choice in the technical design doc so it is not re-litigated mid-build.
+11. Stock Conflict Handling
+The system must handle concurrent purchase scenarios.
+Example:
+Product Stock = 2
+Customer A requests quantity = 2
+Customer B requests quantity = 2
+If Customer A completes checkout first:
+Remaining Stock = 0
+When Customer B attempts checkout:
+Checkout rejected — Reason: Insufficient stock
+The server is the final authority for stock validation.
+12. Return Management
+Customers can request a return for eligible order items.
+Return Eligibility
+A return is allowed only when:
+The order has been successfully completed or delivered.
+The request is within the configured return period.
+The item has not already been returned.
+The return reason is provided.
+Suggested eligibility period: within 7 days of order completion/delivery.
+Return Status
+REQUESTED
+APPROVED
+REJECTED
+COMPLETED
+13. Exchange Management
+Customers may request an exchange.
+The system shall:
+Validate return eligibility.
+Validate requested replacement product.
+Check replacement stock.
+Create an exchange request.
+Allow staff/admin approval or rejection.
+Exchange Rule
+If the replacement product is unavailable: exchange cannot be approved until stock is available.
+Decision — Exchange ↔ order status interaction: Not previously specified. Decision: an approved exchange does NOT mutate the original order's top-level status (it stays COMPLETED/DELIVERED). Instead, the exchange is tracked purely via the ReturnExchangeRequest record: status moves REQUESTED → APPROVED → COMPLETED once the replacement has shipped/been handed over, and a note (metadata) links back to the original OrderItem. No new Order row is created for the replacement item in MVP scope. This keeps order history accurate while avoiding a second checkout/payment flow. Document this explicitly in the technical design so frontend and backend agree on it.
+14. Dashboard Requirements
+Customer Dashboard
+Display:
+Welcome/profile information.
+Recent orders.
+Order status.
+Active return/exchange requests.
+Quick navigation.
+Staff Dashboard
+Display:
+New orders.
+Orders being prepared.
+Upcoming pickup orders.
+Delivery orders.
+Return/exchange requests.
+Inventory alerts.
+Admin Dashboard
+Display:
+Total orders.
+Orders by status.
+Product count.
+Low-stock products.
+Pending return/exchange requests.
+User count.
+Audit log access (see Section 16 — /admin/audit-logs route).
+Fix — Audit log frontend route: The admin dashboard requirement to "View audit logs" previously had a backing API (GET /admin/audit-logs/) but no corresponding frontend route. Added: /admin/audit-logs as a required admin-only route, linked from the Admin Dashboard navigation.
+15. RBAC Requirements
+Feature
+Customer
+Staff
+Admin
+Browse products
+Yes
+Yes
+Yes
+Manage own cart
+Yes
+No
+No
+Place order
+Yes
+No
+No
+View own orders
+Yes
+No
+No
+Process orders
+No
+Yes
+Yes
+Manage products
+No
+Limited/No
+Yes
+Manage inventory
+No
+View/Limited
+Yes
+Process returns
+Request only
+Yes
+Yes
+Manage users
+No
+No
+Yes
+View audit logs
+No
+Limited/No
+Yes
+
+16. UI/UX Requirements
+The application must be:
+Responsive.
+Mobile-friendly.
+Easy to navigate.
+Consistent in design.
+Accessible where practical.
+The UI must include:
+Loading states.
+Empty states.
+Error states.
+Success messages.
+Confirmation dialogs for critical actions.
+Example: "Are you sure you want to cancel this order?"
+17. Security Requirements
+The application must implement:
+Password hashing.
+JWT authentication.
+Role-based authorization.
+Protected routes.
+Protected APIs.
+Input validation.
+Environment variables.
+Secure secret management.
+Appropriate error responses.
+Audit logging for important administrative actions.
+Sensitive information must never be hardcoded in source code.
+Addition — Login rate limiting: Not previously specified. Added requirement: the login endpoint must apply basic rate limiting / throttling (e.g. N failed attempts per IP or per account within a rolling window, then a temporary lockout or backoff) to reduce brute-force risk. This is a Should-Have for MVP and a required item to demonstrate under Security Testing below.
+18. Audit Logging
+The system should record important actions such as:
+Product creation.
+Product updates.
+Stock changes.
+Order status changes.
+Return approval/rejection.
+Role changes.
+Each audit record should contain:
+User
+Action
+Entity type
+Entity ID
+Timestamp
+19. Error Handling
+The system shall provide meaningful error responses.
+Examples:
+Invalid credentials.
+Unauthorized access.
+Forbidden action.
+Product not found.
+Insufficient stock.
+Pickup slot unavailable.
+Invalid order status transition.
+Return not eligible.
+Exchange product unavailable.
+20. Testing Requirements
+Authentication
+Valid login.
+Invalid login.
+Unauthorized API access.
+Role restriction.
+Cart
+Add product.
+Update quantity.
+Remove product.
+Invalid quantity.
+Checkout
+Empty cart.
+Insufficient stock.
+Full pickup slot.
+Successful order.
+Orders
+Valid status transitions.
+Invalid status transitions.
+Cancellation rules.
+Returns
+Eligible return.
+Expired return request.
+Duplicate return request.
+Exchanges
+Available replacement stock.
+Unavailable replacement stock.
+New — Security Testing (required, previously missing): The assessment brief calls out Security Testing as its own weighted category. This was not covered by the original testing plan and is added as a mandatory checklist below.
+Security Testing (New)
+In addition to functional tests, the following security-focused checks must be performed and their results recorded (see Section 22, Security Review):
+Input sanitization / injection checks — attempt SQL injection and script injection payloads against key endpoints (login, search, product filters) and confirm the ORM/serializer layer rejects or safely escapes them.
+Broken access control probing — as an authenticated Customer, attempt to access another customer's order, cart, or profile by directly changing IDs in the URL/body (IDOR-style tests).
+Privilege escalation attempts — as Staff, attempt admin-only actions (role changes, user management) directly against the API, bypassing the frontend.
+Authentication abuse — brute-force / repeated failed login attempts to confirm rate limiting or lockout behavior triggers.
+Token handling — test expired JWT rejection, tampered JWT rejection (altered payload/signature), and behavior after logout/token invalidation where applicable.
+Sensitive data exposure — confirm password hashes, tokens, and secrets never appear in API responses or logs.
+CORS / origin checks — confirm the API rejects requests from non-allow-listed origins in a production-like configuration.
+Findings from these tests (pass/fail, any issues found and fixed) must be written into SECURITY.md as part of the Security Review deliverable.
+21. Deployment Requirements
+The project must include:
+Public frontend URL.
+Public backend API.
+Production database.
+Environment variable configuration.
+Recommended architecture:
+React Frontend → Django REST API → PostgreSQL Database
+22. Deliverables
+The final project must contain:
+GitHub repository.
+Complete source code.
+Live deployed application.
+README.md.
+SECURITY.md.
+.env.example.
+Test credentials.
+Explanation video.
+AI usage disclosure.
+New — Security Review and Known Limitations deliverables: The assessment brief expects two documentation items beyond a features list, which are added here as required deliverables:
+Security Review (in SECURITY.md) — a short self-audit section: what was checked (linking to the Security Testing checklist in Section 20), what was found, and what was fixed or accepted as a residual risk. This is a review artifact, not just a list of implemented features.
+Known Limitations (in README.md or a dedicated KNOWN_LIMITATIONS.md) — an explicit list of anything scoped out or simplified for time (e.g. no password reset, single-currency pricing, no payment gateway, simplified low-stock config, etc.), so reviewers know these are deliberate decisions rather than oversights.
+23. Future Enhancements
+Possible future improvements:
+Online payment integration.
+Order notifications.
+Email notifications.
+SMS notifications.
+Product recommendations.
+Wishlist.
+Coupon system.
+Multiple store support.
+Real-time inventory updates.
+Analytics dashboard.
+Delivery tracking.
+Per-product low-stock threshold override (see Section 10 decision note).
+Full password-reset flow with email delivery, if deferred out of MVP.
+24. MVP Scope
+The first complete version must prioritize:
+Authentication and RBAC.
+Product and category management.
+Inventory.
+Shopping cart.
+Checkout.
+Store pickup scheduling.
+Home delivery.
+Order lifecycle.
+Cancellation.
+Return/exchange workflow.
+Staff/admin dashboards.
+Security and testing (including Security Testing, Section 20).
+Deployment.
+25. Traceability — Gaps Closed in This Revision
+Gap identified
+Resolution in v1.1
+Section
+Security Testing not covered
+Added dedicated Security Testing checklist (injection, IDOR, privilege escalation, brute force, token handling, data exposure, CORS)
+Section 20
+Security Review not a deliverable
+Added as required SECURITY.md content: what was checked, found, fixed
+Section 22
+No "Known Limitations" doc
+Added as required README.md / KNOWN_LIMITATIONS.md content
+Section 22
+Audit log has API but no frontend route
+Added /admin/audit-logs frontend route requirement
+Section 14 / 16
+Password reset undefined
+Decision recorded: basic flow is Should-Have; must be listed under Known Limitations if cut
+Section 5.1
+Low-stock threshold undefined
+Decision recorded: global, admin-configurable value (default 5)
+Section 10
+Exchange/order status interaction undefined
+Decision recorded: exchange tracked via ReturnExchangeRequest only; order status unchanged
+Section 13
+Login rate limiting not mentioned
+Added as a Security Requirement and a required Security Testing item
+Section 17 / 20
+
+Note on architecture: the assessment brief leaves technology stack entirely open. The stack locked in by the companion Technical Requirements Document (React + Django REST Framework + PostgreSQL + JWT) reflects the team's own decision, not a mandated constraint. Teams more comfortable in another stack may substitute one, provided the functional and security requirements above are still met.
