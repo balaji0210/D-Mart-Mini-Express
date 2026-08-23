@@ -1,6 +1,6 @@
 import { apiClient } from './client';
 
-const SHARED_ORDERS_KEY = 'dmart_shared_orders_v3';
+const SHARED_ORDERS_KEY = 'dmart_shared_orders_v4';
 
 export const getSharedOrders = (): any[] => {
   try {
@@ -58,9 +58,10 @@ export const ordersApi = {
 
     if (!orderData) {
       const newOrderId = `ord-${Date.now()}`;
+      const randomSuffix = Math.floor(100000 + Math.random() * 900000);
       orderData = {
         id: newOrderId,
-        order_number: `ORD-2026-${Math.floor(100000 + Math.random() * 900000)}`,
+        order_number: `ORD-2026-${randomSuffix}`,
         customer_name: data.customer_name || 'Customer User',
         customer_email: data.customer_email || 'customer@dmart.com',
         status: 'PENDING',
@@ -112,7 +113,13 @@ export const ordersApi = {
       // Fallback
     }
     const shared = getSharedOrders();
-    const found = shared.find(o => o.id === id) || shared[0];
+    const cleanId = String(id || '').trim().toLowerCase();
+    const found = shared.find(o => 
+      String(o.id).toLowerCase() === cleanId ||
+      String(o.order_number).toLowerCase() === cleanId ||
+      cleanId.includes(String(o.id).toLowerCase()) ||
+      String(o.id).toLowerCase().includes(cleanId)
+    ) || shared[0];
     return { success: true, data: found };
   },
 
@@ -124,7 +131,11 @@ export const ordersApi = {
       // Fallback
     }
     const shared = getSharedOrders();
-    const order = shared.find(o => o.id === id);
+    const cleanId = String(id || '').trim().toLowerCase();
+    const order = shared.find(o => 
+      String(o.id).toLowerCase() === cleanId ||
+      String(o.order_number).toLowerCase() === cleanId
+    );
     if (order) {
       order.status = 'CANCELLED';
       saveSharedOrders(shared);
@@ -140,7 +151,11 @@ export const ordersApi = {
       // Fallback
     }
     const shared = getSharedOrders();
-    const order = shared.find(o => o.id === id);
+    const cleanId = String(id || '').trim().toLowerCase();
+    const order = shared.find(o => 
+      String(o.id).toLowerCase() === cleanId ||
+      String(o.order_number).toLowerCase() === cleanId
+    );
     if (order) {
       order.status = status;
       saveSharedOrders(shared);

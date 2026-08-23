@@ -44,6 +44,10 @@ export const OrderDetailPage: React.FC = () => {
 
   useEffect(() => {
     fetchOrderAndReturns();
+    const interval = setInterval(() => {
+      fetchOrderAndReturns();
+    }, 2000);
+    return () => clearInterval(interval);
   }, [id]);
 
   const handleConfirmCancelOrder = async () => {

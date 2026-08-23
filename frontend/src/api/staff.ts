@@ -29,7 +29,11 @@ export const staffApi = {
       // Fallback
     }
     const shared = getSharedOrders();
-    const order = shared.find(o => o.id === id);
+    const cleanId = String(id || '').trim().toLowerCase();
+    const order = shared.find(o => 
+      String(o.id).toLowerCase() === cleanId || 
+      String(o.order_number).toLowerCase() === cleanId
+    );
     if (order) {
       order.status = status;
       saveSharedOrders(shared);
