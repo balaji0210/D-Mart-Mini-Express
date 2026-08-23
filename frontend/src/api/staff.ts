@@ -1,5 +1,6 @@
 import { apiClient } from './client';
 import { getSharedOrders, saveSharedOrders } from './orders';
+import { fetchRemoteSyncKey } from './cloudSync';
 
 export const staffApi = {
   getAssignedOrders: async () => {
@@ -11,6 +12,9 @@ export const staffApi = {
     } catch (err: any) {
       // Fallback
     }
+    try {
+      await fetchRemoteSyncKey('dmart_shared_orders_v5');
+    } catch (e) {}
     const shared = getSharedOrders();
     return {
       success: true,

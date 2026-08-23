@@ -1,15 +1,20 @@
 import { apiClient } from './client';
-import { broadcastDataChange } from './cloudSync';
+import { broadcastDataChange, fetchRemoteSyncKey } from './cloudSync';
 
 const LOCAL_REGISTERED_USERS_KEY = 'dmart_registered_users_v2';
 
 export const getRegisteredUsers = (): Record<string, { email: string; name: string; password?: string }> => {
   try {
     const raw = localStorage.getItem(LOCAL_REGISTERED_USERS_KEY);
-    return raw ? JSON.parse(raw) : {};
-  } catch (e) {
-    return {};
-  }
+    if (raw) {
+      let parsed = JSON.parse(raw);
+      if (typeof parsed === 'string') {
+        parsed = JSON.parse(parsed);
+      }
+      return parsed || {};
+    }
+  } catch (e) {}
+  return {};
 };
 
 const saveRegisteredUser = (email: string, name: string, password?: string) => {
@@ -63,6 +68,10 @@ export const authApi = {
     }
 
     // Check persistent registered local customers
+    try {
+      await fetchRemoteSyncKey(LOCAL_REGISTERED_USERS_KEY);
+    } catch (e) {}
+
     const registeredUsers = getRegisteredUsers();
     const localUser = registeredUsers[emailLower];
 

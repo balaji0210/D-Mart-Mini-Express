@@ -1,8 +1,8 @@
 import { apiClient } from './client';
 
-const CLOUD_SYNC_CHANNEL = 'dmart_cloud_sync_channel_v4';
+const CLOUD_SYNC_CHANNEL = 'dmart_cloud_sync_channel_v5';
 
-const SYNC_KEYS = [
+export const SYNC_KEYS = [
   'dmart_shared_orders_v5',
   'dmart_registered_users_v2',
   'dmart_shared_products_v2',
@@ -38,14 +38,35 @@ export const fetchRemoteSyncKey = async (key: string) => {
   try {
     const res = await apiClient.get('/sync/', { params: { key } });
     if (res.data && res.data.success && res.data.data !== null && res.data.data !== undefined) {
-      const remoteData = res.data.data;
+      let remoteData = res.data.data;
+      if (typeof remoteData === 'string') {
+        try {
+          remoteData = JSON.parse(remoteData);
+          if (typeof remoteData === 'string') {
+            remoteData = JSON.parse(remoteData);
+          }
+        } catch (e) {}
+      }
+
       const localRaw = localStorage.getItem(key);
-      const localStr = localRaw || '';
+      let localParsed = null;
+      if (localRaw) {
+        try {
+          localParsed = JSON.parse(localRaw);
+          if (typeof localParsed === 'string') {
+            localParsed = JSON.parse(localParsed);
+          }
+        } catch (e) {}
+      }
+
       const remoteStr = JSON.stringify(remoteData);
-      if (localStr !== remoteStr) {
+      const localStr = JSON.stringify(localParsed);
+
+      if (remoteStr !== localStr) {
         localStorage.setItem(key, remoteStr);
         return remoteData;
       }
+      return remoteData;
     }
   } catch (e) {}
   return null;
@@ -83,5 +104,5 @@ export const startPeriodicCloudSync = (onUpdate?: (key: string, data: any) => vo
   };
 
   poll();
-  setInterval(poll, 3500);
+  setInterval(poll, 2500);
 };

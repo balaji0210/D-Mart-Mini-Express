@@ -1,7 +1,7 @@
 import { apiClient } from './client';
 import { findProductById } from './products';
 import { cartApi } from './cart';
-import { broadcastDataChange } from './cloudSync';
+import { broadcastDataChange, fetchRemoteSyncKey } from './cloudSync';
 
 const SHARED_ORDERS_KEY = 'dmart_shared_orders_v5';
 const SHARED_PICKUP_SLOTS_KEY = 'dmart_shared_pickup_slots_v4';
@@ -20,7 +20,17 @@ const INITIAL_SLOTS = [
 export const getSharedOrders = (): any[] => {
   try {
     const raw = localStorage.getItem(SHARED_ORDERS_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      let parsed = JSON.parse(raw);
+      if (typeof parsed === 'string') {
+        try {
+          parsed = JSON.parse(parsed);
+        } catch (e) {}
+      }
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
   } catch (e) {}
   const initial = [
     {
@@ -202,6 +212,10 @@ export const ordersApi = {
     } catch (err: any) {
       // Fallback
     }
+
+    try {
+      await fetchRemoteSyncKey(SHARED_ORDERS_KEY);
+    } catch (e) {}
 
     let shared = getSharedOrders();
     if (params?.customer_email) {

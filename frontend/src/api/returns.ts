@@ -1,12 +1,18 @@
 import { apiClient } from './client';
-import { broadcastDataChange } from './cloudSync';
+import { broadcastDataChange, fetchRemoteSyncKey } from './cloudSync';
 
 const SHARED_RETURNS_KEY = 'dmart_shared_returns_v2';
 
 export const getSharedReturns = (): any[] => {
   try {
     const raw = localStorage.getItem(SHARED_RETURNS_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      let parsed = JSON.parse(raw);
+      if (typeof parsed === 'string') {
+        parsed = JSON.parse(parsed);
+      }
+      if (Array.isArray(parsed)) return parsed;
+    }
   } catch (e) {}
   return [];
 };
@@ -94,6 +100,10 @@ export const returnsApi = {
     } catch (err: any) {
       // Fallback
     }
+    try {
+      await fetchRemoteSyncKey(SHARED_RETURNS_KEY);
+    } catch (e) {}
+
     const shared = getSharedReturns();
     return {
       success: true,
