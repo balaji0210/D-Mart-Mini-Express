@@ -54,8 +54,8 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center gap-3 sm:gap-5 shrink-0">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 text-slate-950 flex items-center justify-center font-black shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
-                <span className="text-2xl">🧺</span>
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center p-1 shadow-md shadow-amber-500/10 group-hover:scale-105 transition-transform overflow-hidden">
+                <img src="/favicon.png" alt="Mini D-Mart" className="w-8 h-8 sm:w-9 sm:h-9 object-contain" />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
