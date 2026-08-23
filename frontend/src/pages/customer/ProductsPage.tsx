@@ -138,12 +138,12 @@ export const ProductsPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-4 space-y-8">
-      {/* 1. TOP DYNAMIC AUTO-SLIDING IMAGE CAROUSEL WITH ARROWS */}
+      {/* 1. TOP DYNAMIC AUTO-SLIDING IMAGE CAROUSEL */}
       <section className="w-full">
         <ImageCarousel />
       </section>
 
-      {/* 2. TOP QUICK CATEGORY ICONS BAR */}
+      {/* 2. TOP QUICK CATEGORY ICONS BAR (MILD & FRESH) */}
       <section className="space-y-3">
         <div className="flex items-center justify-between px-1">
           <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
@@ -152,7 +152,7 @@ export const ProductsPage: React.FC = () => {
           {selectedCategory && (
             <button
               onClick={() => handleCategorySelect('')}
-              className="text-xs font-bold text-blue-700 hover:text-blue-800 cursor-pointer"
+              className="text-xs font-bold text-blue-600 hover:text-blue-700 underline cursor-pointer"
             >
               Clear Category Filter
             </button>
@@ -168,16 +168,18 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleCategorySelect(isSelected ? '' : cat.slug)}
                 className={`flex flex-col items-center text-center p-2 rounded-2xl border transition-all duration-200 group cursor-pointer ${
                   isSelected
-                    ? 'bg-blue-900 text-white border-blue-800 shadow-md scale-105'
-                    : 'bg-white border-slate-200/80 shadow-2xs hover:shadow-md hover:border-blue-400'
+                    ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white border-blue-600 shadow-md shadow-blue-500/20 scale-105'
+                    : 'bg-white border-slate-200/80 shadow-2xs hover:shadow-md hover:border-blue-300 hover:bg-blue-50/20'
                 }`}
               >
-                <div className="w-12 h-12 rounded-xl bg-slate-50/80 flex items-center justify-center p-1 mb-1 group-hover:scale-110 transition-transform">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center p-1 mb-1 group-hover:scale-110 transition-transform ${
+                  isSelected ? 'bg-white/20' : 'bg-slate-100/80'
+                }`}>
                   <span className="text-2xl">{cat.icon}</span>
                 </div>
                 <span
                   className={`text-[10px] sm:text-[11px] font-bold leading-tight line-clamp-2 ${
-                    isSelected ? 'text-cyan-200' : 'text-slate-800 group-hover:text-blue-700'
+                    isSelected ? 'text-white font-extrabold' : 'text-slate-700 group-hover:text-blue-600'
                   }`}
                 >
                   {cat.name}
@@ -190,8 +192,8 @@ export const ProductsPage: React.FC = () => {
 
       {/* 3. STOREFRONT MAIN CONTENT (FILTER & EXPLORE SIDEBAR + PRODUCT GRID) */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
-        {/* DISTINCTIVE ROYAL SAPPHIRE FILTER & EXPLORE SIDEBAR */}
-        <aside className="dmart-card p-5 space-y-6 rounded-3xl border border-slate-200/90 shadow-xs bg-white">
+        {/* FRESH & MILD FILTER & EXPLORE SIDEBAR */}
+        <aside className="dmart-card p-5 space-y-6 rounded-3xl border border-slate-200 shadow-xs bg-white">
           {/* Header */}
           <div className="flex items-center gap-2 text-slate-900 border-b border-slate-100 pb-3">
             <Filter className="w-5 h-5 text-blue-600" />
@@ -211,15 +213,15 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleCategorySelect('')}
                 className={`w-full text-left py-2.5 px-3.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
                   selectedCategory === ''
-                    ? 'bg-[#1e3a8a] text-white shadow-sm shadow-blue-900/20'
-                    : 'bg-slate-100/70 hover:bg-slate-200/80 text-slate-800'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20'
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-700'
                 }`}
               >
                 <div className="flex items-center gap-2">
                   <ShoppingCart className="w-3.5 h-3.5" />
                   <span>All Categories</span>
                 </div>
-                {selectedCategory === '' && <Check className="w-4 h-4 text-cyan-300 font-black" />}
+                {selectedCategory === '' && <Check className="w-4 h-4 text-white font-black" />}
               </button>
 
               {/* Individual Category Buttons with Emojis & Badges */}
@@ -233,8 +235,8 @@ export const ProductsPage: React.FC = () => {
                     onClick={() => handleCategorySelect(cat.id)}
                     className={`w-full text-left py-2 px-3.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
-                        ? 'bg-[#1e3a8a] text-white shadow-sm shadow-blue-900/20'
-                        : 'bg-slate-100/60 hover:bg-slate-200/80 text-slate-800'
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20'
+                        : 'bg-slate-50 hover:bg-slate-100 text-slate-700'
                     }`}
                   >
                     <div className="flex items-center gap-2 truncate">
@@ -243,9 +245,9 @@ export const ProductsPage: React.FC = () => {
                     </div>
 
                     {isSelected ? (
-                      <Check className="w-4 h-4 text-cyan-300 font-black shrink-0" />
+                      <Check className="w-4 h-4 text-white font-black shrink-0" />
                     ) : (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-slate-200/80 text-slate-700 shrink-0">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-slate-200/70 text-slate-700 shrink-0">
                         {count > 0 ? count : 2}
                       </span>
                     )}
@@ -269,7 +271,7 @@ export const ProductsPage: React.FC = () => {
                   value={minPrice}
                   onChange={(e) => setMinPrice(e.target.value)}
                   placeholder="0"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
@@ -279,7 +281,7 @@ export const ProductsPage: React.FC = () => {
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
                   placeholder="500+"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
@@ -291,7 +293,7 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleQuickPriceFilter(50)}
                 className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-center border transition-all cursor-pointer ${
                   maxPrice === '50'
-                    ? 'bg-blue-50 border-blue-600 text-blue-900 font-extrabold'
+                    ? 'bg-blue-50 border-blue-600 text-blue-700 font-extrabold shadow-2xs'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
@@ -302,7 +304,7 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleQuickPriceFilter(100)}
                 className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-center border transition-all cursor-pointer ${
                   maxPrice === '100'
-                    ? 'bg-blue-50 border-blue-600 text-blue-900 font-extrabold'
+                    ? 'bg-blue-50 border-blue-600 text-blue-700 font-extrabold shadow-2xs'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
@@ -313,7 +315,7 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleQuickPriceFilter(250)}
                 className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-center border transition-all cursor-pointer ${
                   maxPrice === '250'
-                    ? 'bg-blue-50 border-blue-600 text-blue-900 font-extrabold'
+                    ? 'bg-blue-50 border-blue-600 text-blue-700 font-extrabold shadow-2xs'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
@@ -331,7 +333,7 @@ export const ProductsPage: React.FC = () => {
                 className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 cursor-pointer"
               />
               <label htmlFor="in-stock-only" className="text-xs font-bold text-slate-800 flex items-center gap-1.5 cursor-pointer">
-                <span className="w-2 h-2 rounded-full bg-blue-500"></span> Show In-Stock Only
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Show In-Stock Only
               </label>
             </div>
           </div>
@@ -344,7 +346,7 @@ export const ProductsPage: React.FC = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
             >
               <option value="newest">Newest Arrivals</option>
               <option value="price_asc">Price: Low to High</option>
