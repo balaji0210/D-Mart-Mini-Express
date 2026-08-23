@@ -177,12 +177,18 @@ export const ReturnsPage: React.FC = () => {
                   </div>
                 )}
 
-                <div className="text-[11px] text-slate-500 flex items-center justify-between pt-2 border-t border-slate-100">
-                  <span>Requested on: {new Date(req.requested_at).toLocaleString()}</span>
-                  {req.processed_at && (
-                    <span>Processed on: {new Date(req.processed_at).toLocaleString()}</span>
-                  )}
-                </div>
+                {(() => {
+                  const rawDate = req.requested_at || req.created_at || req.submitted_at || new Date().toISOString();
+                  const dateStr = !isNaN(new Date(rawDate).getTime()) ? new Date(rawDate).toLocaleString() : new Date().toLocaleString();
+                  return (
+                    <div className="text-[11px] text-slate-500 flex items-center justify-between pt-2 border-t border-slate-100">
+                      <span>Requested on: {dateStr}</span>
+                      {req.processed_at && !isNaN(new Date(req.processed_at).getTime()) && (
+                        <span>Processed on: {new Date(req.processed_at).toLocaleString()}</span>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             );
           })}

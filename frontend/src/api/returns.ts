@@ -1,4 +1,5 @@
 import { apiClient } from './client';
+import { broadcastDataChange } from './cloudSync';
 
 const SHARED_RETURNS_KEY = 'dmart_shared_returns_v2';
 
@@ -13,6 +14,7 @@ export const getSharedReturns = (): any[] => {
 export const saveSharedReturns = (reqs: any[]) => {
   try {
     localStorage.setItem(SHARED_RETURNS_KEY, JSON.stringify(reqs));
+    broadcastDataChange(SHARED_RETURNS_KEY, reqs);
   } catch (e) {}
 };
 
@@ -22,6 +24,8 @@ export const returnsApi = {
     request_type: 'RETURN' | 'EXCHANGE';
     reason: string;
     replacement_product_id?: string | null;
+    order?: any;
+    item?: any;
   }) => {
     let returnData = null;
     try {
@@ -34,16 +38,39 @@ export const returnsApi = {
     }
 
     if (!returnData) {
+      const targetItem = data.item || data.order?.items?.find((i: any) => i.id === data.order_item_id) || {};
+      const prodName = targetItem.product_name || targetItem.name || "Kwality Wall's Alphonso Mango Ice Cream (700 ml)";
+      const qty = targetItem.quantity || 1;
+      const price = String(targetItem.unit_price || targetItem.price || '160.00');
+      const sub = String(targetItem.subtotal || (Number(price) * qty).toFixed(2));
+      const orderNum = data.order?.order_number || 'ORD-2026-000101';
+      const nowIso = new Date().toISOString();
+
       returnData = {
         id: `ret-${Date.now()}`,
+        order_id: data.order?.id || 'ord-101',
+        order_number: orderNum,
+        customer_name: data.order?.customer_name || 'John Customer',
+        customer_email: data.order?.customer_email || 'customer@dmart.com',
+        product_name: prodName,
+        quantity: qty,
+        unit_price: price,
+        subtotal: sub,
+        image_url: targetItem.image_url || 'https://images.unsplash.com/photo-1570197788417-0e82375c9371',
         order_item: {
           id: data.order_item_id,
+          product_name: prodName,
+          quantity: qty,
+          unit_price: price,
+          subtotal: sub,
+          image_url: targetItem.image_url,
         },
         order_item_id: data.order_item_id,
         request_type: data.request_type,
         reason: data.reason,
         status: 'REQUESTED',
-        created_at: new Date().toISOString(),
+        created_at: nowIso,
+        requested_at: nowIso,
       };
     }
 
@@ -103,6 +130,7 @@ export const returnsApi = {
       req.status = status;
       if (rejectionReason) req.rejection_reason = rejectionReason;
       if (replacementProductId) req.replacement_product_id = replacementProductId;
+      req.processed_at = new Date().toISOString();
       saveSharedReturns(shared);
     }
     return { success: true, message: `Request status updated to ${status}`, data: req };

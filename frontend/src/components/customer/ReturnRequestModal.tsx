@@ -74,12 +74,16 @@ export const ReturnRequestModal: React.FC<ReturnRequestModalProps> = ({
       return;
     }
 
+    const targetItem = order?.items?.find((i) => i.id === selectedItemId);
+
     setIsSubmitting(true);
     try {
       const res = await returnsApi.createRequest({
         order_item_id: selectedItemId,
         request_type: requestType,
         reason: finalReason,
+        order: order,
+        item: targetItem,
       });
 
       if (res.success) {

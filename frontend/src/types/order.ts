@@ -123,13 +123,24 @@ export interface ReturnExchangeRequest {
   id: string;
   order_number?: string;
   order_id?: string;
-  order_item: OrderItem;
+  order?: any;
+  item?: any;
+  product_name?: string;
+  quantity?: number;
+  unit_price?: string | number;
+  subtotal?: string | number;
+  image_url?: string;
+  customer_name?: string;
+  customer_email?: string;
+  order_item?: any;
   request_type: RequestType;
   reason: string;
   replacement_product?: Product;
   rejection_reason?: string | null;
   status: RequestStatus;
-  requested_at: string;
+  requested_at?: string;
+  created_at?: string;
+  submitted_at?: string;
   processed_at?: string;
   processed_by?: User;
 }

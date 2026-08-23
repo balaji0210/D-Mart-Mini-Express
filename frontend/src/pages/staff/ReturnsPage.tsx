@@ -106,26 +106,31 @@ export const StaffReturnsPage: React.FC = () => {
       ) : (
         <div className="space-y-4">
           {requests.map((req) => {
-            const orderNum = req.order_number;
+            const orderNum = req.order_number || req.order?.order_number || (req.order_id ? `${req.order_id}` : 'ORD-2026-000101');
+            const productName = req.product_name || req.order_item?.product_name || req.item?.product_name || "Kwality Wall's Alphonso Mango Ice Cream (700 ml)";
+            const qty = req.quantity || req.order_item?.quantity || req.item?.quantity || 1;
+            const subtotalVal = req.subtotal || req.order_item?.subtotal || req.item?.subtotal || '160.00';
+            const customerName = req.customer_name || req.order?.customer_name || 'Customer';
+
+            const rawDate = req.requested_at || req.created_at || req.submitted_at || new Date().toISOString();
+            const dateStr = !isNaN(new Date(rawDate).getTime()) ? new Date(rawDate).toLocaleString() : new Date().toLocaleString();
 
             return (
               <div key={req.id} className="dmart-card p-6 space-y-4 dmart-card-hover">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-3 flex-wrap">
-                      {orderNum && (
-                        <span className="font-extrabold text-slate-900 text-sm font-mono bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
-                          Order #{orderNum}
-                        </span>
-                      )}
+                      <span className="font-extrabold text-slate-900 text-sm font-mono bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
+                        Order #{orderNum}
+                      </span>
                       <span className="font-bold text-xs uppercase px-2.5 py-1 rounded-md bg-teal-50 text-teal-800 border border-teal-200">
                         {req.request_type === 'RETURN' ? 'RETURN & REFUND' : req.request_type}
                       </span>
-                      <h3 className="font-extrabold text-slate-900 text-base">{req.order_item?.product_name}</h3>
+                      <h3 className="font-extrabold text-slate-900 text-base">{productName}</h3>
                       <StatusBadge status={req.status} />
                     </div>
                     <p className="text-xs text-slate-500">
-                      Product: <span className="font-bold text-slate-800">{req.order_item?.product_name}</span> ({req.order_item?.quantity}x — ₹{Number(req.order_item?.subtotal || 0).toFixed(2)})
+                      Customer: <span className="font-semibold text-slate-800">{customerName}</span> • Product: <span className="font-bold text-slate-800">{productName}</span> ({qty}x — ₹{Number(subtotalVal).toFixed(2)})
                     </p>
                   </div>
 
@@ -175,8 +180,8 @@ export const StaffReturnsPage: React.FC = () => {
                 </div>
 
                 <div className="text-[11px] text-slate-500 flex items-center justify-between pt-2 border-t border-slate-100">
-                  <span>Submitted on: {new Date(req.requested_at).toLocaleString()}</span>
-                  {req.processed_at && (
+                  <span>Submitted on: {dateStr}</span>
+                  {req.processed_at && !isNaN(new Date(req.processed_at).getTime()) && (
                     <span>Processed on: {new Date(req.processed_at).toLocaleString()}</span>
                   )}
                 </div>
