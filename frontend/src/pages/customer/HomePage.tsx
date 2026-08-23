@@ -194,39 +194,40 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 4. CATEGORY PRODUCT ROWS WITH HORIZONTAL SLIDERS */}
-      <section className="space-y-10">
+      <section className="space-y-8">
+        {/* Breakfast & Cereals */}
+        <CategoryProductRow
+          title="Breakfast & Cereals"
+          categoryId="cat-breakfast"
+          icon="🥣"
+          subtitle="Fresh stock ready for 10-minute doorstep delivery"
+          products={getProdsByCategory('breakfast').length > 0 ? getProdsByCategory('breakfast') : products.slice(0, 5)}
+        />
+
         {/* Cold Drinks & Juices */}
         <CategoryProductRow
           title="Cold Drinks & Juices"
           categoryId="cat-drinks"
+          icon="🥤"
+          subtitle="Icy cold sodas, fruit juices & instant hydration"
           products={coldDrinks.length > 0 ? coldDrinks : products.slice(0, 6)}
-        />
-
-        {/* Candies & Gums */}
-        <CategoryProductRow
-          title="Candies & Gums"
-          categoryId="cat-candies"
-          products={candiesGums.length > 0 ? candiesGums : products.slice(2, 8)}
         />
 
         {/* Dairy, Bread & Eggs */}
         <CategoryProductRow
           title="Dairy, Bread & Eggs"
           categoryId="cat-dairy"
+          icon="🥛"
+          subtitle="Farm fresh milk, curd, eggs and breakfast essentials"
           products={dairyBreadEggs.length > 0 ? dairyBreadEggs : products.slice(1, 7)}
-        />
-
-        {/* Rolling paper & tobacco */}
-        <CategoryProductRow
-          title="Rolling paper & tobacco"
-          categoryId="cat-tobacco"
-          products={rollingPaper.length > 0 ? rollingPaper : products.slice(3, 9)}
         />
 
         {/* Snacks & Munchies */}
         <CategoryProductRow
           title="Snacks & Munchies"
           categoryId="cat-snacks"
+          icon="🍟"
+          subtitle="Crispy chips, roasted nuts & party munchies"
           products={snacksMunchies.length > 0 ? snacksMunchies : products.slice(0, 5)}
         />
 
@@ -234,7 +235,18 @@ export const HomePage: React.FC = () => {
         <CategoryProductRow
           title="Fruits & Vegetables"
           categoryId="cat-fruits-veg"
+          icon="🥦"
+          subtitle="Handpicked farm fresh vegetables & organic fruits"
           products={fruitsVeg.length > 0 ? fruitsVeg : products.slice(2, 6)}
+        />
+
+        {/* Candies & Sweet Tooth */}
+        <CategoryProductRow
+          title="Sweet Tooth & Desserts"
+          categoryId="cat-sweet"
+          icon="🍫"
+          subtitle="Ice cream tubs, festive sweets & chocolates"
+          products={candiesGums.length > 0 ? candiesGums : products.slice(2, 8)}
         />
       </section>
     </div>

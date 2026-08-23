@@ -47,12 +47,15 @@ import { AdminReportsPage } from '../pages/admin/ReportsPage';
 import { AdminAuditLogsPage } from '../pages/admin/AuditLogsPage';
 import { AdminSettingsPage } from '../pages/admin/SettingsPage';
 
+import { FloatingCartBar } from '../components/customer/FloatingCartBar';
+
 const CustomerLayout = () => (
   <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
     <Navbar />
     <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
       <Outlet />
     </main>
+    <FloatingCartBar />
     <Footer />
   </div>
 );
