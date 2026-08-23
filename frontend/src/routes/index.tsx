@@ -87,7 +87,7 @@ export const AppRoutes: React.FC = () => {
         <Route path="/products/:id" element={<ProductDetailPage />} />
 
         {/* Customer Protected Routes */}
-        <Route element={<ProtectedRoute requiredRole="CUSTOMER" />}>
+        <Route element={<ProtectedRoute requiredRole={['CUSTOMER', 'ADMIN']} />}>
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/orders" element={<OrdersPage />} />

@@ -24,7 +24,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole }) 
 
   if (requiredRole) {
     const roles = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
-    if (!user || !roles.includes(user.role)) {
+    if (!user || (!roles.includes(user.role) && user.role !== 'ADMIN')) {
       return (
         <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50">
           <div className="max-w-md w-full dmart-card p-8 text-center space-y-4">

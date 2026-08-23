@@ -130,10 +130,6 @@ export const ProductDetailPage: React.FC = () => {
       navigate('/login');
       return;
     }
-    if (user?.role !== 'CUSTOMER') {
-      toast.error('Only customers can add items to cart.');
-      return;
-    }
 
     if (isOutOfStock) {
       toast.error('This product is currently out of stock.');

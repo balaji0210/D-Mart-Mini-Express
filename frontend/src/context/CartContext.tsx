@@ -31,7 +31,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchCart = async () => {
-    if (!isAuthenticated || user?.role !== 'CUSTOMER') {
+    if (!isAuthenticated) {
       setCart(null);
       return;
     }

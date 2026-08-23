@@ -220,13 +220,15 @@ export const ordersApi = {
     let shared = getSharedOrders();
     if (params?.customer_email) {
       const targetEmail = String(params.customer_email).trim().toLowerCase();
-      shared = shared.filter((o) => {
-        const orderEmail = String(o.customer_email || '').trim().toLowerCase();
-        return (
-          orderEmail === targetEmail ||
-          (targetEmail === 'customer@dmart.com' && (!orderEmail || orderEmail.includes('customer')))
-        );
-      });
+      if (!targetEmail.includes('admin')) {
+        shared = shared.filter((o) => {
+          const orderEmail = String(o.customer_email || '').trim().toLowerCase();
+          return (
+            orderEmail === targetEmail ||
+            (targetEmail === 'customer@dmart.com' && (!orderEmail || orderEmail.includes('customer')))
+          );
+        });
+      }
     }
 
     return {
