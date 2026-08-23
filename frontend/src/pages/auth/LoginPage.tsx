@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ShoppingBag, Lock, Mail, AlertCircle, ArrowRight } from 'lucide-react';
+import { ShoppingBag, Lock, Mail, AlertCircle, ArrowRight, ShieldCheck, UserCheck, User } from 'lucide-react';
 import { authApi } from '../../api/auth';
 import { useAuth } from '../../context/AuthContext';
 
@@ -11,6 +11,12 @@ export const LoginPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  const handleQuickFill = (roleEmail: string, rolePass: string) => {
+    setEmail(roleEmail);
+    setPassword(rolePass);
+    setError(null);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,14 +47,14 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 bg-slate-50">
-      <div className="max-w-md w-full dmart-card p-8 shadow-xl border border-slate-200 relative overflow-hidden">
+      <div className="max-w-md w-full dmart-card p-8 shadow-xl border border-slate-200 relative overflow-hidden rounded-3xl bg-white">
         {/* Header Branding */}
-        <div className="text-center mb-8">
-          <div className="inline-flex p-3 rounded-2xl bg-teal-50 text-teal-600 mb-3 border border-teal-100 shadow-2xs">
-            <ShoppingBag className="w-8 h-8" />
+        <div className="text-center mb-6">
+          <div className="inline-flex p-3 rounded-2xl bg-emerald-50 text-emerald-700 mb-3 border border-emerald-200 shadow-2xs">
+            <span className="text-3xl">🧺</span>
           </div>
-          <h2 className="text-2xl font-bold text-slate-900">Welcome Back</h2>
-          <p className="text-slate-500 text-xs mt-1">Sign in to your Mini D-Mart portal</p>
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight">Welcome Back</h2>
+          <p className="text-slate-500 text-xs mt-1">Sign in to your Mini D-Mart Express portal</p>
         </div>
 
         {error && (
@@ -60,7 +66,7 @@ export const LoginPage: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-bold text-slate-700 mb-1">
               Email Address
             </label>
             <div className="relative">
@@ -78,10 +84,10 @@ export const LoginPage: React.FC = () => {
 
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="block text-xs font-semibold text-slate-700">
+              <label className="block text-xs font-bold text-slate-700">
                 Password
               </label>
-              <Link to="/forgot-password" className="text-xs font-semibold text-teal-600 hover:text-teal-700">
+              <Link to="/forgot-password" className="text-xs font-bold text-emerald-700 hover:underline">
                 Forgot password?
               </Link>
             </div>
@@ -101,16 +107,52 @@ export const LoginPage: React.FC = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="btn-primary w-full py-3 text-sm mt-2"
+            className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md shadow-emerald-600/25 transition active:scale-98 flex items-center justify-center gap-2 cursor-pointer mt-2"
           >
             {isLoading ? 'Signing In...' : 'Sign In'}
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-slate-100 text-center text-xs text-slate-500">
+        {/* 1-CLICK DEMO TEST CREDENTIALS */}
+        <div className="mt-6 pt-5 border-t border-slate-100 space-y-2.5">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider text-center">
+            Quick 1-Click Role Credentials
+          </p>
+
+          <div className="grid grid-cols-3 gap-2">
+            <button
+              type="button"
+              onClick={() => handleQuickFill('admin@dmart.com', 'Admin@1234')}
+              className="p-2 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 font-extrabold text-[11px] transition text-center cursor-pointer flex flex-col items-center gap-0.5"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+              <span>Admin</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleQuickFill('staff@dmart.com', 'Staff@1234')}
+              className="p-2 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 font-extrabold text-[11px] transition text-center cursor-pointer flex flex-col items-center gap-0.5"
+            >
+              <UserCheck className="w-3.5 h-3.5 text-amber-600" />
+              <span>Staff</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleQuickFill('customer@dmart.com', 'Customer@1234')}
+              className="p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 font-extrabold text-[11px] transition text-center cursor-pointer flex flex-col items-center gap-0.5"
+            >
+              <User className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Customer</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-5 text-center text-xs text-slate-500">
           Don't have an account?{' '}
-          <Link to="/register" className="text-teal-600 font-semibold hover:underline">
+          <Link to="/register" className="text-emerald-700 font-extrabold hover:underline">
             Register here
           </Link>
         </div>
