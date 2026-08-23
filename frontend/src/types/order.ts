@@ -90,17 +90,19 @@ export interface Order {
 
 export interface AuditLog {
   id: string;
-  user?: User;
+  user?: any;
   role?: string;
   action: string;
   action_type?: string;
   entity_type: string;
   entity_id?: string;
   affected_record?: string;
-  metadata: Record<string, any>;
+  metadata?: Record<string, any>;
   summary?: string;
+  details?: string;
   ip_address?: string;
   created_at: string;
+  timestamp?: string;
 }
 
 export interface PaymentTransaction {
@@ -149,5 +151,3 @@ export interface StoreSettings {
   enable_upi_payment: boolean;
   enable_wallet_payment: boolean;
 }
-
-

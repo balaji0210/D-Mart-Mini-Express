@@ -11,16 +11,55 @@ let MOCK_USERS = [
 ];
 
 let MOCK_AUDIT_LOGS = [
-  { id: 'log-1', user: 'balaji_admin@gmail.com', action: 'STAFF_MANAGEMENT', details: 'Created staff account for Demo Staff', timestamp: new Date(Date.now() - 3600000).toISOString() },
-  { id: 'log-2', user: 'admin@dmart.com', action: 'INVENTORY_UPDATE', details: 'Updated stock for Fresh Organic Apples', timestamp: new Date(Date.now() - 7200000).toISOString() },
-  { id: 'log-3', user: 'staff@dmart.com', action: 'ORDER_FULFILLMENT', details: 'Transitioned Order #ORD-2026-000101 to READY_FOR_PICKUP', timestamp: new Date(Date.now() - 14400000).toISOString() },
+  {
+    id: 'log-1',
+    user: { full_name: 'Balaji Admin', email: 'balaji_admin@gmail.com', role: 'ADMIN' },
+    action: 'USER_REGISTERED',
+    entity_type: 'User',
+    entity_id: 'usr-customer-1',
+    summary: 'New customer account sanku (sanku1@gmail.com) registered successfully',
+    created_at: new Date(Date.now() - 1800000).toISOString(),
+    metadata: { email: 'sanku1@gmail.com', role: 'CUSTOMER' },
+  },
+  {
+    id: 'log-2',
+    user: { full_name: 'Balaji Admin', email: 'balaji_admin@gmail.com', role: 'ADMIN' },
+    action: 'ORDER_CANCELLED',
+    entity_type: 'Order',
+    entity_id: 'ord-230442',
+    summary: 'Customer cancelled Order #ORD-2026-230442',
+    created_at: new Date(Date.now() - 3600000).toISOString(),
+    metadata: { order_number: 'ORD-2026-230442', status: 'CANCELLED' },
+  },
+  {
+    id: 'log-3',
+    user: { full_name: 'Staff Desk', email: 'staff@dmart.com', role: 'STAFF' },
+    action: 'PAYMENT_COLLECTED',
+    entity_type: 'Order',
+    entity_id: 'ord-860270',
+    summary: 'Marked Order #ORD-2026-860270 as PAID (Cash Collection)',
+    created_at: new Date(Date.now() - 7200000).toISOString(),
+    metadata: { order_number: 'ORD-2026-860270', payment_status: 'PAID' },
+  },
+  {
+    id: 'log-4',
+    user: { full_name: 'Balaji Admin', email: 'balaji_admin@gmail.com', role: 'ADMIN' },
+    action: 'STAFF_CREATED',
+    entity_type: 'User',
+    entity_id: 'usr-staff-1',
+    summary: 'Created staff member account Demo Staff (staff@dmart.com)',
+    created_at: new Date(Date.now() - 14400000).toISOString(),
+    metadata: { role: 'STAFF' },
+  },
 ];
 
 export const adminApi = {
   getAuditLogs: async (page: number = 1) => {
     try {
       const res = await apiClient.get('/admin/audit-logs/', { params: { page } });
-      if (res.data && res.data.success) return res.data;
+      if (res.data && res.data.success && Array.isArray(res.data.data?.logs) && res.data.data.logs.length > 0) {
+        return res.data;
+      }
     } catch (err: any) {
       // Fallback
     }
@@ -87,10 +126,13 @@ export const adminApi = {
     MOCK_USERS.unshift(newUser);
     MOCK_AUDIT_LOGS.unshift({
       id: `log-${Date.now()}`,
-      user: 'balaji_admin@gmail.com',
+      user: { full_name: 'Balaji Admin', email: 'balaji_admin@gmail.com', role: 'ADMIN' },
       action: 'STAFF_MANAGEMENT',
-      details: `Created staff account for ${data.full_name} (${data.email})`,
-      timestamp: new Date().toISOString(),
+      entity_type: 'User',
+      entity_id: newUser.id,
+      summary: `Created staff account for ${data.full_name} (${data.email})`,
+      created_at: new Date().toISOString(),
+      metadata: { email: data.email, role: data.role || 'STAFF' },
     });
     return { success: true, message: `Staff member ${data.full_name} created successfully`, data: newUser };
   },
