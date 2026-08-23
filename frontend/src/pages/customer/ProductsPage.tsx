@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { Search, Filter, Layers, Check, ShoppingCart } from 'lucide-react';
 import { productsApi } from '../../api/products';
 import { Product } from '../../types/product';
 import { BlinkitProductCard } from '../../components/customer/BlinkitProductCard';
+import { ImageCarousel } from '../../components/customer/ImageCarousel';
 
 export const ProductsPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -121,27 +122,73 @@ export const ProductsPage: React.FC = () => {
     setMaxPrice(String(max));
   };
 
+  // 10 Category Quick Navigation Icons
+  const categoryIcons = [
+    { name: 'Paan Corner', icon: '🚬', slug: 'cat-tobacco' },
+    { name: 'Dairy, Bread & Eggs', icon: '🥛', slug: 'cat-dairy' },
+    { name: 'Fruits & Vegetables', icon: '🥦', slug: 'cat-fruits-veg' },
+    { name: 'Cold Drinks & Juices', icon: '🥤', slug: 'cat-drinks' },
+    { name: 'Snacks & Munchies', icon: '🍟', slug: 'cat-snacks' },
+    { name: 'Breakfast & Instant Food', icon: '🥣', slug: 'cat-breakfast' },
+    { name: 'Sweet Tooth', icon: '🍫', slug: 'cat-sweet' },
+    { name: 'Bakery & Biscuits', icon: '🍞', slug: 'cat-bakery' },
+    { name: 'Tea, Coffee & Milk Drinks', icon: '☕', slug: 'cat-tea-coffee' },
+    { name: 'Atta, Rice & Dal', icon: '🌾', slug: 'cat-staples' },
+  ];
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-      {/* Top Search & Filter Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
-        <div>
-          <h1 className="text-xl font-black text-slate-900 tracking-tight">Express Storefront</h1>
-          <p className="text-xs text-slate-500">Delivering fresh groceries & daily essentials in 10 mins</p>
+    <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-4 space-y-8">
+      {/* 1. TOP DYNAMIC AUTO-SLIDING IMAGE CAROUSEL WITH ARROWS */}
+      <section className="w-full">
+        <ImageCarousel />
+      </section>
+
+      {/* 2. TOP QUICK CATEGORY ICONS BAR */}
+      <section className="space-y-3">
+        <div className="flex items-center justify-between px-1">
+          <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
+            Popular Categories
+          </h3>
+          {selectedCategory && (
+            <button
+              onClick={() => handleCategorySelect('')}
+              className="text-xs font-bold text-blue-700 hover:text-blue-800 cursor-pointer"
+            >
+              Clear Category Filter
+            </button>
+          )}
         </div>
 
-        <div className="relative max-w-md w-full">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search for milk, chips, coke, vegetables..."
-            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
-          />
+        <div className="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-10 gap-2 sm:gap-2.5">
+          {categoryIcons.map((cat, idx) => {
+            const isSelected = selectedCategory === cat.slug;
+            return (
+              <button
+                key={idx}
+                onClick={() => handleCategorySelect(isSelected ? '' : cat.slug)}
+                className={`flex flex-col items-center text-center p-2 rounded-2xl border transition-all duration-200 group cursor-pointer ${
+                  isSelected
+                    ? 'bg-blue-900 text-white border-blue-800 shadow-md scale-105'
+                    : 'bg-white border-slate-200/80 shadow-2xs hover:shadow-md hover:border-blue-400'
+                }`}
+              >
+                <div className="w-12 h-12 rounded-xl bg-slate-50/80 flex items-center justify-center p-1 mb-1 group-hover:scale-110 transition-transform">
+                  <span className="text-2xl">{cat.icon}</span>
+                </div>
+                <span
+                  className={`text-[10px] sm:text-[11px] font-bold leading-tight line-clamp-2 ${
+                    isSelected ? 'text-cyan-200' : 'text-slate-800 group-hover:text-blue-700'
+                  }`}
+                >
+                  {cat.name}
+                </span>
+              </button>
+            );
+          })}
         </div>
-      </div>
+      </section>
 
+      {/* 3. STOREFRONT MAIN CONTENT (FILTER & EXPLORE SIDEBAR + PRODUCT GRID) */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
         {/* DISTINCTIVE ROYAL SAPPHIRE FILTER & EXPLORE SIDEBAR */}
         <aside className="dmart-card p-5 space-y-6 rounded-3xl border border-slate-200/90 shadow-xs bg-white">
@@ -307,7 +354,7 @@ export const ProductsPage: React.FC = () => {
         </aside>
 
         {/* PRODUCTS MAIN CONTENT AREA */}
-        <main className="lg:col-span-3 space-y-6">
+        <main className="lg:col-span-3 space-y-4">
           {/* Active Filter Indicators */}
           <div className="flex items-center justify-between text-xs text-slate-600 px-1">
             <span>
