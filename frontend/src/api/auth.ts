@@ -1,4 +1,5 @@
 import { apiClient } from './client';
+import { broadcastDataChange } from './cloudSync';
 
 const LOCAL_REGISTERED_USERS_KEY = 'dmart_registered_users_v2';
 
@@ -16,6 +17,7 @@ const saveRegisteredUser = (email: string, name: string, password?: string) => {
     const users = getRegisteredUsers();
     users[email.toLowerCase().trim()] = { email, name, password };
     localStorage.setItem(LOCAL_REGISTERED_USERS_KEY, JSON.stringify(users));
+    broadcastDataChange(LOCAL_REGISTERED_USERS_KEY, users);
   } catch (e) {}
 };
 

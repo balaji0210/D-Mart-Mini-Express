@@ -1,6 +1,7 @@
 import { apiClient } from './client';
 import { findProductById } from './products';
 import { cartApi } from './cart';
+import { broadcastDataChange } from './cloudSync';
 
 const SHARED_ORDERS_KEY = 'dmart_shared_orders_v5';
 const SHARED_PICKUP_SLOTS_KEY = 'dmart_shared_pickup_slots_v4';
@@ -52,6 +53,7 @@ export const getSharedOrders = (): any[] => {
 export const saveSharedOrders = (orders: any[]) => {
   try {
     localStorage.setItem(SHARED_ORDERS_KEY, JSON.stringify(orders));
+    broadcastDataChange(SHARED_ORDERS_KEY, orders);
   } catch (e) {}
 };
 
@@ -116,6 +118,7 @@ export const getSharedPickupSlots = (): any[] => {
 export const saveSharedPickupSlots = (slots: any[]) => {
   try {
     localStorage.setItem(SHARED_PICKUP_SLOTS_KEY, JSON.stringify(slots));
+    broadcastDataChange(SHARED_PICKUP_SLOTS_KEY, slots);
   } catch (e) {}
 };
 

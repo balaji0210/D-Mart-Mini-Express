@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { AppRoutes } from './routes';
+import { subscribeToDataChanges } from './api/cloudSync';
 
 export const App: React.FC = () => {
+  useEffect(() => {
+    subscribeToDataChanges((key, data) => {
+      try {
+        localStorage.setItem(key, JSON.stringify(data));
+      } catch (e) {}
+    });
+  }, []);
+
   return (
     <BrowserRouter>
       <AuthProvider>
