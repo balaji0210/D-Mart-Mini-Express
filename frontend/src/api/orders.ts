@@ -192,14 +192,26 @@ export const ordersApi = {
 
   getOrders: async (params?: any) => {
     try {
-      const res = await apiClient.get('/orders/');
+      const res = await apiClient.get('/orders/', { params });
       if (res.data && res.data.success && Array.isArray(res.data.data?.orders) && res.data.data.orders.length > 0) {
         return res.data;
       }
     } catch (err: any) {
       // Fallback
     }
-    const shared = getSharedOrders();
+
+    let shared = getSharedOrders();
+    if (params?.customer_email) {
+      const targetEmail = String(params.customer_email).trim().toLowerCase();
+      shared = shared.filter((o) => {
+        const orderEmail = String(o.customer_email || '').trim().toLowerCase();
+        return (
+          orderEmail === targetEmail ||
+          (targetEmail === 'customer@dmart.com' && (!orderEmail || orderEmail.includes('customer')))
+        );
+      });
+    }
+
     return {
       success: true,
       data: {

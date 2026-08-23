@@ -8,8 +8,10 @@ import { Order, ReturnExchangeRequest } from '../../types/order';
 import { ConfirmationModal } from '../../components/ui/ConfirmationModal';
 import { ReturnRequestModal } from '../../components/customer/ReturnRequestModal';
 import { StatusBadge } from '../../components/ui/StatusBadge';
+import { useAuth } from '../../context/AuthContext';
 
 export const OrdersPage: React.FC = () => {
+  const { user } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [returnRequests, setReturnRequests] = useState<ReturnExchangeRequest[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +26,7 @@ export const OrdersPage: React.FC = () => {
   const fetchOrdersAndReturns = async () => {
     try {
       const [ordersRes, returnsRes] = await Promise.allSettled([
-        ordersApi.getOrders(),
+        ordersApi.getOrders({ customer_email: user?.email }),
         returnsApi.getRequests(),
       ]);
 
