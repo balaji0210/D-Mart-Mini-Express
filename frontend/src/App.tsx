@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { AppRoutes } from './routes';
-import { subscribeToDataChanges } from './api/cloudSync';
+import { subscribeToDataChanges, startPeriodicCloudSync } from './api/cloudSync';
 
 export const App: React.FC = () => {
   useEffect(() => {
@@ -13,6 +13,7 @@ export const App: React.FC = () => {
         localStorage.setItem(key, JSON.stringify(data));
       } catch (e) {}
     });
+    startPeriodicCloudSync();
   }, []);
 
   return (
