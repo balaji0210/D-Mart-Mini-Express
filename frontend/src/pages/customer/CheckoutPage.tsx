@@ -107,8 +107,7 @@ export const CheckoutPage: React.FC = () => {
   }
 
   const subtotal = Number(cart.subtotal || 0);
-  const taxAmount = subtotal * 0.05;
-  const grandTotal = subtotal + taxAmount;
+  const grandTotal = subtotal;
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -141,12 +140,12 @@ export const CheckoutPage: React.FC = () => {
             </p>
 
             {pickupSlots.length === 0 ? (
-              <p className="text-sm text-amber-600">Loading available pickup slots...</p>
+              <p className="text-xs text-slate-500 italic py-4">No pickup slots available.</p>
             ) : (
               <div className="space-y-3">
                 {pickupSlots.map((slot) => {
                   const isPast = slot.is_past;
-                  const capacity = slot.capacity || slot.max_capacity || 15;
+                  const capacity = slot.capacity || 15;
                   const booked = slot.booked || slot.booked_count || 0;
                   const available = slot.available !== undefined ? slot.available : capacity - booked;
                   const isFull = available <= 0;
@@ -174,8 +173,8 @@ export const CheckoutPage: React.FC = () => {
                         selectedSlotId === slot.id
                           ? 'border-teal-500 bg-teal-50/50 ring-2 ring-teal-500 text-slate-900 font-semibold'
                           : isDisabled
-                          ? 'bg-slate-50 border-slate-200 opacity-60 cursor-not-allowed text-slate-400'
-                          : 'bg-white border-slate-200 hover:border-teal-300 cursor-pointer text-slate-800'
+                          ? 'bg-slate-50 border-slate-200 opacity-60 cursor-not-allowed'
+                          : 'border-slate-200 hover:border-slate-300 cursor-pointer'
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -231,13 +230,14 @@ export const CheckoutPage: React.FC = () => {
               <span>₹{subtotal.toFixed(2)}</span>
             </div>
             <div className="flex justify-between">
-              <span>Estimated Tax (5%)</span>
-              <span>₹{taxAmount.toFixed(2)}</span>
+              <span>Taxes & Fees</span>
+              <span className="text-emerald-600 font-medium">Included (₹0.00)</span>
             </div>
             <div className="flex justify-between font-extrabold text-slate-900 text-sm pt-2 border-t border-slate-100">
               <span>Final Total</span>
               <span className="text-teal-700 text-base">₹{grandTotal.toFixed(2)}</span>
             </div>
+            <p className="text-[11px] text-slate-400 text-right mt-1">Prices are inclusive of all taxes</p>
           </div>
 
           <button
