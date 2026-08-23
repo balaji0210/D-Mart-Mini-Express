@@ -15,20 +15,29 @@ export const AdminDashboardPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([
-      productsApi.getProducts({ page_size: 100 }),
-      ordersApi.getOrders({ page_size: 100 }),
-    ]).then(([prodRes, ordRes]) => {
-      if (prodRes.success && prodRes.data?.products) {
-        setProducts(prodRes.data.products);
-      }
-      if (ordRes.success && ordRes.data) {
-        setOrders(Array.isArray(ordRes.data) ? ordRes.data : ordRes.data.orders || []);
-      }
-    }).finally(() => setIsLoading(false));
+    const loadDashboard = () => {
+      Promise.all([
+        productsApi.getProducts({ page_size: 100 }),
+        ordersApi.getOrders({ page_size: 100 }),
+      ]).then(([prodRes, ordRes]) => {
+        if (prodRes.success && prodRes.data?.products) {
+          setProducts(prodRes.data.products);
+        }
+        if (ordRes.success && ordRes.data) {
+          setOrders(Array.isArray(ordRes.data) ? ordRes.data : ordRes.data.orders || []);
+        }
+      }).finally(() => setIsLoading(false));
+    };
+
+    loadDashboard();
+    const interval = setInterval(loadDashboard, 2500);
+    return () => clearInterval(interval);
   }, []);
 
-  const totalRevenue = orders.reduce((sum, o) => sum + Number(o.total_amount || 0), 0);
+  const validRevenueOrders = orders.filter(
+    (o) => o.status !== 'CANCELLED' && o.status !== 'REFUNDED' && o.payment_status !== 'REFUNDED'
+  );
+  const totalRevenue = validRevenueOrders.reduce((sum, o) => sum + Number(o.total_amount || 0), 0);
   const lowStockProducts = products.filter((p) => p.is_low_stock);
   const pendingOrders = orders.filter((o) => o.status === 'PENDING');
   const readyOrders = orders.filter((o) => o.status === 'READY_FOR_PICKUP');
