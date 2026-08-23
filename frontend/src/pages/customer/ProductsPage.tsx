@@ -403,13 +403,13 @@ export const ProductsPage: React.FC = () => {
                 products={getProdsByCategory('breakfast').length > 0 ? getProdsByCategory('breakfast') : allProducts.slice(0, 4)}
               />
 
-              {/* Cold Drinks & Juices */}
+              {/* Cooking Essentials (Screenshot 2 Reference) */}
               <CategoryProductRow
-                title="Cold Drinks & Juices"
-                categoryId="cat-drinks"
-                icon="🥤"
-                subtitle="Icy cold sodas, fruit juices & instant hydration"
-                products={getProdsByCategory('drinks').length > 0 ? getProdsByCategory('drinks') : allProducts.slice(4, 10)}
+                title="Cooking Essentials"
+                categoryId="cat-cooking"
+                icon="🍳"
+                subtitle="Fresh stock ready for 10-minute doorstep delivery"
+                products={getProdsByCategory('cooking').length > 0 ? getProdsByCategory('cooking') : allProducts.slice(4, 7)}
               />
 
               {/* Dairy, Bread & Eggs */}
@@ -419,6 +419,15 @@ export const ProductsPage: React.FC = () => {
                 icon="🥛"
                 subtitle="Farm fresh milk, curd, eggs and breakfast essentials"
                 products={getProdsByCategory('dairy').length > 0 ? getProdsByCategory('dairy') : allProducts.slice(2, 8)}
+              />
+
+              {/* Cold Drinks & Juices */}
+              <CategoryProductRow
+                title="Cold Drinks & Juices"
+                categoryId="cat-drinks"
+                icon="🥤"
+                subtitle="Icy cold sodas, fruit juices & instant hydration"
+                products={getProdsByCategory('drinks').length > 0 ? getProdsByCategory('drinks') : allProducts.slice(4, 10)}
               />
 
               {/* Snacks & Munchies */}
@@ -446,6 +455,33 @@ export const ProductsPage: React.FC = () => {
                 icon="🍫"
                 subtitle="Ice cream tubs, festive sweets & chocolates"
                 products={getProdsByCategory('sweet').length > 0 ? getProdsByCategory('sweet') : allProducts.slice(1, 7)}
+              />
+
+              {/* Bakery & Biscuits */}
+              <CategoryProductRow
+                title="Bakery & Biscuits"
+                categoryId="cat-bakery"
+                icon="🍞"
+                subtitle="Oven fresh breads, crunchy cookies & rusks"
+                products={getProdsByCategory('bakery').length > 0 ? getProdsByCategory('bakery') : allProducts.slice(2, 6)}
+              />
+
+              {/* Tea, Coffee & Milk Drinks */}
+              <CategoryProductRow
+                title="Tea, Coffee & Drinks"
+                categoryId="cat-tea-coffee"
+                icon="☕"
+                subtitle="Aromatic chai leaves, roast coffee & health mixes"
+                products={getProdsByCategory('tea').length > 0 ? getProdsByCategory('tea') : allProducts.slice(0, 4)}
+              />
+
+              {/* Atta, Rice & Dal */}
+              <CategoryProductRow
+                title="Atta, Rice & Dal"
+                categoryId="cat-staples"
+                icon="🌾"
+                subtitle="Premium grains, unpolished pulses & kitchen staples"
+                products={getProdsByCategory('staples').length > 0 ? getProdsByCategory('staples') : allProducts.slice(1, 5)}
               />
             </div>
           ) : filteredProducts.length === 0 ? (
