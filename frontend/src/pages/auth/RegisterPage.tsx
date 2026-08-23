@@ -21,18 +21,8 @@ export const RegisterPage: React.FC = () => {
     setErrors({});
     setGeneralError(null);
 
-    if (password.length < 8) {
-      setGeneralError('Password must be at least 8 characters long.');
-      return;
-    }
-
-    const hasUpper = /[A-Z]/.test(password);
-    const hasLower = /[a-z]/.test(password);
-    const hasDigit = /[0-9]/.test(password);
-    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password);
-
-    if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) {
-      setGeneralError('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character (e.g. Sanku@1234).');
+    if (password.length < 4) {
+      setGeneralError('Password must be at least 4 characters long.');
       return;
     }
 
@@ -144,12 +134,12 @@ export const RegisterPage: React.FC = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="e.g. Sanku@1234"
+                placeholder="At least 4 characters"
                 className="dmart-input pl-10"
               />
               <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
             </div>
-            <p className="text-[11px] text-slate-500 mt-1">Must include uppercase, lowercase, digit, and special char (e.g. <code>Sanku@1234</code>)</p>
+            <p className="text-[11px] text-slate-500 mt-1">Minimum 4 characters (e.g. <code>12345678</code> or <code>sanku123</code>)</p>
             {errors.password && <p className="text-xs text-red-600 mt-1">{errors.password[0]}</p>}
           </div>
 
