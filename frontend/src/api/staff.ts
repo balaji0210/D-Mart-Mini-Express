@@ -41,6 +41,26 @@ export const staffApi = {
     return { success: true, message: `Order status updated to ${status}` };
   },
 
+  updatePaymentStatus: async (id: string, paymentStatus: string) => {
+    try {
+      const res = await apiClient.patch(`/orders/${id}/status/`, { payment_status: paymentStatus });
+      if (res.data && res.data.success) return res.data;
+    } catch (err: any) {
+      // Fallback
+    }
+    const shared = getSharedOrders();
+    const cleanId = String(id || '').trim().toLowerCase();
+    const order = shared.find(o => 
+      String(o.id).toLowerCase() === cleanId || 
+      String(o.order_number).toLowerCase() === cleanId
+    );
+    if (order) {
+      order.payment_status = paymentStatus;
+      saveSharedOrders(shared);
+    }
+    return { success: true, message: `Payment status updated to ${paymentStatus}` };
+  },
+
   flagOrderIssue: async (id: string, issue: string) => {
     try {
       const res = await apiClient.post(`/orders/${id}/flag-issue/`, { issue });

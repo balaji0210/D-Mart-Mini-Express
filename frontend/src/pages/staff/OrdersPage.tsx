@@ -48,8 +48,8 @@ export const StaffOrdersPage: React.FC = () => {
   const handlePaymentChange = async (orderId: string, paymentStatus: PaymentStatus) => {
     setUpdatingId(orderId);
     try {
-      const res = await apiClient.patch(`/orders/${orderId}/status/`, { payment_status: paymentStatus });
-      if (res.data?.success || res.status === 200) {
+      const res = await staffApi.updatePaymentStatus(orderId, paymentStatus);
+      if (res.success || res.data) {
         toast.success(`Order marked as PAID!`);
         await fetchOrders();
       }
