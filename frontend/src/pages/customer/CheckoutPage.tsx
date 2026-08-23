@@ -55,7 +55,7 @@ export const CheckoutPage: React.FC = () => {
       const res = await ordersApi.checkout(payload);
       toast.success('Order placed successfully!');
       await fetchCart();
-      const orderObj = res.data?.order || res.order || res.data?.data?.order || res.data;
+      const orderObj = (res as any)?.data?.order || (res as any)?.order || (res as any)?.data;
       if (orderObj && orderObj.id) {
         navigate(`/orders/${orderObj.id}`);
       } else {

@@ -1,4 +1,5 @@
 import { apiClient } from './client';
+import { getSharedOrders, saveSharedOrders } from './orders';
 
 let MOCK_USERS = [
   { id: 'usr-1', full_name: 'Balaji Admin', email: 'balaji_admin@gmail.com', role: 'ADMIN', is_active: true },
@@ -94,26 +95,18 @@ export const adminApi = {
   getOrders: async () => {
     try {
       const res = await apiClient.get('/orders/');
-      if (res.data && res.data.success) return res.data;
+      if (res.data && res.data.success && Array.isArray(res.data.data?.orders) && res.data.data.orders.length > 0) {
+        return res.data;
+      }
     } catch (err: any) {
       // Fallback
     }
+    const shared = getSharedOrders();
     return {
       success: true,
       data: {
-        orders: [
-          {
-            id: 'ord-101',
-            order_number: 'ORD-2026-000101',
-            customer_name: 'John Customer',
-            customer_email: 'customer@dmart.com',
-            status: 'READY_FOR_PICKUP',
-            fulfillment_type: 'PICKUP',
-            total_amount: '18.45',
-            created_at: new Date().toISOString(),
-            items: [{ product_name: 'Fresh Organic Apples (1kg)', quantity: 2, unit_price: '3.99' }],
-          },
-        ],
+        orders: shared,
+        total: shared.length,
       },
     };
   },
@@ -125,6 +118,12 @@ export const adminApi = {
     } catch (err: any) {
       // Fallback
     }
+    const shared = getSharedOrders();
+    const order = shared.find(o => o.id === id);
+    if (order) {
+      order.status = status;
+      saveSharedOrders(shared);
+    }
     return { success: true, message: `Order status updated to ${status}` };
   },
 
@@ -134,6 +133,12 @@ export const adminApi = {
       if (res.data && res.data.success) return res.data;
     } catch (err: any) {
       // Fallback
+    }
+    const shared = getSharedOrders();
+    const order = shared.find(o => o.id === id);
+    if (order) {
+      order.status = 'CANCELLED';
+      saveSharedOrders(shared);
     }
     return { success: true, message: 'Order cancelled' };
   },
@@ -145,6 +150,13 @@ export const adminApi = {
     } catch (err: any) {
       // Fallback
     }
-    return { success: true, message: `Refund of $${amount} processed successfully` };
+    const shared = getSharedOrders();
+    const order = shared.find(o => o.id === id);
+    if (order) {
+      order.payment_status = 'REFUNDED';
+      order.status = 'REFUNDED';
+      saveSharedOrders(shared);
+    }
+    return { success: true, message: `Refund of ₹${amount} processed successfully` };
   },
 };
