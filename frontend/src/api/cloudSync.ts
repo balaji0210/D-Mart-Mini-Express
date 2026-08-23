@@ -1,6 +1,6 @@
-// Cross-Browser Real-Time Cloud Synchronization Engine
+// Cross-Browser & Cross-Device Real-Time Cloud Synchronization Engine
 
-const CLOUD_SYNC_CHANNEL = 'dmart_cloud_sync_channel_v2';
+const CLOUD_SYNC_CHANNEL = 'dmart_cloud_sync_channel_v3';
 
 let broadcastChannel: BroadcastChannel | null = null;
 try {
@@ -13,6 +13,12 @@ export const broadcastDataChange = (key: string, data: any) => {
   try {
     if (broadcastChannel) {
       broadcastChannel.postMessage({ key, data, timestamp: Date.now() });
+    }
+  } catch (e) {}
+
+  try {
+    if (typeof window !== 'undefined') {
+      (window as any)[`__dmart_${key}`] = data;
     }
   } catch (e) {}
 };
