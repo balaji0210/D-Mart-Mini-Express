@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Clock } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Product } from '../../types/product';
@@ -17,6 +17,7 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
   discountBadge,
   deliveryTime = '10 MINS',
 }) => {
+  const navigate = useNavigate();
   const { cart, addToCart, updateQuantity, removeItem } = useCart();
   const { isAuthenticated } = useAuth();
   const [isUpdating, setIsUpdating] = useState(false);
@@ -34,7 +35,7 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
     e.preventDefault();
     e.stopPropagation();
     if (!isAuthenticated) {
-      toast.error('Please log in to add items to your cart.');
+      navigate('/login');
       return;
     }
 

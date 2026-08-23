@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart, ShieldCheck, Truck, Clock, AlertTriangle, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { productsApi } from '../../api/products';
@@ -9,6 +9,7 @@ import { useAuth } from '../../context/AuthContext';
 
 export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState<string>('');
@@ -30,7 +31,7 @@ export const ProductDetailPage: React.FC = () => {
 
   const handleAddToCart = async () => {
     if (!isAuthenticated) {
-      toast.error('Please log in to add items to your cart.');
+      navigate('/login');
       return;
     }
     if (user?.role !== 'CUSTOMER') {
