@@ -55,6 +55,29 @@ export const saveSharedOrders = (orders: any[]) => {
   } catch (e) {}
 };
 
+export const getNextOrderNumber = (): string => {
+  const sharedOrders = getSharedOrders();
+  let maxSeq = 101;
+
+  sharedOrders.forEach((o) => {
+    if (o.order_number) {
+      const match = o.order_number.match(/ORD-2026-(\d+)/i);
+      if (match) {
+        const num = parseInt(match[1], 10);
+        if (num >= 100 && num < 100000) {
+          if (num > maxSeq) {
+            maxSeq = num;
+          }
+        }
+      }
+    }
+  });
+
+  const nextSeq = maxSeq + 1;
+  const padded = String(nextSeq).padStart(6, '0');
+  return `ORD-2026-${padded}`;
+};
+
 export const getSharedPickupSlots = (): any[] => {
   const sharedOrders = getSharedOrders().filter((o) => o.status !== 'CANCELLED');
   const slotBookingCounts: Record<string, number> = {};
@@ -109,8 +132,8 @@ export const ordersApi = {
     }
 
     if (!orderData) {
-      const newOrderId = `ord-${Date.now()}`;
-      const randomSuffix = Math.floor(100000 + Math.random() * 900000);
+      const nextOrderNum = getNextOrderNumber();
+      const newOrderId = `ord-${nextOrderNum.toLowerCase()}`;
       const rawItems = Array.isArray(data.items) && data.items.length > 0 ? data.items : [];
       const formattedItems = rawItems.length > 0
         ? rawItems.map((i: any) => {
@@ -139,7 +162,7 @@ export const ordersApi = {
 
       orderData = {
         id: newOrderId,
-        order_number: `ORD-2026-${randomSuffix}`,
+        order_number: nextOrderNum,
         customer_name: data.customer_name || 'Customer User',
         customer_email: data.customer_email || 'customer@dmart.com',
         status: 'PENDING',
@@ -169,7 +192,7 @@ export const ordersApi = {
 
   getOrders: async (params?: any) => {
     try {
-      const res = await apiClient.get('/orders/', { params });
+      const res = await apiClient.get('/orders/');
       if (res.data && res.data.success && Array.isArray(res.data.data?.orders) && res.data.data.orders.length > 0) {
         return res.data;
       }

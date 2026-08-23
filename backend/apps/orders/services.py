@@ -18,10 +18,10 @@ VALID_STATUS_TRANSITIONS = {
 }
 
 def generate_order_number():
-    """Generates unique order number in format: ORD-YYYY-NNNNNN"""
+    """Generates unique sequential order number in format: ORD-YYYY-NNNNNN starting from 102"""
     year_str = datetime.now().strftime('%Y')
     count = Order.objects.filter(order_number__startswith=f'ORD-{year_str}-').count()
-    sequence = str(count + 1).zfill(6)
+    sequence = str(101 + count + 1).zfill(6)
     return f'ORD-{year_str}-{sequence}'
 
 def validate_status_transition(current_status, new_status):
