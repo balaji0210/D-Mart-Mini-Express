@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  ClipboardList, CalendarClock, CheckCircle, Clock, PackageCheck, AlertTriangle, ArrowRight, UserCheck, Play, Check, RotateCcw
+  ClipboardList, CalendarClock, PackageCheck, AlertTriangle, ArrowRight, UserCheck, Play, Check, RotateCcw, Truck, Boxes, ShoppingBag
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { staffApi } from '../../api/staff';
@@ -59,7 +58,9 @@ export const StaffDashboardPage: React.FC = () => {
 
   const pending = orders.filter(o => o.status === 'PENDING');
   const preparing = orders.filter(o => o.status === 'PREPARING');
-  const ready = orders.filter(o => o.status === 'READY_FOR_PICKUP');
+  const pickupOrders = orders.filter(o => o.fulfillment_type === 'PICKUP' || !o.fulfillment_type);
+  const deliveryOrders = orders.filter(o => o.fulfillment_type === 'DELIVERY');
+  const readyPickups = pickupOrders.filter(o => o.status === 'READY_FOR_PICKUP');
   const pendingReturns = returnRequests.filter(r => r.status === 'REQUESTED');
 
   if (isLoading) {
@@ -76,105 +77,175 @@ export const StaffDashboardPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-            <UserCheck className="w-6 h-6 text-teal-600" /> Staff Fulfillment Desk
+            <UserCheck className="w-6 h-6 text-blue-600" /> Store Operations Staff Dashboard
           </h1>
           <p className="text-slate-500 text-xs mt-0.5">
-            Daily order preparation queue, return & refund review desk, and pickup schedule
+            Real-time fulfillment desk • Order preparation, pickup verification, deliveries, inventory & returns
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Link to="/staff/returns" className="px-3.5 py-2 rounded-xl bg-teal-50 text-teal-800 border border-teal-200 hover:bg-teal-100 font-bold text-xs transition flex items-center gap-1.5 shadow-xs">
-            <RotateCcw className="w-4 h-4 text-teal-600" /> Returns & Refunds ({pendingReturns.length})
+        <div className="flex items-center gap-2 flex-wrap">
+          <Link to="/staff/returns" className="px-3.5 py-2 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 hover:bg-rose-100 font-bold text-xs transition flex items-center gap-1.5 shadow-2xs">
+            <RotateCcw className="w-4 h-4 text-rose-600" /> Returns Review ({pendingReturns.length})
           </Link>
           <Link to="/staff/orders" className="btn-primary">
-            <ClipboardList className="w-4 h-4" /> Full Orders Queue
+            <ClipboardList className="w-4 h-4" /> Order Preparation
           </Link>
         </div>
       </div>
 
-      {/* Metrics Bar */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
-        <div className="dmart-card p-4 border-l-4 border-l-amber-500">
-          <span className="text-xs font-semibold text-slate-500 uppercase">Pending Orders</span>
-          <p className="text-2xl font-extrabold text-slate-900 mt-1">{pending.length}</p>
-        </div>
+      {/* 5 Core Operational KPI Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
+        {/* 1. Order Preparation */}
+        <Link to="/staff/orders" className="dmart-card p-4 border-l-4 border-l-amber-500 hover:shadow-md transition group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase">Preparation Queue</span>
+            <ClipboardList className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" />
+          </div>
+          <p className="text-2xl font-extrabold text-slate-900 mt-1">{pending.length + preparing.length}</p>
+          <span className="text-[10px] text-amber-700 font-semibold">{preparing.length} In-Progress</span>
+        </Link>
 
-        <div className="dmart-card p-4 border-l-4 border-l-blue-500">
-          <span className="text-xs font-semibold text-slate-500 uppercase">Preparing</span>
-          <p className="text-2xl font-extrabold text-slate-900 mt-1">{preparing.length}</p>
-        </div>
+        {/* 2. Upcoming Pickups */}
+        <Link to="/staff/pickup-queue" className="dmart-card p-4 border-l-4 border-l-blue-600 hover:shadow-md transition group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase">Upcoming Pickups</span>
+            <CalendarClock className="w-4 h-4 text-blue-600 group-hover:scale-110 transition-transform" />
+          </div>
+          <p className="text-2xl font-extrabold text-slate-900 mt-1">{readyPickups.length}</p>
+          <span className="text-[10px] text-blue-700 font-semibold">{pickupOrders.length} Total Today</span>
+        </Link>
 
-        <div className="dmart-card p-4 border-l-4 border-l-teal-500">
-          <span className="text-xs font-semibold text-slate-500 uppercase">Ready Pickup</span>
-          <p className="text-2xl font-extrabold text-teal-700 mt-1">{ready.length}</p>
-        </div>
+        {/* 3. Delivery Orders */}
+        <Link to="/staff/deliveries" className="dmart-card p-4 border-l-4 border-l-indigo-500 hover:shadow-md transition group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase">Delivery Orders</span>
+            <Truck className="w-4 h-4 text-indigo-500 group-hover:scale-110 transition-transform" />
+          </div>
+          <p className="text-2xl font-extrabold text-slate-900 mt-1">{deliveryOrders.length}</p>
+          <span className="text-[10px] text-indigo-700 font-semibold">Home Dispatch</span>
+        </Link>
 
-        <div className="dmart-card p-4 border-l-4 border-l-rose-500">
-          <span className="text-xs font-semibold text-slate-500 uppercase">Returns Review</span>
+        {/* 4. Inventory Stock Updates */}
+        <Link to="/staff/inventory-updates" className="dmart-card p-4 border-l-4 border-l-emerald-500 hover:shadow-md transition group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase">Inventory & Stock</span>
+            <Boxes className="w-4 h-4 text-emerald-500 group-hover:scale-110 transition-transform" />
+          </div>
+          <p className="text-2xl font-extrabold text-slate-900 mt-1">Live</p>
+          <span className="text-[10px] text-emerald-700 font-semibold">Stock Adjustment</span>
+        </Link>
+
+        {/* 5. Return / Exchange Processing */}
+        <Link to="/staff/returns" className="dmart-card p-4 border-l-4 border-l-rose-500 hover:shadow-md transition group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase">Return / Exchange</span>
+            <RotateCcw className="w-4 h-4 text-rose-500 group-hover:scale-110 transition-transform" />
+          </div>
           <p className="text-2xl font-extrabold text-rose-600 mt-1">{pendingReturns.length}</p>
-        </div>
-
-        <div className="dmart-card p-4 border-l-4 border-l-emerald-500">
-          <span className="text-xs font-semibold text-slate-500 uppercase">Total Requests</span>
-          <p className="text-2xl font-extrabold text-slate-900 mt-1">{returnRequests.length}</p>
-        </div>
+          <span className="text-[10px] text-rose-700 font-semibold">{returnRequests.length} Total Logged</span>
+        </Link>
       </div>
 
-      {/* Urgent Fulfillment Queue */}
+      {/* Module Quick Nav Strip */}
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+        <Link to="/staff/orders" className="p-3 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/20 text-center transition group shadow-2xs">
+          <ClipboardList className="w-5 h-5 text-blue-600 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+          <span className="text-xs font-bold text-slate-800 block">Order Preparation</span>
+          <span className="text-[10px] text-slate-500">Pick & pack checklist</span>
+        </Link>
+
+        <Link to="/staff/pickup-queue" className="p-3 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/20 text-center transition group shadow-2xs">
+          <CalendarClock className="w-5 h-5 text-blue-600 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+          <span className="text-xs font-bold text-slate-800 block">Upcoming Pickups</span>
+          <span className="text-[10px] text-slate-500">2-Hour slot schedule</span>
+        </Link>
+
+        <Link to="/staff/deliveries" className="p-3 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/20 text-center transition group shadow-2xs">
+          <Truck className="w-5 h-5 text-blue-600 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+          <span className="text-xs font-bold text-slate-800 block">Delivery Orders</span>
+          <span className="text-[10px] text-slate-500">Address & dispatch</span>
+        </Link>
+
+        <Link to="/staff/inventory-updates" className="p-3 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/20 text-center transition group shadow-2xs">
+          <Boxes className="w-5 h-5 text-blue-600 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+          <span className="text-xs font-bold text-slate-800 block">Inventory Updates</span>
+          <span className="text-[10px] text-slate-500">Stock & adjustments</span>
+        </Link>
+
+        <Link to="/staff/returns" className="p-3 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/20 text-center transition group shadow-2xs">
+          <RotateCcw className="w-5 h-5 text-blue-600 mx-auto mb-1 group-hover:scale-110 transition-transform" />
+          <span className="text-xs font-bold text-slate-800 block">Return / Exchange</span>
+          <span className="text-[10px] text-slate-500">Approve & refund</span>
+        </Link>
+      </div>
+
+      {/* Urgent Fulfillment Action Queue */}
       <div className="dmart-card p-6 space-y-4">
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <h3 className="text-sm font-bold text-slate-900">Immediate Preparation Tasks</h3>
-          <span className="text-xs font-semibold text-slate-500">Fast Actions</span>
+          <div>
+            <h3 className="text-sm font-bold text-slate-900">Active Orders In Queue</h3>
+            <p className="text-xs text-slate-500">Advance order states with one-click fulfillment actions</p>
+          </div>
+          <Link to="/staff/orders" className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+            View All ({orders.length}) <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
         {orders.length === 0 ? (
           <p className="text-xs text-slate-500 text-center py-6">No pending fulfillment tasks assigned to your queue.</p>
         ) : (
           <div className="divide-y divide-slate-100">
-            {orders.slice(0, 6).map((ord) => (
+            {orders.slice(0, 8).map((ord) => (
               <div key={ord.id} className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-slate-900 text-sm font-mono">#{ord.order_number}</span>
                     <span className="badge-info">{ord.status}</span>
+                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-extrabold ${ord.fulfillment_type === 'DELIVERY' ? 'bg-indigo-100 text-indigo-800' : 'bg-amber-100 text-amber-800'}`}>
+                      {ord.fulfillment_type || 'PICKUP'}
+                    </span>
                   </div>
                   <p className="text-slate-500 mt-0.5">
-                    Customer: <span className="font-semibold text-slate-800">{ord.customer_name || 'Customer'}</span> • {ord.items_count} items
+                    Customer: <span className="font-semibold text-slate-800">{ord.customer_name || 'Customer'}</span> • {ord.items_count || 1} items • ₹{Number(ord.total_amount).toFixed(0)}
                   </p>
                 </div>
 
                 {/* Status action buttons */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   {ord.status === 'PENDING' && (
                     <button
                       onClick={() => handleUpdateStatus(ord.id, 'CONFIRMED')}
-                      className="btn-secondary py-1 px-3 text-xs"
+                      className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 font-bold text-xs transition flex items-center gap-1"
                     >
                       Confirm Order
                     </button>
                   )}
-                  {(ord.status === 'PENDING' || ord.status === 'CONFIRMED') && (
+
+                  {ord.status === 'CONFIRMED' && (
                     <button
                       onClick={() => handleUpdateStatus(ord.id, 'PREPARING')}
-                      className="btn-primary py-1 px-3 text-xs"
+                      className="px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 hover:bg-amber-400 font-bold text-xs transition flex items-center gap-1 shadow-2xs"
                     >
-                      <Play className="w-3.5 h-3.5" /> Start Prep
+                      <Play className="w-3.5 h-3.5 fill-slate-950" /> Start Packing
                     </button>
                   )}
+
                   {ord.status === 'PREPARING' && (
                     <button
-                      onClick={() => handleUpdateStatus(ord.id, 'READY_FOR_PICKUP')}
-                      className="btn-primary py-1 px-3 text-xs bg-teal-600 hover:bg-teal-700"
+                      onClick={() => handleUpdateStatus(ord.id, ord.fulfillment_type === 'DELIVERY' ? 'OUT_FOR_DELIVERY' : 'READY_FOR_PICKUP')}
+                      className="px-3 py-1.5 rounded-lg bg-teal-600 text-white hover:bg-teal-700 font-bold text-xs transition flex items-center gap-1 shadow-2xs"
                     >
-                      <Check className="w-3.5 h-3.5" /> Mark Ready
+                      <PackageCheck className="w-3.5 h-3.5" />
+                      {ord.fulfillment_type === 'DELIVERY' ? 'Dispatch Rider' : 'Mark Ready for Pickup'}
                     </button>
                   )}
-                  {ord.status === 'READY_FOR_PICKUP' && (
+
+                  {(ord.status === 'READY_FOR_PICKUP' || ord.status === 'OUT_FOR_DELIVERY') && (
                     <button
                       onClick={() => handleUpdateStatus(ord.id, 'COMPLETED')}
-                      className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-xs"
+                      className="px-3 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 font-bold text-xs transition flex items-center gap-1 shadow-2xs"
                     >
-                      Complete Pickup
+                      <Check className="w-3.5 h-3.5" /> Complete Order
                     </button>
                   )}
                 </div>

@@ -26,6 +26,7 @@ import { ProfilePage } from '../pages/customer/ProfilePage';
 import { StaffDashboardPage } from '../pages/staff/DashboardPage';
 import { StaffOrdersPage } from '../pages/staff/OrdersPage';
 import { StaffPickupQueuePage } from '../pages/staff/PickupQueuePage';
+import { StaffDeliveriesPage } from '../pages/staff/DeliveriesPage';
 import { StaffInventoryUpdatesPage } from '../pages/staff/InventoryUpdatesPage';
 import { StaffAlertsPage } from '../pages/staff/AlertsPage';
 import { StaffMyActivityPage } from '../pages/staff/MyActivityPage';
@@ -99,6 +100,7 @@ export const AppRoutes: React.FC = () => {
           <Route path="/staff" element={<StaffDashboardPage />} />
           <Route path="/staff/orders" element={<StaffOrdersPage />} />
           <Route path="/staff/pickup-queue" element={<StaffPickupQueuePage />} />
+          <Route path="/staff/deliveries" element={<StaffDeliveriesPage />} />
           <Route path="/staff/inventory-updates" element={<StaffInventoryUpdatesPage />} />
           <Route path="/staff/returns" element={<StaffReturnsPage />} />
           <Route path="/staff/alerts" element={<StaffAlertsPage />} />

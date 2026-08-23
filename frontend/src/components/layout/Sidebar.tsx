@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard, ShoppingBag, FolderTree, Users, PackageCheck, CalendarClock,
   FileText, ClipboardList, UserCheck, CreditCard, BarChart3, Settings, ShieldAlert,
-  Activity, User, BellRing, Boxes, RotateCcw
+  Activity, User, BellRing, Boxes, RotateCcw, Truck
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -12,14 +12,15 @@ export const Sidebar: React.FC = () => {
   const isAdmin = user?.role === 'ADMIN';
 
   const staffLinks = [
-    { to: '/staff', label: 'Dashboard', icon: LayoutDashboard },
-    { to: '/staff/orders', label: 'Orders Queue', icon: ClipboardList },
-    { to: '/staff/pickup-queue', label: 'Pickup Queue', icon: CalendarClock },
-    { to: '/staff/returns', label: 'Returns & Refunds', icon: RotateCcw },
-    { to: '/staff/inventory-updates', label: 'Inventory Updates', icon: Boxes },
+    { to: '/staff', label: 'Store Operations', icon: LayoutDashboard },
+    { to: '/staff/orders', label: 'Order Preparation', icon: ClipboardList },
+    { to: '/staff/pickup-queue', label: 'Upcoming Pickups', icon: CalendarClock },
+    { to: '/staff/deliveries', label: 'Delivery Orders', icon: Truck },
+    { to: '/staff/inventory-updates', label: 'Inventory & Stock', icon: Boxes },
+    { to: '/staff/returns', label: 'Return / Exchange', icon: RotateCcw },
     { to: '/staff/alerts', label: 'Operational Alerts', icon: BellRing },
     { to: '/staff/my-activity', label: 'My Activity', icon: Activity },
-    { to: '/staff/profile', label: 'My Profile', icon: User },
+    { to: '/staff/profile', label: 'Staff Profile', icon: User },
   ];
 
   const adminLinks = [
