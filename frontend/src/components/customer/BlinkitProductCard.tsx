@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, Plus, Minus, Check } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Product } from '../../types/product';
 import { useCart } from '../../context/CartContext';
@@ -15,7 +15,7 @@ interface BlinkitProductCardProps {
 export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
   product,
   discountBadge,
-  deliveryTime = '12 MINS',
+  deliveryTime = '10 MINS',
 }) => {
   const { cart, addToCart, updateQuantity, removeItem } = useCart();
   const { isAuthenticated } = useAuth();
@@ -89,12 +89,12 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
       : undefined);
 
   return (
-    <div className="w-[175px] sm:w-[195px] shrink-0 flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-3 shadow-2xs hover:shadow-md transition-all duration-200 group relative">
+    <div className="w-[175px] sm:w-[195px] shrink-0 flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-3 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all duration-200 group relative">
       <div>
         {/* Image Container with Discount Badge */}
         <Link to={`/products/${product.id}`} className="block relative h-36 w-full rounded-xl bg-white flex items-center justify-center p-2 mb-2 overflow-hidden">
           {displayDiscount && (
-            <span className="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-md bg-blue-600 text-white font-extrabold text-[9px] uppercase tracking-wider shadow-xs z-10">
+            <span className="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-md bg-indigo-600 text-white font-extrabold text-[9px] uppercase tracking-wider shadow-xs z-10">
               {displayDiscount}
             </span>
           )}
@@ -110,14 +110,14 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
 
         {/* Delivery Time Badge */}
         <div className="flex items-center gap-1 text-[11px] font-bold text-slate-700 mb-1">
-          <Clock className="w-3 h-3 text-slate-500" />
-          <span>{deliveryTime}</span>
+          <Clock className="w-3 h-3 text-cyan-600" />
+          <span className="text-slate-800">{deliveryTime}</span>
         </div>
 
         {/* Product Title */}
         <Link
           to={`/products/${product.id}`}
-          className="text-xs font-bold text-slate-900 line-clamp-2 leading-snug mb-1 min-h-[30px] group-hover:text-emerald-700 transition-colors block"
+          className="text-xs font-bold text-slate-900 line-clamp-2 leading-snug mb-1 min-h-[30px] group-hover:text-blue-700 transition-colors block"
           title={product.name}
         >
           {product.name}
@@ -147,12 +147,12 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
             <button
               onClick={handleAdd}
               disabled={isUpdating}
-              className="px-3.5 py-1.5 rounded-lg border border-emerald-600 bg-white text-emerald-700 font-extrabold text-xs tracking-wider uppercase hover:bg-emerald-600 hover:text-white transition-all shadow-2xs active:scale-95 cursor-pointer disabled:opacity-50"
+              className="px-3.5 py-1.5 rounded-lg border border-blue-600 bg-white text-blue-700 font-extrabold text-xs tracking-wider uppercase hover:bg-blue-600 hover:text-white transition-all shadow-2xs active:scale-95 cursor-pointer disabled:opacity-50"
             >
               ADD
             </button>
           ) : (
-            <div className="flex items-center rounded-lg bg-emerald-700 text-white px-2 py-1 gap-2 font-bold text-xs shadow-xs">
+            <div className="flex items-center rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-2 py-1 gap-2 font-bold text-xs shadow-xs">
               <button
                 onClick={handleDecrease}
                 disabled={isUpdating}

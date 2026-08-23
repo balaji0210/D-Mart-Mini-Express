@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Filter, Layers, Check, ShoppingCart } from 'lucide-react';
 import { productsApi } from '../../api/products';
-import { Category, Product } from '../../types/product';
+import { Product } from '../../types/product';
 import { BlinkitProductCard } from '../../components/customer/BlinkitProductCard';
 
 export const ProductsPage: React.FC = () => {
@@ -127,7 +127,7 @@ export const ProductsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
         <div>
           <h1 className="text-xl font-black text-slate-900 tracking-tight">Express Storefront</h1>
-          <p className="text-xs text-slate-500">Delivering fresh groceries & daily essentials in 12 mins</p>
+          <p className="text-xs text-slate-500">Delivering fresh groceries & daily essentials in 10 mins</p>
         </div>
 
         <div className="relative max-w-md w-full">
@@ -137,17 +137,17 @@ export const ProductsPage: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search for milk, chips, coke, vegetables..."
-            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
+            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
-        {/* EXACT FILTER & EXPLORE SIDEBAR MATCHING SCREENSHOT 1 */}
+        {/* DISTINCTIVE ROYAL SAPPHIRE FILTER & EXPLORE SIDEBAR */}
         <aside className="dmart-card p-5 space-y-6 rounded-3xl border border-slate-200/90 shadow-xs bg-white">
           {/* Header */}
           <div className="flex items-center gap-2 text-slate-900 border-b border-slate-100 pb-3">
-            <Filter className="w-5 h-5 text-emerald-600" />
+            <Filter className="w-5 h-5 text-blue-600" />
             <h2 className="text-lg font-black tracking-tight text-slate-900">Filter & Explore</h2>
           </div>
 
@@ -164,7 +164,7 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleCategorySelect('')}
                 className={`w-full text-left py-2.5 px-3.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
                   selectedCategory === ''
-                    ? 'bg-[#0c8340] text-white shadow-xs'
+                    ? 'bg-[#1e3a8a] text-white shadow-sm shadow-blue-900/20'
                     : 'bg-slate-100/70 hover:bg-slate-200/80 text-slate-800'
                 }`}
               >
@@ -172,7 +172,7 @@ export const ProductsPage: React.FC = () => {
                   <ShoppingCart className="w-3.5 h-3.5" />
                   <span>All Categories</span>
                 </div>
-                {selectedCategory === '' && <Check className="w-4 h-4 text-emerald-200 font-black" />}
+                {selectedCategory === '' && <Check className="w-4 h-4 text-cyan-300 font-black" />}
               </button>
 
               {/* Individual Category Buttons with Emojis & Badges */}
@@ -186,7 +186,7 @@ export const ProductsPage: React.FC = () => {
                     onClick={() => handleCategorySelect(cat.id)}
                     className={`w-full text-left py-2 px-3.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
-                        ? 'bg-[#0c8340] text-white shadow-xs'
+                        ? 'bg-[#1e3a8a] text-white shadow-sm shadow-blue-900/20'
                         : 'bg-slate-100/60 hover:bg-slate-200/80 text-slate-800'
                     }`}
                   >
@@ -196,7 +196,7 @@ export const ProductsPage: React.FC = () => {
                     </div>
 
                     {isSelected ? (
-                      <Check className="w-4 h-4 text-emerald-200 font-black shrink-0" />
+                      <Check className="w-4 h-4 text-cyan-300 font-black shrink-0" />
                     ) : (
                       <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-slate-200/80 text-slate-700 shrink-0">
                         {count > 0 ? count : 2}
@@ -222,7 +222,7 @@ export const ProductsPage: React.FC = () => {
                   value={minPrice}
                   onChange={(e) => setMinPrice(e.target.value)}
                   placeholder="0"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
@@ -232,19 +232,19 @@ export const ProductsPage: React.FC = () => {
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
                   placeholder="500+"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
 
-            {/* Quick Price Chips (Matching Screenshot 1) */}
+            {/* Quick Price Chips */}
             <div className="flex items-center gap-2 pt-1">
               <button
                 type="button"
                 onClick={() => handleQuickPriceFilter(50)}
                 className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-center border transition-all cursor-pointer ${
                   maxPrice === '50'
-                    ? 'bg-emerald-50 border-emerald-600 text-emerald-800 font-extrabold'
+                    ? 'bg-blue-50 border-blue-600 text-blue-900 font-extrabold'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
@@ -255,7 +255,7 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleQuickPriceFilter(100)}
                 className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-center border transition-all cursor-pointer ${
                   maxPrice === '100'
-                    ? 'bg-emerald-50 border-emerald-600 text-emerald-800 font-extrabold'
+                    ? 'bg-blue-50 border-blue-600 text-blue-900 font-extrabold'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
@@ -266,7 +266,7 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleQuickPriceFilter(250)}
                 className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-center border transition-all cursor-pointer ${
                   maxPrice === '250'
-                    ? 'bg-emerald-50 border-emerald-600 text-emerald-800 font-extrabold'
+                    ? 'bg-blue-50 border-blue-600 text-blue-900 font-extrabold'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
@@ -281,10 +281,10 @@ export const ProductsPage: React.FC = () => {
                 id="in-stock-only"
                 checked={inStockOnly}
                 onChange={(e) => setInStockOnly(e.target.checked)}
-                className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 cursor-pointer"
+                className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 cursor-pointer"
               />
               <label htmlFor="in-stock-only" className="text-xs font-bold text-slate-800 flex items-center gap-1.5 cursor-pointer">
-                <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Show In-Stock Only
+                <span className="w-2 h-2 rounded-full bg-blue-500"></span> Show In-Stock Only
               </label>
             </div>
           </div>
@@ -297,7 +297,7 @@ export const ProductsPage: React.FC = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
             >
               <option value="newest">Newest Arrivals</option>
               <option value="price_asc">Price: Low to High</option>
@@ -313,7 +313,7 @@ export const ProductsPage: React.FC = () => {
             <span>
               Showing <strong className="text-slate-900">{filteredProducts.length}</strong> items
               {selectedCategory && (
-                <> in <strong className="text-emerald-700">{categories.find(c => c.id === selectedCategory || c.slug === selectedCategory)?.name || selectedCategory}</strong></>
+                <> in <strong className="text-blue-700">{categories.find(c => c.id === selectedCategory || c.slug === selectedCategory)?.name || selectedCategory}</strong></>
               )}
             </span>
             {(selectedCategory || maxPrice || inStockOnly || searchQuery) && (

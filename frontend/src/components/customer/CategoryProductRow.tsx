@@ -46,7 +46,7 @@ export const CategoryProductRow: React.FC<CategoryProductRowProps> = ({
         <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">{title}</h2>
         <Link
           to={targetLink}
-          className="text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-colors lowercase flex items-center gap-0.5"
+          className="text-sm font-bold text-blue-700 hover:text-blue-800 transition-colors lowercase flex items-center gap-0.5"
         >
           see all
         </Link>
@@ -74,7 +74,7 @@ export const CategoryProductRow: React.FC<CategoryProductRowProps> = ({
           ))}
         </div>
 
-        {/* Right Arrow Button (Matching circular white button in screenshots) */}
+        {/* Right Arrow Button */}
         <button
           onClick={scrollRight}
           className="absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:bg-slate-50 transition-all opacity-90 group-hover/row:opacity-100 flex cursor-pointer"
