@@ -22,7 +22,22 @@ export const AdminReportsPage: React.FC = () => {
             Comprehensive business metrics, sales trends, inventory turnover, and fulfillment efficiency
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href="/architecture-docs.html"
+            target="_blank"
+            rel="noreferrer"
+            className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-sm inline-flex items-center gap-1.5 transition"
+          >
+            <ShieldCheck className="w-4 h-4" /> Architecture & DB Docs
+          </a>
+          <a
+            href="/ARCHITECTURE_AND_DATABASE_DESIGN.md"
+            download="Mini_DMart_Architecture_and_DB_Design.md"
+            className="btn-secondary py-2 text-xs"
+          >
+            <Download className="w-4 h-4" /> Download Docs (.md)
+          </a>
           <select
             value={dateRange}
             onChange={(e) => setDateRange(e.target.value)}
@@ -33,7 +48,7 @@ export const AdminReportsPage: React.FC = () => {
             <option value="30d">Last 30 Days</option>
             <option value="quarter">This Quarter</option>
           </select>
-          <button onClick={exportReportCSV} className="btn-secondary">
+          <button onClick={exportReportCSV} className="btn-secondary py-2 text-xs">
             <Download className="w-4 h-4" /> Export CSV
           </button>
         </div>

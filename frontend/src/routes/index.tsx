@@ -72,6 +72,8 @@ const StaffAdminLayout = () => (
   </div>
 );
 
+import { ArchitectureDocsPage } from '../pages/public/ArchitectureDocsPage';
+
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
@@ -79,6 +81,8 @@ export const AppRoutes: React.FC = () => {
       <Route element={<CustomerLayout />}>
         <Route path="/" element={<ProductsPage />} />
         <Route path="/home" element={<ProductsPage />} />
+        <Route path="/architecture" element={<ArchitectureDocsPage />} />
+        <Route path="/docs" element={<ArchitectureDocsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />

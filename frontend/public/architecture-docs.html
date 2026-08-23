@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini D-Mart Express — System Architecture & Database Design</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+  </script>
+  <style>
+    :root {
+      --primary: #047857;
+      --primary-dark: #065f46;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+    }
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-title img {
+      width: 40px;
+      height: 40px;
+      object-contain: fit;
+    }
+    .logo-title h1 {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--slate-900);
+      letter-spacing: -0.025em;
+    }
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+    .btn-secondary {
+      background: var(--slate-100);
+      color: var(--slate-800);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin: 24px 0 12px;
+    }
+    p {
+      font-size: 0.95rem;
+      color: #475569;
+      margin-bottom: 16px;
+    }
+    .mermaid {
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+      overflow-x: auto;
+      display: flex;
+      justify-content: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 0.875rem;
+    }
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background-color: var(--slate-50);
+      font-weight: 700;
+      color: var(--slate-900);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+    tr:hover {
+      background-color: var(--slate-50);
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: #e2e8f0;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.85em;
+      color: #0f172a;
+    }
+    @media print {
+      header .actions { display: none; }
+      body { background: white; }
+      .card { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <div class="logo-title">
+        <img src="/favicon.png" alt="Mini D-Mart Logo">
+        <div>
+          <h1>Mini D-Mart Express — Architecture & DB Design</h1>
+          <p style="font-size: 0.75rem; margin: 0; color: #64748b;">Official Project System Design & Database Schema</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button onclick="window.print()" class="btn btn-secondary">
+          🖨️ Print / Save as PDF
+        </button>
+        <a href="/ARCHITECTURE_AND_DATABASE_DESIGN.md" download="Mini_DMart_Architecture_and_DB_Design.md" class="btn btn-primary">
+          ⬇️ Download Markdown (.md)
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Section 1 -->
+    <div class="card">
+      <h2>🌐 1. High-Level System Architecture</h2>
+      <p>Multi-tier decoupled architecture separating presentation (React 18 + Vite SPA), application services (Django REST Framework), and persistence (PostgreSQL / Supabase + KV real-time sync layer).</p>
+      
+      <div class="mermaid">
+flowchart TB
+    subgraph ClientLayer["🖥️ Client Tier (Presentation Layer)"]
+        CustomerUI["🛒 Customer Web App\n(React 18 + Vite + Tailwind)\n- Browse 16+ Categories\n- Dynamic Size Variant Pricing\n- 10-Min Fast Bag & Cart\n- Slot-Based Checkout\n- Order Tracking & Returns"]
+        StaffUI["📦 Staff Operational Portal\n- Order Preparation Queue\n- Visual Item Picking Checklist\n- Staging Bay Slot Assignments\n- Return QC Approval\n- Stock Adjuster & Live Restock"]
+        AdminUI["👑 Admin Management Console\n- Catalog & Price Master\n- Dynamic Low Stock Thresholds\n- Staff Assignment & Metrics\n- Financials & Reports\n- Security Audit Logs"]
+    end
+
+    subgraph CDNLayer["⚡ Edge & Delivery Tier"]
+        VercelCDN["Vercel Global Edge Network\n- HTTPS / SSL Termination\n- Asset Caching & Optimization\n- SPA Client-Side Routing"]
+    end
+
+    subgraph APILayer["⚙️ Backend Application Tier (Django REST Framework)"]
+        APIGateway["Django API Gateway / Middleware\n- JWT Authentication & RBAC Filter\n- Rate Limiting & Audit Interceptor\n- CORS Headers & Request Validator"]
+        
+        AuthModule["🔐 Auth & Security Service\n- Argon2 Password Hashing\n- Access & Refresh JWTs\n- Role Permissions (Admin/Staff/Customer)"]
+        CatalogModule["🛍️ Catalog & Pricing Service\n- 16+ Categories Engine\n- Dynamic Gram/Weight Scaler\n- Search & Multi-Filter Query"]
+        OrderModule["📦 Order Fulfillment Engine\n- Slot Reservation & Deadlock Prevention\n- State Machine (Placed -> Preparing -> Ready -> Delivered)\n- Order Code Verification (#DM-XXXXX)"]
+        InventoryModule["📊 Real-Time Inventory Service\n- Stock Decrement on Order\n- Dynamic Threshold Alert Trigger\n- Shelf Discrepancy & Audit Logging"]
+        ReturnsModule["🔄 Returns & Exchange Service\n- 7-Day Window Validator\n- Quality Control (QC) Inspector\n- Automated Wallet/Gateway Refund"]
+        SyncModule["🔄 CloudSync & KV Store Engine\n- Multi-Browser State Synchronization\n- 2.5s Polling & Instant Broadcast\n- Safe Multi-Level JSON Deserializer"]
+    end
+
+    subgraph DataTier["🗄️ Persistence & Storage Tier"]
+        PostgreSQL[("🐘 PostgreSQL / Supabase Cloud DB\n- Relational ACID Tables\n- Foreign Key Integrity & Constraints\n- B-Tree Indexes on Foreign Keys\n- KV JSONB Store for Fast Sync")]
+        KVStore[("⚡ dmart_kv_store Table\n(Key VARCHAR PRIMARY KEY, Value JSONB)")]
+        MediaBucket[("🖼️ Cloud Media Storage\n- High-Res Product Photography\n- Category Icons & Badges\n- Storefront Favicon & Assets")]
+    end
+
+    ClientLayer -->|HTTPS / REST API| VercelCDN
+    VercelCDN -->|Forward Requests| APIGateway
+    APIGateway --> AuthModule
+    APIGateway --> CatalogModule
+    APIGateway --> OrderModule
+    APIGateway --> InventoryModule
+    APIGateway --> ReturnsModule
+    APIGateway --> SyncModule
+
+    AuthModule --> PostgreSQL
+    CatalogModule --> PostgreSQL
+    OrderModule --> PostgreSQL
+    InventoryModule --> PostgreSQL
+    ReturnsModule --> PostgreSQL
+    SyncModule --> KVStore
+    CatalogModule --> MediaBucket
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="card">
+      <h2>🔀 2. End-to-End Data Flow Diagrams (DFDs)</h2>
+
+      <h3>2.1 Customer Order Placement & Checkout Flow</h3>
+      <div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor Customer as 🛒 Customer
+    participant UI as React Frontend
+    participant CartCtx as Cart State / CloudSync
+    participant API as Django REST API
+    participant DB as PostgreSQL Database
+
+    Customer->>UI: Select Product & Pack Size (e.g. 500 g)
+    UI->>UI: Calculate Dynamic Price (e.g. 1.9x Multiplier)
+    Customer->>UI: Click "+ ADD TO CART"
+    UI->>CartCtx: addItem(product_id, qty, variant_price)
+    CartCtx->>API: POST /api/v1/cart/items/
+    API->>DB: Upsert CartItem & Validate Stock
+    DB-->>API: Item Saved (Stock >= Qty)
+    API-->>CartCtx: Return Cart Object (Total, Items)
+    CartCtx-->>UI: Render Floating Cart Bar ("1 Item • ₹127")
+
+    Customer->>UI: Click "Proceed to Checkout"
+    Customer->>UI: Select Pickup Slot (e.g. "09:00 - 11:00 AM") & Payment
+    Customer->>UI: Click "Pay & Place Order"
+    UI->>API: POST /api/v1/orders/checkout/
+    
+    critical Atomic Transaction
+        API->>DB: Create Order Record (#DM-10045)
+        API->>DB: Insert OrderItems with snapshot prices
+        API->>DB: Decrement product stock_quantity
+        API->>DB: Check if stock <= low_stock_threshold -> Set is_low_stock = TRUE
+        API->>DB: Clear Customer Active Cart
+    end
+
+    DB-->>API: Order Placed Successfully
+    API-->>UI: Return Order Confirmation & Invoice Details
+    UI->>Customer: Display Order Summary & Real-Time Tracking Link
+      </div>
+
+      <h3>2.2 Staff Order Preparation & Pickup Queue Flow</h3>
+      <div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor Staff as 👨‍🍳 Store Staff / Picker
+    participant StaffUI as Staff Portal (/staff)
+    participant API as Backend Service
+    participant DB as Database Engine
+    actor Customer as 🛒 Customer / Delivery Boy
+
+    Staff->>StaffUI: Open "Order Preparation Queue"
+    StaffUI->>API: GET /api/v1/orders/?status=PLACED
+    API->>DB: Fetch Assigned Express Orders
+    DB-->>StaffUI: Return Orders List sorted by Pickup Window
+
+    Staff->>StaffUI: Click "Start Picking Order #DM-10045"
+    StaffUI->>API: PATCH /api/v1/orders/DM-10045/ (status = PREPARING)
+    API->>DB: Update order status & log picker timestamp
+    
+    Staff->>StaffUI: Check off items on visual packing checklist
+    Staff->>StaffUI: Assign Shelf Bay Slot (e.g. "Bay A-03")
+    Staff->>StaffUI: Click "Mark Ready for Pickup"
+    StaffUI->>API: PATCH /api/v1/orders/DM-10045/ (status = READY, bay = "Bay A-03")
+    API->>DB: Update status to READY & trigger customer SMS/email alert
+
+    Customer->>Staff: Arrive at Store Counter / Show Order Code #DM-10045
+    Staff->>StaffUI: Enter / Scan Order Code #DM-10045
+    StaffUI->>StaffUI: Highlight Bay A-03 & handover package
+    Staff->>StaffUI: Click "Complete Handover / Handed Over"
+    StaffUI->>API: PATCH /api/v1/orders/DM-10045/ (status = COMPLETED)
+    API->>DB: Update Order Status to COMPLETED & record handover audit log
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="card">
+      <h2>🛡️ 3. Role-Based Access Control (RBAC) Matrix</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Module / Operation</th>
+            <th>🛒 Customer</th>
+            <th>👨‍🍳 Staff Operations</th>
+            <th>👑 Admin Console</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Catalog & Dynamic Variant Pricing</strong></td>
+            <td>✅ Allowed</td>
+            <td>✅ Allowed</td>
+            <td>✅ Full Control</td>
+          </tr>
+          <tr>
+            <td><strong>Add to Cart & Place Orders</strong></td>
+            <td>✅ Allowed</td>
+            <td>❌ Restricted</td>
+            <td>✅ Allowed (Superuser Authority)</td>
+          </tr>
+          <tr>
+            <td><strong>Order Preparation & Picking Queue</strong></td>
+            <td>❌ 403 Forbidden</td>
+            <td>✅ Full Access</td>
+            <td>✅ Full Access</td>
+          </tr>
+          <tr>
+            <td><strong>Pickup Staging Bay Assignment</strong></td>
+            <td>❌ 403 Forbidden</td>
+            <td>✅ Full Access</td>
+            <td>✅ Full Access</td>
+          </tr>
+          <tr>
+            <td><strong>Low Stock Threshold Alerts</strong></td>
+            <td>❌ 403 Forbidden</td>
+            <td>✅ Read & Restock</td>
+            <td>✅ Full Access</td>
+          </tr>
+          <tr>
+            <td><strong>Product Master CRUD & Pricing</strong></td>
+            <td>❌ 403 Forbidden</td>
+            <td>❌ Restricted</td>
+            <td>✅ Full Control</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="card">
+      <h2>🗄️ 4. Entity-Relationship (ER) Database Design</h2>
+      <div class="mermaid">
+erDiagram
+    USERS ||--o{ ORDERS : places
+    USERS ||--o{ CARTS : owns
+    USERS ||--o{ RETURNS : requests
+    CATEGORIES ||--o{ PRODUCTS : categorizes
+    PRODUCTS ||--o{ CART_ITEMS : contained_in
+    PRODUCTS ||--o{ ORDER_ITEMS : ordered_in
+    CARTS ||--|{ CART_ITEMS : holds
+    STORES ||--o{ PICKUP_SLOTS : defines
+    PICKUP_SLOTS ||--o{ ORDERS : scheduled_in
+    ORDERS ||--|{ ORDER_ITEMS : contains
+    ORDERS ||--o{ PAYMENTS : paid_by
+    ORDERS ||--o{ RETURNS : originates
+
+    USERS {
+        uuid id PK
+        varchar email UK
+        varchar role "CUSTOMER, STAFF, ADMIN"
+        boolean is_active
+    }
+    PRODUCTS {
+        varchar id PK
+        varchar category_id FK
+        varchar name
+        decimal price
+        varchar weight_size
+        integer stock_quantity
+        integer low_stock_threshold
+        boolean is_low_stock
+    }
+    ORDERS {
+        varchar id PK
+        varchar order_number UK
+        uuid customer_id FK
+        uuid pickup_slot_id FK
+        varchar staging_bay
+        decimal total_amount
+        enum status
+        enum payment_status
+    }
+    RETURNS {
+        varchar id PK
+        varchar order_id FK
+        enum reason
+        enum status "PENDING_QC, APPROVED, REJECTED"
+        decimal refund_amount
+    }
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
