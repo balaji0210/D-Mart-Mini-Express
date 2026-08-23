@@ -4,6 +4,7 @@ import { Search, Filter, Layers, Check, ShoppingCart } from 'lucide-react';
 import { productsApi } from '../../api/products';
 import { Product } from '../../types/product';
 import { BlinkitProductCard } from '../../components/customer/BlinkitProductCard';
+import { CategoryProductRow } from '../../components/customer/CategoryProductRow';
 import { ImageCarousel } from '../../components/customer/ImageCarousel';
 
 export const ProductsPage: React.FC = () => {
@@ -11,7 +12,6 @@ export const ProductsPage: React.FC = () => {
   const initialCat = searchParams.get('category') || '';
 
   const [categories, setCategories] = useState<any[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -65,6 +65,17 @@ export const ProductsPage: React.FC = () => {
         p.category?.slug === catId ||
         (slug && (p.category === slug || p.category?.slug === slug))
     ).length;
+  };
+
+  const getProdsByCategory = (catIdentifier: string) => {
+    return allProducts.filter(
+      (p: any) =>
+        p.category === catIdentifier ||
+        p.category?.id === catIdentifier ||
+        p.category?.slug === catIdentifier ||
+        (typeof p.category === 'string' && p.category.toLowerCase().includes(catIdentifier.toLowerCase())) ||
+        (typeof p.category?.slug === 'string' && p.category.slug.toLowerCase().includes(catIdentifier.toLowerCase()))
+    );
   };
 
   // Filter and sort products
@@ -124,17 +135,19 @@ export const ProductsPage: React.FC = () => {
 
   // 10 Category Quick Navigation Icons
   const categoryIcons = [
-    { name: 'Paan Corner', icon: '🚬', slug: 'cat-tobacco' },
+    { name: 'Breakfast & Cereals', icon: '🥣', slug: 'cat-breakfast' },
     { name: 'Dairy, Bread & Eggs', icon: '🥛', slug: 'cat-dairy' },
-    { name: 'Fruits & Vegetables', icon: '🥦', slug: 'cat-fruits-veg' },
     { name: 'Cold Drinks & Juices', icon: '🥤', slug: 'cat-drinks' },
     { name: 'Snacks & Munchies', icon: '🍟', slug: 'cat-snacks' },
-    { name: 'Breakfast & Instant Food', icon: '🥣', slug: 'cat-breakfast' },
+    { name: 'Fruits & Vegetables', icon: '🥦', slug: 'cat-fruits-veg' },
     { name: 'Sweet Tooth', icon: '🍫', slug: 'cat-sweet' },
+    { name: 'Paan Corner', icon: '🚬', slug: 'cat-tobacco' },
     { name: 'Bakery & Biscuits', icon: '🍞', slug: 'cat-bakery' },
-    { name: 'Tea, Coffee & Milk Drinks', icon: '☕', slug: 'cat-tea-coffee' },
+    { name: 'Tea & Coffee', icon: '☕', slug: 'cat-tea-coffee' },
     { name: 'Atta, Rice & Dal', icon: '🌾', slug: 'cat-staples' },
   ];
+
+  const isDefaultLanding = !selectedCategory && !searchQuery && !maxPrice && !inStockOnly;
 
   return (
     <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-4 space-y-8">
@@ -149,39 +162,27 @@ export const ProductsPage: React.FC = () => {
           <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
             Popular Categories
           </h3>
-          {selectedCategory && (
-            <button
-              onClick={() => handleCategorySelect('')}
-              className="text-xs font-bold text-blue-600 hover:text-blue-700 underline cursor-pointer"
-            >
-              Clear Category Filter
-            </button>
-          )}
+          <span className="text-xs text-slate-500 font-medium">Explore 10+ express grocery aisles</span>
         </div>
 
-        <div className="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-10 gap-2 sm:gap-2.5">
+        <div className="flex items-center gap-3 overflow-x-auto pb-2 pt-1 px-1 scrollbar-none">
           {categoryIcons.map((cat, idx) => {
             const isSelected = selectedCategory === cat.slug;
             return (
               <button
                 key={idx}
-                onClick={() => handleCategorySelect(isSelected ? '' : cat.slug)}
-                className={`flex flex-col items-center text-center p-2 rounded-2xl border transition-all duration-200 group cursor-pointer ${
+                type="button"
+                onClick={() => handleCategorySelect(cat.slug)}
+                className={`flex flex-col items-center justify-center p-3 rounded-2xl min-w-[95px] sm:min-w-[105px] shrink-0 border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white border-blue-600 shadow-md shadow-blue-500/20 scale-105'
-                    : 'bg-white border-slate-200/80 shadow-2xs hover:shadow-md hover:border-blue-300 hover:bg-blue-50/20'
+                    ? 'bg-emerald-50 border-emerald-600 shadow-md shadow-emerald-500/10'
+                    : 'bg-white border-slate-200/80 hover:border-emerald-300 hover:shadow-xs'
                 }`}
               >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center p-1 mb-1 group-hover:scale-110 transition-transform ${
-                  isSelected ? 'bg-white/20' : 'bg-slate-100/80'
-                }`}>
-                  <span className="text-2xl">{cat.icon}</span>
+                <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-2xl mb-1.5 shadow-2xs">
+                  {cat.icon}
                 </div>
-                <span
-                  className={`text-[10px] sm:text-[11px] font-bold leading-tight line-clamp-2 ${
-                    isSelected ? 'text-white font-extrabold' : 'text-slate-700 group-hover:text-blue-600'
-                  }`}
-                >
+                <span className={`text-[11px] font-bold text-center leading-tight ${isSelected ? 'text-emerald-800' : 'text-slate-700'}`}>
                   {cat.name}
                 </span>
               </button>
@@ -190,13 +191,15 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. STOREFRONT MAIN CONTENT (FILTER & EXPLORE SIDEBAR + PRODUCT GRID) */}
+      {/* 3. MAIN SECTION: SIDEBAR FILTER + CONTENT */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
-        {/* FRESH & MILD FILTER & EXPLORE SIDEBAR */}
-        <aside className="dmart-card p-5 space-y-6 rounded-3xl border border-slate-200 shadow-xs bg-white">
-          {/* Header */}
-          <div className="flex items-center gap-2 text-slate-900 border-b border-slate-100 pb-3">
-            <Filter className="w-5 h-5 text-blue-600" />
+        {/* SIDEBAR FILTER (MILD LIGHT THEME) */}
+        <aside className="dmart-card p-5 rounded-3xl border border-slate-200 shadow-xs space-y-6 bg-white sticky top-24">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="flex items-center gap-2 text-emerald-700">
+              <Filter className="w-4 h-4" />
+              <span className="text-xs font-black tracking-wider uppercase">FILTERS</span>
+            </div>
             <h2 className="text-lg font-black tracking-tight text-slate-900">Filter & Explore</h2>
           </div>
 
@@ -213,7 +216,7 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleCategorySelect('')}
                 className={`w-full text-left py-2.5 px-3.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
                   selectedCategory === ''
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20'
+                    ? 'bg-emerald-600 text-white shadow-md shadow-emerald-500/20'
                     : 'bg-slate-50 hover:bg-slate-100 text-slate-700'
                 }`}
               >
@@ -235,7 +238,7 @@ export const ProductsPage: React.FC = () => {
                     onClick={() => handleCategorySelect(cat.id)}
                     className={`w-full text-left py-2 px-3.5 rounded-2xl text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20'
+                        ? 'bg-emerald-600 text-white shadow-md shadow-emerald-500/20'
                         : 'bg-slate-50 hover:bg-slate-100 text-slate-700'
                     }`}
                   >
@@ -248,7 +251,7 @@ export const ProductsPage: React.FC = () => {
                       <Check className="w-4 h-4 text-white font-black shrink-0" />
                     ) : (
                       <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-slate-200/70 text-slate-700 shrink-0">
-                        {count > 0 ? count : 2}
+                        {count > 0 ? count : 4}
                       </span>
                     )}
                   </button>
@@ -271,7 +274,7 @@ export const ProductsPage: React.FC = () => {
                   value={minPrice}
                   onChange={(e) => setMinPrice(e.target.value)}
                   placeholder="0"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
               <div>
@@ -281,7 +284,7 @@ export const ProductsPage: React.FC = () => {
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
                   placeholder="500+"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
             </div>
@@ -293,7 +296,7 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleQuickPriceFilter(50)}
                 className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-center border transition-all cursor-pointer ${
                   maxPrice === '50'
-                    ? 'bg-blue-50 border-blue-600 text-blue-700 font-extrabold shadow-2xs'
+                    ? 'bg-emerald-50 border-emerald-600 text-emerald-800 font-extrabold shadow-2xs'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
@@ -304,7 +307,7 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleQuickPriceFilter(100)}
                 className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-center border transition-all cursor-pointer ${
                   maxPrice === '100'
-                    ? 'bg-blue-50 border-blue-600 text-blue-700 font-extrabold shadow-2xs'
+                    ? 'bg-emerald-50 border-emerald-600 text-emerald-800 font-extrabold shadow-2xs'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
@@ -315,7 +318,7 @@ export const ProductsPage: React.FC = () => {
                 onClick={() => handleQuickPriceFilter(250)}
                 className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold text-center border transition-all cursor-pointer ${
                   maxPrice === '250'
-                    ? 'bg-blue-50 border-blue-600 text-blue-700 font-extrabold shadow-2xs'
+                    ? 'bg-emerald-50 border-emerald-600 text-emerald-800 font-extrabold shadow-2xs'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                 }`}
               >
@@ -330,7 +333,7 @@ export const ProductsPage: React.FC = () => {
                 id="in-stock-only"
                 checked={inStockOnly}
                 onChange={(e) => setInStockOnly(e.target.checked)}
-                className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 cursor-pointer"
+                className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 cursor-pointer"
               />
               <label htmlFor="in-stock-only" className="text-xs font-bold text-slate-800 flex items-center gap-1.5 cursor-pointer">
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Show In-Stock Only
@@ -346,7 +349,7 @@ export const ProductsPage: React.FC = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
             >
               <option value="newest">Newest Arrivals</option>
               <option value="price_asc">Price: Low to High</option>
@@ -356,13 +359,13 @@ export const ProductsPage: React.FC = () => {
         </aside>
 
         {/* PRODUCTS MAIN CONTENT AREA */}
-        <main className="lg:col-span-3 space-y-4">
+        <main className="lg:col-span-3 space-y-6">
           {/* Active Filter Indicators */}
           <div className="flex items-center justify-between text-xs text-slate-600 px-1">
             <span>
               Showing <strong className="text-slate-900">{filteredProducts.length}</strong> items
               {selectedCategory && (
-                <> in <strong className="text-blue-700">{categories.find(c => c.id === selectedCategory || c.slug === selectedCategory)?.name || selectedCategory}</strong></>
+                <> in <strong className="text-emerald-700">{categories.find(c => c.id === selectedCategory || c.slug === selectedCategory)?.name || selectedCategory}</strong></>
               )}
             </span>
             {(selectedCategory || maxPrice || inStockOnly || searchQuery) && (
@@ -388,8 +391,65 @@ export const ProductsPage: React.FC = () => {
                 <div key={n} className="dmart-card p-4 animate-pulse h-64 rounded-2xl bg-slate-100"></div>
               ))}
             </div>
+          ) : isDefaultLanding ? (
+            /* DEFAULT LANDING: RICH HORIZONTAL CATEGORY ROWS MATCHING SCREENSHOT */
+            <div className="space-y-8">
+              {/* Breakfast & Cereals (Screenshot 1 Reference) */}
+              <CategoryProductRow
+                title="Breakfast & Cereals"
+                categoryId="cat-breakfast"
+                icon="🥣"
+                subtitle="Fresh stock ready for 10-minute doorstep delivery"
+                products={getProdsByCategory('breakfast').length > 0 ? getProdsByCategory('breakfast') : allProducts.slice(0, 4)}
+              />
+
+              {/* Cold Drinks & Juices */}
+              <CategoryProductRow
+                title="Cold Drinks & Juices"
+                categoryId="cat-drinks"
+                icon="🥤"
+                subtitle="Icy cold sodas, fruit juices & instant hydration"
+                products={getProdsByCategory('drinks').length > 0 ? getProdsByCategory('drinks') : allProducts.slice(4, 10)}
+              />
+
+              {/* Dairy, Bread & Eggs */}
+              <CategoryProductRow
+                title="Dairy, Bread & Eggs"
+                categoryId="cat-dairy"
+                icon="🥛"
+                subtitle="Farm fresh milk, curd, eggs and breakfast essentials"
+                products={getProdsByCategory('dairy').length > 0 ? getProdsByCategory('dairy') : allProducts.slice(2, 8)}
+              />
+
+              {/* Snacks & Munchies */}
+              <CategoryProductRow
+                title="Snacks & Munchies"
+                categoryId="cat-snacks"
+                icon="🍟"
+                subtitle="Crispy chips, roasted nuts & party munchies"
+                products={getProdsByCategory('snacks').length > 0 ? getProdsByCategory('snacks') : allProducts.slice(0, 6)}
+              />
+
+              {/* Fruits & Vegetables */}
+              <CategoryProductRow
+                title="Fruits & Vegetables"
+                categoryId="cat-fruits-veg"
+                icon="🥦"
+                subtitle="Handpicked farm fresh vegetables & organic fruits"
+                products={getProdsByCategory('fruits').length > 0 ? getProdsByCategory('fruits') : allProducts.slice(3, 7)}
+              />
+
+              {/* Sweet Tooth & Desserts */}
+              <CategoryProductRow
+                title="Sweet Tooth & Desserts"
+                categoryId="cat-sweet"
+                icon="🍫"
+                subtitle="Ice cream tubs, festive sweets & chocolates"
+                products={getProdsByCategory('sweet').length > 0 ? getProdsByCategory('sweet') : allProducts.slice(1, 7)}
+              />
+            </div>
           ) : filteredProducts.length === 0 ? (
-            <div className="dmart-card p-12 text-center space-y-3 rounded-3xl">
+            <div className="dmart-card p-12 text-center space-y-3 rounded-3xl bg-white border border-slate-200">
               <Layers className="w-12 h-12 text-slate-300 mx-auto" />
               <h3 className="text-base font-bold text-slate-900">No Products Found</h3>
               <p className="text-slate-500 text-xs">Try adjusting your filters or price range.</p>
