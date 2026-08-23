@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Star, RotateCcw, Zap, Plus, Minus, Check } from 'lucide-react';
+import { Star, RotateCcw, Zap, Plus, Minus, AlertCircle, Flame } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Product } from '../../types/product';
 import { useCart } from '../../context/CartContext';
@@ -22,15 +22,74 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
   const { isAuthenticated } = useAuth();
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // Derive weights/variants options
-  const defaultUnit = product.weight_size || product.unit || '250 g';
-  const [selectedVariant, setSelectedVariant] = useState(defaultUnit);
+  // Derive weights/variants options with dynamic price scaling
+  const baseWeight = product.weight_size || product.unit || '250 g';
+  const basePrice = Number(product.price);
+  const baseRegularPrice = product.discount_price
+    ? Number(product.discount_price)
+    : Math.round(basePrice * 1.22);
 
-  const variants = [
-    defaultUnit,
-    defaultUnit.includes('g') ? '500 g' : defaultUnit.includes('kg') ? '2 kg' : 'Double Pack',
-    defaultUnit.includes('g') ? '1 kg' : defaultUnit.includes('kg') ? '5 kg' : 'Family Pack',
-  ];
+  const getVariants = (base: string) => {
+    if (
+      base.includes('250 g') ||
+      base.includes('200 g') ||
+      base.includes('150 g') ||
+      base.includes('120 g') ||
+      base.includes('100 g') ||
+      base.includes('50 g') ||
+      base.includes('22 g') ||
+      base.includes('56 g') ||
+      base.includes('85 g')
+    ) {
+      return [
+        { label: base, mult: 1.0 },
+        { label: '500 g', mult: 1.9 },
+        { label: '1 kg', mult: 3.6 },
+      ];
+    } else if (base.includes('400 g') || base.includes('300 g') || base.includes('375 g')) {
+      return [
+        { label: base, mult: 1.0 },
+        { label: '700 g', mult: 1.7 },
+        { label: '1 kg', mult: 2.3 },
+      ];
+    } else if (
+      base.includes('1 kg') ||
+      base.includes('1 L') ||
+      base.includes('1 ltr') ||
+      base.includes('750 ml') ||
+      base.includes('700 ml')
+    ) {
+      return [
+        { label: base, mult: 1.0 },
+        { label: base.includes('L') || base.includes('ltr') || base.includes('ml') ? '2 L' : '2 kg', mult: 1.9 },
+        { label: base.includes('L') || base.includes('ltr') || base.includes('ml') ? '5 L' : '5 kg', mult: 4.6 },
+      ];
+    } else if (base.includes('5 kg')) {
+      return [
+        { label: '1 kg', mult: 0.22 },
+        { label: '5 kg', mult: 1.0 },
+        { label: '10 kg', mult: 1.9 },
+      ];
+    } else if (base.includes('pcs') || base.includes('sachets') || base.includes('wipes')) {
+      return [
+        { label: base, mult: 1.0 },
+        { label: 'Pack of 2', mult: 1.9 },
+        { label: 'Pack of 4', mult: 3.7 },
+      ];
+    }
+    return [
+      { label: base, mult: 1.0 },
+      { label: 'Double Pack', mult: 1.9 },
+      { label: 'Family Pack', mult: 3.6 },
+    ];
+  };
+
+  const variants = getVariants(baseWeight);
+  const [selectedVariant, setSelectedVariant] = useState(variants[0].label);
+
+  const activeVariantObj = variants.find((v) => v.label === selectedVariant) || variants[0];
+  const activePrice = Math.max(1, Math.round(basePrice * activeVariantObj.mult));
+  const activeRegularPrice = Math.max(activePrice, Math.round(baseRegularPrice * activeVariantObj.mult));
 
   // Find item in cart
   const cartItem = cart?.items?.find(
@@ -41,9 +100,19 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
   );
   const quantity = cartItem ? cartItem.quantity : 0;
 
+  // Stock status checks
+  const stockQty = product.stock_quantity ?? 50;
+  const lowStockThreshold = product.low_stock_threshold || 15;
+  const isOutOfStock = stockQty <= 0 || product.is_in_stock === false;
+  const isLowStock = !isOutOfStock && (stockQty <= lowStockThreshold || product.is_low_stock);
+
   const handleAdd = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    if (isOutOfStock) {
+      toast.error('This item is currently out of stock.');
+      return;
+    }
     if (!isAuthenticated) {
       navigate('/login');
       return;
@@ -52,7 +121,7 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
     setIsUpdating(true);
     try {
       await addToCart(product.id, 1);
-      toast.success(`Added ${product.name.slice(0, 20)}...`);
+      toast.success(`Added ${product.name.slice(0, 18)} (${selectedVariant})`);
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Failed to add item.');
     } finally {
@@ -64,6 +133,10 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
     e.preventDefault();
     e.stopPropagation();
     if (!cartItem) return;
+    if (quantity >= stockQty) {
+      toast.error(`Only ${stockQty} units available in stock.`);
+      return;
+    }
     setIsUpdating(true);
     try {
       await updateQuantity(cartItem.id, quantity + 1);
@@ -93,15 +166,9 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
   // Derive discount if applicable
   const displayDiscount =
     discountBadge ||
-    (product.discount_price && product.discount_price > product.price
-      ? `${Math.round(
-          ((product.discount_price - product.price) / product.discount_price) * 100
-        )}% OFF`
+    (activeRegularPrice > activePrice
+      ? `${Math.round(((activeRegularPrice - activePrice) / activeRegularPrice) * 100)}% OFF`
       : '18% OFF');
-
-  const regularPrice = product.discount_price
-    ? product.discount_price
-    : Math.round(Number(product.price) * 1.22);
 
   const categoryName =
     typeof product.category === 'object'
@@ -134,14 +201,30 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
               e.target.src = 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=300';
             }}
           />
+
+          {/* Out of Stock Overlay */}
+          {isOutOfStock && (
+            <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-2 text-center rounded-2xl">
+              <span className="px-2.5 py-1 rounded-xl bg-rose-600 text-white font-black text-[10px] uppercase tracking-wider shadow-md">
+                Out of Stock
+              </span>
+            </div>
+          )}
         </Link>
 
-        {/* Star Rating Badge */}
-        <div className="mb-2">
+        {/* Star Rating Badge + Low Stock Alert Indicator */}
+        <div className="flex items-center justify-between gap-1 mb-2">
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-50 border border-slate-100 text-slate-800 text-[10px] font-bold shadow-2xs">
             <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
             <span>4.8</span>
           </span>
+
+          {isLowStock && (
+            <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-amber-50 border border-amber-200 text-amber-900 text-[9px] font-black animate-pulse">
+              <Flame className="w-2.5 h-2.5 text-amber-600 fill-amber-600" />
+              <span>Only {stockQty} left!</span>
+            </span>
+          )}
         </div>
 
         {/* Category Tag & 7d Return Row */}
@@ -163,35 +246,36 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
           {product.name}
         </Link>
 
-        {/* Price & Unit Row */}
+        {/* Dynamic Price & Unit Row based on selected weight variant */}
         <div className="flex items-baseline justify-between mb-2">
           <div className="flex items-baseline gap-1.5">
             <span className="font-black text-base sm:text-lg text-slate-900">
-              ₹{Number(product.price).toFixed(0)}
+              ₹{activePrice}
             </span>
             <span className="text-xs text-slate-400 line-through">
-              ₹{Number(regularPrice).toFixed(0)}
+              ₹{activeRegularPrice}
             </span>
           </div>
-          <span className="text-xs text-slate-500 font-bold">
+          <span className="text-xs text-emerald-800 font-extrabold">
             {selectedVariant}
           </span>
         </div>
 
-        {/* Weight Variant Chips */}
+        {/* Selectable Weight Variant Chips (Dynamic Price Changes on Click) */}
         <div className="flex items-center gap-1.5 mb-3 overflow-x-auto scrollbar-none">
           {variants.map((v, i) => (
             <button
               key={i}
               type="button"
-              onClick={() => setSelectedVariant(v)}
+              onClick={() => setSelectedVariant(v.label)}
               className={`px-2 py-0.5 rounded-md text-[10px] font-extrabold transition-all cursor-pointer ${
-                selectedVariant === v
-                  ? 'bg-emerald-700 text-white shadow-2xs'
+                selectedVariant === v.label
+                  ? 'bg-emerald-700 text-white shadow-2xs scale-105'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
+              title={`Switch to ${v.label} (₹${Math.max(1, Math.round(basePrice * v.mult))})`}
             >
-              {v}
+              {v.label}
             </button>
           ))}
         </div>
@@ -199,7 +283,14 @@ export const BlinkitProductCard: React.FC<BlinkitProductCardProps> = ({
 
       {/* Bottom ADD Button / Counter */}
       <div>
-        {quantity === 0 ? (
+        {isOutOfStock ? (
+          <button
+            disabled
+            className="w-full py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-400 font-extrabold text-xs tracking-wider uppercase cursor-not-allowed"
+          >
+            Out of Stock
+          </button>
+        ) : quantity === 0 ? (
           <button
             onClick={handleAdd}
             disabled={isUpdating}

@@ -35,17 +35,29 @@ export const StaffInventoryUpdatesPage: React.FC = () => {
     fetchStockData();
   }, []);
 
-  const handleStockAdjust = (productId: string, delta: number) => {
+  const handleStockAdjust = async (productId: string, delta: number) => {
+    const target = products.find((p) => p.id === productId);
+    if (!target) return;
+    const newQty = Math.max(0, (target.stock_quantity || 0) + delta);
+
     setProducts((prev) =>
       prev.map((p) => {
         if (p.id === productId) {
-          const newQty = Math.max(0, (p.stock_quantity || 0) + delta);
           return { ...p, stock_quantity: newQty, is_in_stock: newQty > 0 };
         }
         return p;
       })
     );
-    toast.success(`Updated stock quantity!`);
+
+    try {
+      await productsApi.updateProduct(productId, {
+        stock_quantity: newQty,
+        is_in_stock: newQty > 0,
+      });
+      toast.success(`Updated stock to ${newQty} units!`);
+    } catch (e) {
+      toast.error('Failed to sync stock update.');
+    }
   };
 
   const handleReportSubmit = (e: React.FormEvent) => {
