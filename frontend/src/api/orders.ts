@@ -1,6 +1,7 @@
 import { apiClient } from './client';
+import { findProductById } from './products';
 
-const SHARED_ORDERS_KEY = 'dmart_shared_orders_v4';
+const SHARED_ORDERS_KEY = 'dmart_shared_orders_v5';
 
 export const getSharedOrders = (): any[] => {
   try {
@@ -15,11 +16,18 @@ export const getSharedOrders = (): any[] => {
       customer_email: 'customer@dmart.com',
       status: 'PENDING',
       fulfillment_type: 'PICKUP',
-      total_amount: '35.00',
+      total_amount: '160.00',
       payment_method: 'CARD',
       created_at: new Date().toISOString(),
       items: [
-        { id: 'item-1', product_name: "Kwality Wall's Alphonso Mango Ice Cream (700 ml)", quantity: 1, unit_price: '160.00', subtotal: '160.00' },
+        {
+          id: 'item-1',
+          product_name: "Kwality Wall's Alphonso Mango Ice Cream (700 ml)",
+          quantity: 1,
+          unit_price: '160.00',
+          subtotal: '160.00',
+          image_url: 'https://images.unsplash.com/photo-1570197788417-0e82375c9371',
+        },
       ],
     },
   ];
@@ -59,6 +67,32 @@ export const ordersApi = {
     if (!orderData) {
       const newOrderId = `ord-${Date.now()}`;
       const randomSuffix = Math.floor(100000 + Math.random() * 900000);
+      const rawItems = Array.isArray(data.items) && data.items.length > 0 ? data.items : [];
+      const formattedItems = rawItems.length > 0
+        ? rawItems.map((i: any) => {
+            const p = findProductById(i.product_id || i.product?.id || i.id);
+            return {
+              id: i.id || `item-${Date.now()}`,
+              product_name: i.product_name || i.product?.name || i.name || p.name,
+              quantity: i.quantity || 1,
+              unit_price: String(i.unit_price || i.product?.price || p.price),
+              subtotal: String(i.subtotal || Number(p.price) * (i.quantity || 1)),
+              image_url: i.image_url || i.product?.image_url || p.image_url,
+            };
+          })
+        : [
+            {
+              id: `item-${Date.now()}`,
+              product_name: "Kwality Wall's Alphonso Mango Ice Cream (700 ml)",
+              quantity: 1,
+              unit_price: '160.00',
+              subtotal: '160.00',
+              image_url: 'https://images.unsplash.com/photo-1570197788417-0e82375c9371',
+            },
+          ];
+
+      const calculatedTotal = formattedItems.reduce((sum: number, item: any) => sum + (Number(item.subtotal) || 0), 0);
+
       orderData = {
         id: newOrderId,
         order_number: `ORD-2026-${randomSuffix}`,
@@ -66,12 +100,10 @@ export const ordersApi = {
         customer_email: data.customer_email || 'customer@dmart.com',
         status: 'PENDING',
         fulfillment_type: data.fulfillment_type || 'PICKUP',
-        total_amount: String(data.total_amount || '35.00'),
+        total_amount: String(data.total_amount || calculatedTotal.toFixed(2)),
         payment_method: data.payment_method || 'CARD',
         created_at: new Date().toISOString(),
-        items: data.items || [
-          { id: `item-${Date.now()}`, product_name: 'Selected Grocery Item', quantity: 1, unit_price: '35.00', subtotal: '35.00' },
-        ],
+        items: formattedItems,
       };
     }
 

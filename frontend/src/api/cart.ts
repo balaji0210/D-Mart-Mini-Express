@@ -1,4 +1,5 @@
 import { apiClient } from './client';
+import { findProductById } from './products';
 
 let MOCK_CART_ITEMS: any[] = [];
 
@@ -35,24 +36,27 @@ export const cartApi = {
       // Fallback
     }
 
+    const foundProd = findProductById(productId);
+
     const existing = MOCK_CART_ITEMS.find(i => i.product_id === productId || i.product?.id === productId);
     if (existing) {
       existing.quantity += quantity;
-      existing.subtotal = Number(existing.product?.price || 35.00) * existing.quantity;
+      existing.subtotal = Number(existing.product?.price || foundProd.price) * existing.quantity;
     } else {
       const mockProd = {
-        id: productId,
-        name: 'Selected Grocery Item',
-        price: 35.00,
-        stock_quantity: 50,
-        is_in_stock: true,
+        id: foundProd.id,
+        name: foundProd.name,
+        price: Number(foundProd.price),
+        stock_quantity: foundProd.stock_quantity,
+        is_in_stock: foundProd.is_in_stock,
+        image_url: foundProd.image_url,
       };
       MOCK_CART_ITEMS.push({
         id: `cart-item-${Date.now()}`,
-        product_id: productId,
+        product_id: foundProd.id,
         product: mockProd,
         quantity,
-        subtotal: 35.00 * quantity,
+        subtotal: Number(foundProd.price) * quantity,
       });
     }
     return {

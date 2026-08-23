@@ -464,3 +464,18 @@ export const productsApi = {
     return { success: true, message: 'Product deleted' };
   },
 };
+
+export { MOCK_PRODUCTS };
+
+export const findProductById = (id: string) => {
+  if (!id) return MOCK_PRODUCTS[0];
+  const clean = String(id).trim().toLowerCase();
+  return (
+    MOCK_PRODUCTS.find(
+      (p) =>
+        p.id.toLowerCase() === clean ||
+        p.name.toLowerCase().includes(clean) ||
+        clean.includes(p.id.toLowerCase())
+    ) || MOCK_PRODUCTS[0]
+  );
+};

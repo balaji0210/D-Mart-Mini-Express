@@ -194,12 +194,22 @@ export const OrderDetailPage: React.FC = () => {
               return (
                 <div key={item.id} className={`p-4 transition ${rowBg}`}>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                    <div>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <p className="font-extrabold text-slate-900 text-sm">{item.product_name}</p>
-                        {itemReq && <StatusBadge status={itemReq.status} />}
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={item.image_url || 'https://images.unsplash.com/photo-1542838132-92c53300491e'}
+                        alt={item.product_name}
+                        className="w-12 h-12 object-cover rounded-xl bg-slate-100 border border-slate-200 shrink-0"
+                        onError={(e: any) => {
+                          e.target.src = 'https://images.unsplash.com/photo-1542838132-92c53300491e';
+                        }}
+                      />
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <p className="font-extrabold text-slate-900 text-sm">{item.product_name}</p>
+                          {itemReq && <StatusBadge status={itemReq.status} />}
+                        </div>
+                        <p className="text-slate-500 mt-0.5">{item.quantity} x ₹{Number(item.unit_price).toFixed(2)}</p>
                       </div>
-                      <p className="text-slate-500 mt-0.5">{item.quantity} x ₹{Number(item.unit_price).toFixed(2)}</p>
                     </div>
 
                     <div className="flex items-center gap-4 justify-between sm:justify-end">

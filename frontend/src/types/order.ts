@@ -48,6 +48,7 @@ export interface OrderItem {
   unit_price: number;
   quantity: number;
   subtotal: number;
+  image_url?: string;
 }
 
 export interface DeliveryAddress {

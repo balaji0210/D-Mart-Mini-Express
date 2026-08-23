@@ -7,8 +7,11 @@ import { PickupSlot, FulfillmentType, PaymentMethod } from '../../types/order';
 import { useCart } from '../../context/CartContext';
 import { PaymentModal } from '../../components/checkout/PaymentModal';
 
+import { useAuth } from '../../context/AuthContext';
+
 export const CheckoutPage: React.FC = () => {
   const { cart, fetchCart } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const [fulfillmentType] = useState<FulfillmentType>('PICKUP');
@@ -44,10 +47,22 @@ export const CheckoutPage: React.FC = () => {
     setIsLoading(true);
     setError(null);
 
-    const payload: { fulfillment_type: FulfillmentType; pickup_slot_id: string; payment_method: PaymentMethod } = {
-      fulfillment_type: 'PICKUP',
+    const payload = {
+      fulfillment_type: 'PICKUP' as FulfillmentType,
       pickup_slot_id: selectedSlotId,
       payment_method: paymentMethod,
+      items: cart?.items?.map((i: any) => ({
+        id: i.id,
+        product_id: i.product?.id || i.product_id,
+        product_name: i.product?.name,
+        quantity: i.quantity,
+        unit_price: i.product?.price,
+        subtotal: i.subtotal,
+        image_url: i.product?.image_url,
+      })),
+      total_amount: cart?.subtotal,
+      customer_name: user?.full_name || 'Customer User',
+      customer_email: user?.email || 'customer@dmart.com',
     };
 
 
