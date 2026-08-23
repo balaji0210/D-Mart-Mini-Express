@@ -39,6 +39,10 @@ export const StaffDashboardPage: React.FC = () => {
 
   useEffect(() => {
     fetchDashboardData();
+    const interval = setInterval(() => {
+      fetchDashboardData();
+    }, 2500);
+    return () => clearInterval(interval);
   }, []);
 
   const handleUpdateStatus = async (orderId: string, status: OrderStatus) => {

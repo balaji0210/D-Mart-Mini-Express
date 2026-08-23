@@ -28,6 +28,10 @@ export const StaffOrdersPage: React.FC = () => {
 
   useEffect(() => {
     fetchOrders();
+    const interval = setInterval(() => {
+      fetchOrders();
+    }, 2500);
+    return () => clearInterval(interval);
   }, []);
 
   const handleStatusChange = async (orderId: string, newStatus: OrderStatus) => {
@@ -79,6 +83,10 @@ export const StaffOrdersPage: React.FC = () => {
         return <span className="badge-warning">PREPARING</span>;
       case 'CONFIRMED':
         return <span className="badge-neutral">CONFIRMED</span>;
+      case 'CANCELLED':
+        return <span className="px-2.5 py-1 rounded-lg bg-red-100 text-red-800 text-[11px] font-bold border border-red-200">CANCELLED</span>;
+      case 'REFUNDED':
+        return <span className="px-2.5 py-1 rounded-lg bg-rose-100 text-rose-800 text-[11px] font-bold border border-rose-200">REFUNDED</span>;
       default:
         return <span className="badge-warning">PENDING</span>;
     }
