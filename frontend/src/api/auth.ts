@@ -2,7 +2,7 @@ import { apiClient } from './client';
 
 const LOCAL_REGISTERED_USERS_KEY = 'dmart_registered_users_v2';
 
-const getRegisteredUsers = (): Record<string, { email: string; name: string; password?: string }> => {
+export const getRegisteredUsers = (): Record<string, { email: string; name: string; password?: string }> => {
   try {
     const raw = localStorage.getItem(LOCAL_REGISTERED_USERS_KEY);
     return raw ? JSON.parse(raw) : {};

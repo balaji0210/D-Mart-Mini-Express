@@ -1,5 +1,6 @@
 import { apiClient } from './client';
 import { getSharedOrders, saveSharedOrders } from './orders';
+import { getRegisteredUsers } from './auth';
 
 let MOCK_USERS = [
   { id: 'usr-1', full_name: 'Balaji Admin', email: 'balaji_admin@gmail.com', role: 'ADMIN', is_active: true },
@@ -35,17 +36,38 @@ export const adminApi = {
   },
 
   getUsers: async (role?: string) => {
+    let apiUsers: any[] = [];
     try {
       const res = await apiClient.get('/auth/users/', { params: { role } });
-      if (res.data && res.data.success) return res.data;
+      if (res.data && res.data.success && Array.isArray(res.data.data) && res.data.data.length > 0) {
+        apiUsers = res.data.data;
+      }
     } catch (err: any) {
       // Fallback
     }
-    let filtered = [...MOCK_USERS];
+
+    const registeredDict = getRegisteredUsers();
+    const registeredList = Object.values(registeredDict).map(u => ({
+      id: `usr-reg-${u.email}`,
+      full_name: u.name || u.email.split('@')[0],
+      email: u.email,
+      role: 'CUSTOMER',
+      is_active: true,
+      created_at: new Date().toISOString(),
+    }));
+
+    const allUsersMap = new Map<string, any>();
+    [...MOCK_USERS, ...registeredList, ...apiUsers].forEach(u => {
+      if (u && u.email) {
+        allUsersMap.set(u.email.toLowerCase(), u);
+      }
+    });
+
+    let combined = Array.from(allUsersMap.values());
     if (role) {
-      filtered = filtered.filter(u => u.role === role);
+      combined = combined.filter(u => u.role === role);
     }
-    return { success: true, data: filtered };
+    return { success: true, data: combined };
   },
 
   createStaff: async (data: { email: string; full_name: string; password: string; role?: string }) => {
@@ -119,7 +141,11 @@ export const adminApi = {
       // Fallback
     }
     const shared = getSharedOrders();
-    const order = shared.find(o => o.id === id);
+    const cleanId = String(id || '').trim().toLowerCase();
+    const order = shared.find(o => 
+      String(o.id).toLowerCase() === cleanId || 
+      String(o.order_number).toLowerCase() === cleanId
+    );
     if (order) {
       order.status = status;
       saveSharedOrders(shared);
@@ -135,7 +161,11 @@ export const adminApi = {
       // Fallback
     }
     const shared = getSharedOrders();
-    const order = shared.find(o => o.id === id);
+    const cleanId = String(id || '').trim().toLowerCase();
+    const order = shared.find(o => 
+      String(o.id).toLowerCase() === cleanId || 
+      String(o.order_number).toLowerCase() === cleanId
+    );
     if (order) {
       order.status = 'CANCELLED';
       saveSharedOrders(shared);
@@ -151,7 +181,11 @@ export const adminApi = {
       // Fallback
     }
     const shared = getSharedOrders();
-    const order = shared.find(o => o.id === id);
+    const cleanId = String(id || '').trim().toLowerCase();
+    const order = shared.find(o => 
+      String(o.id).toLowerCase() === cleanId || 
+      String(o.order_number).toLowerCase() === cleanId
+    );
     if (order) {
       order.payment_status = 'REFUNDED';
       order.status = 'REFUNDED';
