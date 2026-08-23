@@ -1,5 +1,6 @@
 import { apiClient } from './client';
 import { findProductById } from './products';
+import { cartApi } from './cart';
 
 const SHARED_ORDERS_KEY = 'dmart_shared_orders_v5';
 
@@ -110,6 +111,10 @@ export const ordersApi = {
     const currentOrders = getSharedOrders();
     currentOrders.unshift(orderData);
     saveSharedOrders(currentOrders);
+
+    try {
+      await cartApi.clearCart();
+    } catch (e) {}
 
     return {
       success: true,

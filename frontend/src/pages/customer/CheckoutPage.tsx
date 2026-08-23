@@ -10,7 +10,7 @@ import { PaymentModal } from '../../components/checkout/PaymentModal';
 import { useAuth } from '../../context/AuthContext';
 
 export const CheckoutPage: React.FC = () => {
-  const { cart, fetchCart } = useCart();
+  const { cart, fetchCart, clearCart } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -69,6 +69,7 @@ export const CheckoutPage: React.FC = () => {
     try {
       const res = await ordersApi.checkout(payload);
       toast.success('Order placed successfully!');
+      await clearCart();
       await fetchCart();
       const orderObj = (res as any)?.data?.order || (res as any)?.order || (res as any)?.data;
       if (orderObj && orderObj.id) {
