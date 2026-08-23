@@ -3,10 +3,18 @@ import { findProductById } from './products';
 import { cartApi } from './cart';
 
 const SHARED_ORDERS_KEY = 'dmart_shared_orders_v5';
-const SHARED_PICKUP_SLOTS_KEY = 'dmart_shared_pickup_slots_v3';
+const SHARED_PICKUP_SLOTS_KEY = 'dmart_shared_pickup_slots_v4';
 
 const todayStr = new Date().toISOString().split('T')[0];
 const tomorrowStr = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+
+const INITIAL_SLOTS = [
+  { id: 'slot-1', date: todayStr, start_time: '09:00:00', end_time: '11:00:00', capacity: 15, base_booked: 2, booked: 2, available: 13, is_past: false, is_active: true },
+  { id: 'slot-2', date: todayStr, start_time: '11:00:00', end_time: '13:00:00', capacity: 15, base_booked: 5, booked: 5, available: 10, is_past: false, is_active: true },
+  { id: 'slot-3', date: todayStr, start_time: '14:00:00', end_time: '16:00:00', capacity: 15, base_booked: 1, booked: 1, available: 14, is_past: false, is_active: true },
+  { id: 'slot-4', date: tomorrowStr, start_time: '09:00:00', end_time: '11:00:00', capacity: 15, base_booked: 0, booked: 0, available: 15, is_past: false, is_active: true },
+  { id: 'slot-5', date: tomorrowStr, start_time: '14:00:00', end_time: '16:00:00', capacity: 15, base_booked: 0, booked: 0, available: 15, is_past: false, is_active: true },
+];
 
 export const getSharedOrders = (): any[] => {
   try {
@@ -21,6 +29,7 @@ export const getSharedOrders = (): any[] => {
       customer_email: 'customer@dmart.com',
       status: 'PENDING',
       fulfillment_type: 'PICKUP',
+      pickup_slot_id: 'slot-1',
       total_amount: '160.00',
       payment_method: 'CARD',
       created_at: new Date().toISOString(),
@@ -47,19 +56,38 @@ export const saveSharedOrders = (orders: any[]) => {
 };
 
 export const getSharedPickupSlots = (): any[] => {
+  const sharedOrders = getSharedOrders().filter((o) => o.status !== 'CANCELLED');
+  const slotBookingCounts: Record<string, number> = {};
+  sharedOrders.forEach((o) => {
+    const slotId = o.pickup_slot_id || o.pickup_slot?.id;
+    if (slotId) {
+      slotBookingCounts[slotId] = (slotBookingCounts[slotId] || 0) + 1;
+    }
+  });
+
+  let customSlots: any[] = [];
   try {
     const raw = localStorage.getItem(SHARED_PICKUP_SLOTS_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) customSlots = JSON.parse(raw);
   } catch (e) {}
-  const initial = [
-    { id: 'slot-1', date: todayStr, start_time: '09:00:00', end_time: '11:00:00', capacity: 15, booked: 2, available: 13, is_past: false, is_active: true },
-    { id: 'slot-2', date: todayStr, start_time: '11:00:00', end_time: '13:00:00', capacity: 15, booked: 5, available: 10, is_past: false, is_active: true },
-    { id: 'slot-3', date: todayStr, start_time: '14:00:00', end_time: '16:00:00', capacity: 15, booked: 1, available: 14, is_past: false, is_active: true },
-    { id: 'slot-4', date: tomorrowStr, start_time: '09:00:00', end_time: '11:00:00', capacity: 15, booked: 0, available: 15, is_past: false, is_active: true },
-    { id: 'slot-5', date: tomorrowStr, start_time: '14:00:00', end_time: '16:00:00', capacity: 15, booked: 0, available: 15, is_past: false, is_active: true },
-  ];
-  saveSharedPickupSlots(initial);
-  return initial;
+
+  const baseSlots = customSlots.length > 0 ? customSlots : INITIAL_SLOTS;
+
+  return baseSlots.map((s) => {
+    const extraBooked = slotBookingCounts[s.id] || 0;
+    const baseBooked = s.base_booked !== undefined ? s.base_booked : (s.booked || 0);
+    const totalBooked = baseBooked + extraBooked;
+    const capacity = s.capacity || 15;
+    const available = Math.max(0, capacity - totalBooked);
+    return {
+      ...s,
+      base_booked: baseBooked,
+      booked: totalBooked,
+      available: available,
+      is_full: available === 0,
+      is_disabled: available === 0,
+    };
+  });
 };
 
 export const saveSharedPickupSlots = (slots: any[]) => {
@@ -116,6 +144,7 @@ export const ordersApi = {
         customer_email: data.customer_email || 'customer@dmart.com',
         status: 'PENDING',
         fulfillment_type: data.fulfillment_type || 'PICKUP',
+        pickup_slot_id: data.pickup_slot_id,
         total_amount: String(data.total_amount || calculatedTotal.toFixed(2)),
         payment_method: data.payment_method || 'CARD',
         created_at: new Date().toISOString(),
@@ -126,19 +155,6 @@ export const ordersApi = {
     const currentOrders = getSharedOrders();
     currentOrders.unshift(orderData);
     saveSharedOrders(currentOrders);
-
-    if (data.pickup_slot_id) {
-      const slots = getSharedPickupSlots();
-      const targetSlot = slots.find((s: any) => s.id === data.pickup_slot_id);
-      if (targetSlot) {
-        targetSlot.booked = (targetSlot.booked || 0) + 1;
-        targetSlot.available = Math.max(0, (targetSlot.capacity || 15) - targetSlot.booked);
-        if (targetSlot.available === 0) {
-          targetSlot.is_full = true;
-        }
-        saveSharedPickupSlots(slots);
-      }
-    }
 
     try {
       await cartApi.clearCart();
@@ -229,13 +245,46 @@ export const ordersApi = {
   },
 
   getPickupSlots: async (params?: any) => {
+    let rawSlots = [];
     try {
       const res = await apiClient.get('/pickup-slots/', { params });
-      if (res.data && res.data.success && Array.isArray(res.data.data) && res.data.data.length > 0) return res.data;
+      if (res.data && res.data.success && Array.isArray(res.data.data) && res.data.data.length > 0) {
+        rawSlots = res.data.data;
+      }
     } catch (err: any) {
       // Fallback
     }
-    return { success: true, data: getSharedPickupSlots() };
+
+    if (!rawSlots || rawSlots.length === 0) {
+      return { success: true, data: getSharedPickupSlots() };
+    }
+
+    const sharedOrders = getSharedOrders().filter((o) => o.status !== 'CANCELLED');
+    const slotBookingCounts: Record<string, number> = {};
+    sharedOrders.forEach((o) => {
+      const slotId = o.pickup_slot_id || o.pickup_slot?.id;
+      if (slotId) {
+        slotBookingCounts[slotId] = (slotBookingCounts[slotId] || 0) + 1;
+      }
+    });
+
+    const updatedSlots = rawSlots.map((s: any) => {
+      const extraBooked = slotBookingCounts[s.id] || 0;
+      const baseBooked = s.base_booked !== undefined ? s.base_booked : (s.booked || 0);
+      const totalBooked = baseBooked + extraBooked;
+      const capacity = s.capacity || 15;
+      const available = Math.max(0, capacity - totalBooked);
+      return {
+        ...s,
+        base_booked: baseBooked,
+        booked: totalBooked,
+        available: available,
+        is_full: available === 0,
+        is_disabled: available === 0,
+      };
+    });
+
+    return { success: true, data: updatedSlots };
   },
 
   createPickupSlot: async (data: any) => {
@@ -267,7 +316,7 @@ export const ordersApi = {
       // Fallback
     }
     const slots = getSharedPickupSlots();
-    const slot = slots.find(s => s.id === id);
+    const slot = slots.find((s) => s.id === id);
     if (slot) {
       Object.assign(slot, data);
       saveSharedPickupSlots(slots);
