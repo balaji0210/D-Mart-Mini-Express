@@ -84,6 +84,23 @@ export const INITIAL_PRODUCTS = [
     category: 'cat-breakfast',
   },
 
+  // --- COOKING ESSENTIALS (Reference Matched) ---
+  {
+    id: 'prod-kissan-mixed-fruit-jam-200g',
+    name: 'Kissan Mixed Fruit Jam',
+    description: 'Sweet and tangy delicious 8-fruit real pulp jam spread.',
+    price: 52.0,
+    discount_price: 63.0,
+    weight_size: '200 g',
+    unit: '200 g',
+    stock_quantity: 60,
+    is_in_stock: true,
+    is_low_stock: false,
+    low_stock_threshold: 10,
+    image_url: 'https://images.unsplash.com/photo-1589135233689-d586111a473b?w=350',
+    category: 'cat-cooking',
+  },
+
   // --- COLD DRINKS & JUICES ---
   {
     id: 'prod-diet-coke-330',

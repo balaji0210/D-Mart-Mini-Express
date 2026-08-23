@@ -77,7 +77,7 @@ export const AppRoutes: React.FC = () => {
     <Routes>
       {/* Public & Customer Routes */}
       <Route element={<CustomerLayout />}>
-        <Route path="/" element={<ProductsPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
