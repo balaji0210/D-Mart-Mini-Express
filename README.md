@@ -68,6 +68,21 @@ python manage.py runserver 8000
 
 ---
 
+## 🤖 AI Usage Statement
+
+AI tools were permitted and strategically utilized across the product development lifecycle:
+
+| AI Tool | Purpose & Application |
+| :--- | :--- |
+| **Google Antigravity** | Agentic IDE & pair programming for full-stack React TypeScript & Django REST Framework coding, Supabase PostgreSQL integration, real-time cloud sync (`cloudSync.ts`), build verification, and Vercel serverless deployment. |
+| **ChatGPT (OpenAI)** | Drafting Product Requirement Documents (PRD) and Technical Requirement Documents (TRD), defining user stories, acceptance criteria, and API schemas. |
+| **Claude (Anthropic)** | Prompt enhancement, structural requirement refinement, and edge-case instruction formulation. |
+| **Perplexity AI** | Technical research on Vercel multi-builder serverless routes, Supabase PgBouncer pooler settings, and prompt context optimization. |
+
+*For complete details, see [`AI_USAGE.md`](AI_USAGE.md).*
+
+---
+
 ## 📄 License & Maintainer
 
 Maintained for D-Mart Mini Express Enterprise Application.

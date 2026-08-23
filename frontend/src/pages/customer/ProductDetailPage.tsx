@@ -21,7 +21,7 @@ export const ProductDetailPage: React.FC = () => {
     if (id) {
       productsApi
         .getProductDetail(id)
-        .then((res) => {
+        .then((res: any) => {
           if (res.success) setProduct(res.data);
         })
         .finally(() => setIsLoading(false));
