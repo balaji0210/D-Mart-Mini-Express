@@ -18,6 +18,9 @@ if not os.environ.get('DATABASE_URL'):
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.development')
 
+import django
+django.setup()
+
 from django.core.wsgi import get_wsgi_application
 
 app = get_wsgi_application()
